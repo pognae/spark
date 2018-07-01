@@ -1,0 +1,123 @@
+/* ------------------------------공통------------------------------ */
+
+body
+{
+	font-family: "굴림체";
+	font-size: 9pt;
+	color: #303030;
+	margin: 0px;
+	background-color: #ffffff;
+}
+a:link    {text-decoration:none ; color:#303030;}
+a:visited {text-decoration:none ; color:#303030;}
+a:active  {text-decoration:none ; color:#ff7800;}
+a:hover   {text-decoration:none ; color:#ff7800;}
+table
+{
+	font-family: "굴림체", gulim, , sans-serif;
+	font-size: 9pt;
+	border: 0px solid;
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+td
+{
+    text-decoration:none;
+    word-break:break-all;
+    padding:0px;
+    margin:0px;
+}
+img
+{
+    border-width:0px;
+    border-style:none;
+}
+input, select
+{
+    font-family:"굴림체", gulim;
+    font-size:9pt;
+    color:#303030;
+}
+textarea
+{
+    font-family:"굴림체", gulim;
+    font-size:9pt;
+    color:#303030;
+    padding:1px;
+    line-height:13px;
+}
+
+
+/* ------------------------------ 로그인 전체 -------------------------------  */
+.inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -175px;
+    margin-left: -300px;
+}
+.login-wrapper {
+	/*
+	width: 550px;
+	height: 200px;
+	*/
+	width: 700px;
+	height: 400px;
+	margin: 0 auto;
+    padding: 150px 0 0  50px;
+	text-align: left;
+	font-family: "굴림체", GulimChe, sans-serif;
+	background: url(../images/login/login_bg.png) no-repeat center;
+}
+
+.login-box {
+    width: 350px;
+    height: 85px;
+}
+
+.input-box {
+	width: 230px;
+	height: 32px;
+	padding: 2px;
+	margin-bottom: 8px;
+	text-align: left;
+	background: url(../images/login/bg_inputbox.gif) no-repeat left top;
+}
+
+.input-box input[type="text"],
+.input-box input[type="password"] {
+	width: 207px;
+	height: 30px;
+	padding: 0 10px;
+	background: #fff;
+	border: 0;
+}
+
+.login-box .btn-login {
+    position: relative;
+	top: -92px;
+	left: 242px;
+	width: 82px;
+	height: 84px;
+	background: url(../images/login/login_btn.gif) no-repeat left top;
+	border: 0;
+	text-indent: -5000em;
+	cursor: pointer;
+}
+
+.login-box .btn-login:hover {
+    position: relative;
+	top: -92px;
+	left: 242px;
+	width: 82px;
+	height: 84px;
+	background: url(../images/login/login_btn_on.gif) no-repeat left top;
+	border: 0;
+	text-indent: -5000em;
+}
+
+.word-idsave {
+	text-align: left;
+	color: #666666;
+}
+

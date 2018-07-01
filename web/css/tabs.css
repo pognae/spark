@@ -1,0 +1,122 @@
+/*
+ul.tabs { 
+	margin: 0; 
+	padding: 0; 
+	float: left; 
+	list-style: none; 
+	height: 26px; 
+	border-bottom: 1px solid #eee; 
+	border-left: 1px solid #eee;
+	font-family:Ariel; 
+	font-size:10pt; 
+} 
+ul.tabs li { 
+	float: left; 
+	text-align:center; 
+	cursor: pointer; 
+	width:82px; 
+	height: 25px; 
+	line-height: 28px; 
+	border: 1px solid #eee; 
+	border-left: none; 
+	font-weight: bold; 
+	background: #fafafa; 
+	overflow: hidden; 
+	position: relative; 
+} 
+
+ul.tabs li.active{ 
+	background: #FFFFFF; 
+	border-bottom: 1px solid #FFFFFF; 
+} 
+.tab_container { 
+	border: 1px solid #eee; 
+	border-top: none; 
+	float: left; 
+	width: 248px; 
+	background: #FFFFFF; 
+
+} 
+.tab_content {
+	padding: 5px; 
+	font-size: 10pt; 
+	display: none; 
+} 
+.tab_container .tab_content ul {
+	width:1200px;
+	margin:0px;
+	padding:0px;
+} 
+.tab_container .tab_content ul li {
+	padding:5px;
+	list-style:none;
+}
+*/
+ul.tabs_m, ul.tabs_1, ul.tabs_2, ul.tabs_3, ul.tabs_4, ul.tabs_5 { 
+	margin: 0; 
+	padding: 0; 
+	/* float: left;  */
+	list-style: none; 
+	height: 37px; 
+	border-bottom: 1px solid #eee; 
+	border-left: 1px solid #eee;
+	font-family:Ariel; 
+	font-size:10pt;
+} 
+ul.tabs_m li, ul.tabs_1 li, ul.tabs_2 li, ul.tabs_3 li, ul.tabs_4 li, ul.tabs_5 li { 
+	float: left;
+	text-align:center; 
+	cursor: pointer; 
+	/* width:105px;  */
+	height: 36px; 
+	line-height: 35px; 
+	border: 1px solid #eee; 
+	border-left: none; 
+	font-weight: bold; 
+	background: #fafafa; 
+	overflow: hidden; 
+	position: relative; 
+	padding: 0px 10px 0px 10px;
+} 
+
+ul.tabs_m li.active, ul.tabs_1 li.active, ul.tabs_2 li.active, ul.tabs_3 li.active, ul.tabs_4 li.active, ul.tabs_5 li.active { 
+	background: #FFFFFF; 
+	border-bottom: 1px solid #FFFFFF; 
+} 
+.tab_container_m, .tab_container_1, .tab_container_2, .tab_container_3, .tab_container_4, .tab_container_5 { 
+	border: 1px solid #eee; 
+	border-top: none; 
+	border-right: none; 
+	/* float: left; */
+	background: #FFFFFF; 
+
+} 
+.tab_content_m, .tab_content_1, .tab_content_2, .tab_content_3, .tab_content_4, .tab_content_5 {
+	padding: 5px; 
+	font-size: 10pt; 
+	display: none; 
+} 
+.tab_container_m .tab_content_m ul, .tab_container_1 .tab_content_1 ul, .tab_container_2 .tab_content_2 ul, 
+.tab_container_3 .tab_content_3 ul, .tab_container_4 .tab_content_4 ul, .tab_container_5 .tab_content_5 ul {
+	width:1200px;
+	margin:0px;
+	padding:0px;
+} 
+.tab_container_m .tab_content_m ul li, .tab_container_1 .tab_content_1 ul li, .tab_container_2 .tab_content_2 ul li, 
+.tab_container_3 .tab_content_3 ul li, .tab_container_4 .tab_content_4 ul li, .tab_container_5 .tab_content_5 ul li {
+	padding:5px;
+	list-style:none;
+}
+
+
+
+.tabs_etc_left, .tabs_etc_right {
+	padding-top : 3px;
+}
+.tabs_etc_left {
+	float : left;
+	margin-left : 10px;
+}
+.tabs_etc_right {
+	float : right;
+}

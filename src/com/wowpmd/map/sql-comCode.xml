@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="comCode">
+
+    <select id="getComCode" parameterType="params" resultType="record">
+         SELECT A.CD_NM  AS "text",
+                A.CD_VLD_VAL AS "value"
+           FROM TB_COMM_CD A
+          WHERE A.CD_ID_NM    = #{cdIdNm}
+            AND A.USE_YN = 'Y'
+          ORDER BY
+                A.CD_VLD_VAL ASC
+    </select>
+
+    <!-- 20160420 정민승 -->
+	<!-- 관리 > 결제선지정 -->
+    <select id="getComCodeList" parameterType="java.util.Map" resultType="java.util.HashMap">
+	  	select
+	  		      code_seq   as code_seq
+			    , code       as code
+			    , code_nm    as code_nm
+			    , grp_code   as grp_code
+			    , grp_yn     as grp_yn
+			    , work_code  as work_code
+			    , etc_code1  as etc_code1
+			    , etc_code2  as etc_code2
+			    , sort_seq   as sort_seq
+			    , use_yn     as use_yn
+			    , code_desc  as code_desc
+			    , reg_id     as reg_id
+			    , reg_dt     as reg_dt
+			    , upd_id     as upd_id
+			    , upd_dt     as upd_dt
+	  	from comm_comcode
+	  	<where>
+		  	<if test="code_type == null">
+		  		and grp_yn = 'Y'
+		  	</if>
+		  	<if test="code_type != null">
+		  		and grp_yn = 'N'
+		  	</if>
+		  	<if test='grp_code !=null'>
+		  		and grp_code=#{grp_code}
+		  	</if>
+	  	</where>
+	  	order by sort_seq
+	</select>
+
+    <insert id="userIdInsert"  parameterType="com.wowpmd.common.model.LoginUser">
+	 	INSERT INTO TB_COMM_STAF
+	 		(STAF_ID, PASS_NUMB)
+	 	VALUES
+	 		(#{userId}, #{passNumb})
+	</insert>
+
+	<update id="userIdUpdate"  parameterType="com.wowpmd.common.model.LoginUser">
+		UPDATE TB_COMM_STAF A
+		   SET A.PASS_NUMB = #{passNumb}
+		 WHERE A.STAF_ID = #{userId}
+	</update>
+
+	<update id="lstCttDtUpdate"  parameterType="com.wowpmd.common.model.LoginUser">
+		UPDATE TB_COMM_STAF A
+		   SET A.LST_CTT_DT = SYSDATE
+		 WHERE A.STAF_ID = #{userId}
+	</update>
+
+	<select id="findByUserIdAndPassword" parameterType="com.wowpmd.common.model.LoginUser" resultType="com.wowpmd.common.model.LoginUser">
+		SELECT STAF_ID        stafId
+			 , PASS_NUMB      passNumb
+			 , STAF_NAME      stafName
+             , ACC_PRIV       accPriv
+             , PASSWD_CH_ER   passwdChEr
+             , ACC_TRY_NUM    accTryNum
+             , LAST_PASS_DATE lastPassDate
+             , RESI_ID        resiId
+             , CHIN_NAME      chinName
+             , ENGL_NAME      englName
+             , STAF_TEL_NUMB  stafTelNumb
+             , OFFI_GRAD      offiGrad
+             , STEP           step
+             , OFFI_DUTY      offiDuty
+             , ENTE_DATE      enteDate
+             , DEPT_CODE      deptCode
+             , HOUS_HOLD      housHold
+             , HOUS_HOLD_DIVS housHoldDivs
+             , MARR_DIVS      marrDivs
+             , SEX            sex
+             , BIRT_DAY       birtDay
+             , ZIP_CODE       zipCode
+             , ADDR           addr
+             , HOME_TEL       homeTel
+             , MOVE_TEL       moveTel
+             , CHIL_NUMB      chilNumb
+             , PHOT           phot
+             , SIGN           sign
+             , EMAI_ADDR      emaiAddr
+             , RETI_DATE      retiDate
+             , USE_YSNO       useYsno
+             , LUNA_SOLA      lunaSola
+             , RIGH_DIVS      righDivs
+             , SELF_INTRO     selfIntro
+             , FAMI_DEPE_NUMB famiDepeNumb
+             , STAF_CLAS      stafClas
+             , MEDI_NO        mediNo
+             , IP_ADDR        ipAddr
+             , TEAM_CODE      teamCode
+             , ZIP_ADDR       zipAddr
+             , BEFO_PSWD      befoPswd
+             , BANK_CODE      bankCode
+             , BANK_ACNT      bankAcnt
+             , BF_TEAM_CODE   bfTeamCode
+             , FST_OPR        fstOpr
+             , FST_OPDT       fstOpdt
+             , LST_OPR        lstOpr
+             , LST_OPDT       lstOpdt
+             , HOST_NAME      hostName
+             , TO_CHAR(LST_CTT_DT, 'YYYY-MM-DD')     lstCttDt
+	  	  FROM TB_COMM_STAF
+		 WHERE STAF_ID = #{userId}
+   </select>
+
+   <!-- 20160523 정민승 -->
+   <!-- 최종접속일자 변경 -->
+   <select id="lstCttDtSearch" parameterType="com.wowpmd.common.model.LoginUser" resultType="com.wowpmd.common.model.LoginUser">
+		SELECT TRUNC(MONTHS_BETWEEN(SYSDATE, A.LST_CTT_DT)) AS LST_CTT_DT
+	  	  FROM TB_COMM_STAF A
+		 WHERE A.STAF_ID = #{userId}
+   </select>
+
+   <!-- 20160523 정민승 -->
+   <!-- 비밀번호 변경 -->
+   <update id="comp0001Update"  parameterType="params">
+		UPDATE TB_COMM_STAF A
+		   SET A.PASS_NUMB = #{userPwd}
+		     , A.LST_CTT_DT = SYSDATE
+		 WHERE A.STAF_ID = #{stafId}
+	</update>
+
+    <!-- 20160511 최인수 -->
+    <!-- TopMenu -->
+    <select id="getTopMenuList" parameterType="params" resultType="record">
+    	select  MENU_ID       AS    "menuId"
+			,	UPPER_ID      AS    "upperId"
+			,	MENU_ORD      AS    "menuOrd"
+			,	MENU_NM       AS    "menuNm"
+			,	MENU_TITLE    AS    "menuTitle"
+			,	MENU_ICON     AS    "menuIcon"
+			,	MENU_DESC     AS    "menuDesc"
+			,	PGM_PATH      AS    "pgmPath"
+			,	USE_YN        AS    "useYn"
+			,	INS_DATE      AS    "insDate"
+			,	INS_USER      AS    "insUser"
+			,	UPD_DATE      AS    "updDate"
+			,	UPD_USER      AS    "updUser"
+			,	MENU_GBN      AS    "menuGbn"
+			,	MENU_LV       AS    "menuLv"
+			,	SORT_KEY      AS    "sortKey"
+			,	AUTH_DIV      AS    "authDiv"
+          from TB_COMM_MENU
+         where USE_YN = '1'
+          order by MENU_ID
+    </select>
+
+    <select id="getTopMenuList1" parameterType="params" resultType="record">
+       select
+	       	   MENU_TITLE		AS    "menuTitle"
+       	    ,  MENU_NM			AS    "menuNm"
+    		,  PGM_PATH			AS    "pgmPath"
+          from TB_COMM_MENU
+         where MENU_LV = '2'
+   		   and USE_YN = '1'
+           and MENU_TITLE	like '%'||#{searchText}||'%'
+            or PGM_PATH		like '%'||#{searchText}||'%'
+         order by MENU_ID
+    </select>
+
+    <insert id="logHstr" parameterType="params">
+		INSERT INTO TB_LOG_HSTR (
+		   STAF_ID,
+		   MENU_ID,
+		   SCRN_VIEW_DATE,
+		   IP_ADDR,
+		   PROCESS_TIME
+		) VALUES (
+		   #{stafId},
+		   #{menuId},
+		   SYSDATE,
+		   #{ipAddr},
+		   #{processTime}
+		)
+	</insert>
+
+    <select id="getCodeListForCodeHandler" parameterType="params" resultType="code">
+         SELECT A.CD_NM  AS "codeName"
+              , A.CD_VLD_VAL AS "codeValue"
+              , CD_ID_NM AS "codeClass"
+              , A.CD_ALNM AS "codeDescription"
+              <!--
+              , A.USE_YN AS "codeUseYn"
+               -->
+           FROM TB_COMM_CD A
+          WHERE USE_YN = 'Y'
+          ORDER BY
+                A.CD_ID_NM, A.CD_VLD_VAL ASC
+    </select>
+
+</mapper>

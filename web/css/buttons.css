@@ -1,0 +1,282 @@
+@charset "utf-8";
+/* HTML Elements -------------------------------------------------------------------- */
+input.text{height:21px;line-height:21px;vertical-align:middle}
+
+/* 100% width의 텍스트 박스를 위한 스타일 */
+.textContainer{width:95%;margin:1px 3px 1px -3px;text-align:center}
+.textContainer .text{width:100%}
+.textContainer .select{width:100%}
+.selectMultiple{width:100%;height:76px;color:#555}
+
+/* 스크롤생성기 */
+.autoScrollHeight{overflow:auto !important;position:relative;width:100%}
+
+/* 스크롤생성기 */
+.autoScroll{overflow-x:scroll;overflow-y:scroll;position:relative}
+
+/* 스크롤무조껀있게 */
+.scrollHeight{overflow-x:hidden;overflow-y:scroll;position:relative}
+
+/* 상하 구분바 */
+.hr{display:block;width:100%;height:5px;margin:10px 0 20px;background:url(../images/bg_hr_C.gif) left top repeat-x}
+.hr .hr_L{float:left;width:4px;height:5px;background:url(../images/bg_hr_L.gif) left top no-repeat}
+.hr .hr_R{float:right;width:4px;height:5px;background:url(../images/bg_hr_R.gif) left top no-repeat}
+.essential{padding:0 4px;background:url(../images/icon/ic_essential.gif) left 3px no-repeat;*zoom:1}
+.essential span{display:none;*display:block;*text-indent:-10000px}
+.fLeft{float:left}
+.fRight{float:right}
+
+/* process set2 탭 오른쪽에 검색창 정렬 */
+.content_body .fRight{float:right;margin-top:3px;position:relative;top:-43px;*top:-37px;width:24%;margin-bottom:-38px}
+
+/* 신청맵 오른쪽에 검색창 정렬 */
+.content_body.content_requestMap .fRight{top:-43px}
+
+/* pop-up화면 탭 오른쪽에 검색창 정렬 */
+.pop-upBox .content_body .fRight{float:right;margin-top:0;position:relative;top:-43px;*top:-41px;width:31%;margin-bottom:-38px}
+
+/* buttons -------------------------------------------------------------------- */
+.buttonBox{margin:5px 0;text-align:right}
+* html .buttonBox{height:1%}
+.buttonBox span.left{position:absolute;left:0}
+.buttonBox hr{height:1px;margin-bottom:5px;margin-top:20px;color:#BABABA}
+span.btnBar{display:inline-block;position:relative;top:5px;width:4px;height:25px;margin:-10px 0 0;background:url(../images/btnBar.gif) no-repeat 2px bottom;line-height:24px}
+span.btnBar span{display:none}
+
+/* btn(기본) */
+.searchBox a.btn{position:absolute;right:10px}
+a.btn,a.btn *{display:inline-block;overflow:visible;position:relative;height:25px;padding:0 2px 0 0;border:0;background:url(/images/btn_bg1.gif) no-repeat right top;line-height:24px;font-size:1em;font-weight:normal;color:#555;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn *{left:0;padding:0 10px 0 12px;background-position:left top;cursor:pointer}
+a:hover.btn span{color:#0060FF}
+
+/* btn_disable */
+a.btn_disable,a.btn_disable *{display:inline-block;overflow:visible;position:relative;height:25px;padding:0 2px 0 0;border:0;background:url(../images/bg_btn1_disable.gif) no-repeat right top;line-height:24px;font-size:1em;font-weight:normal;color:#A5A5A5;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn_disable *{left:0;padding:0 10px 0 12px;background-position:left top;cursor:default}
+
+/* btn_prev */
+.searchBox a.btn_prev{position:absolute;right:10px;bottom:11px}
+a.btn_prev,a.btn_prev *{display:inline-block;overflow:visible;position:relative;height:25px;padding:0 2px 0 0;border:0;background:url(../images/btn_bg1_prev.gif) no-repeat right top;background-position:right top;line-height:24px;font-size:1em;font-weight:normal;color:#555;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn_prev *{left:0;padding:0 10px 0 21px;background-position:left top;cursor:pointer}
+a:hover.btn_prev span{color:#0060FF}
+
+/* btn_next */
+.searchBox a.btn_next{position:absolute;right:10px;bottom:11px}
+a.btn_next,a.btn_next *{display:inline-block;overflow:visible;position:relative;height:25px;margin:0;padding:0 0 0 12px;border:0;background:url(../images/btn_bg1_next.gif) no-repeat left top;line-height:24px;font-size:1em;font-weight:normal;color:#555;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn_next *{padding:0 21px 0 0;background-position:right top;cursor:pointer}
+a:hover.btn_next span{color:#0060FF}
+
+/* btn_list */
+.searchBox a.btn_list{position:absolute;right:10px;bottom:11px}
+a.btn_list,a.btn_list *{display:inline-block;overflow:visible;position:relative;height:25px;padding:0 2px 0 0;border:0;background:url(../images/btn_bg1_list.gif) no-repeat;background-position:right top;line-height:24px;font-size:1em;font-weight:normal;color:#555;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn_list *{left:0;padding:0 10px 0 21px;background-position:left top;cursor:pointer}
+a:hover.btn_list span{color:#0060FF}
+
+/* btn_add :행추가 */
+.searchBox a.btn_add{position:absolute;right:10px;bottom:11px}
+a.btn_add,a.btn_add *{display:inline-block;overflow:visible;position:relative;height:25px;padding:0 2px 0 0;border:0;background:url(../images/btn_bg1_add.gif) no-repeat;background-position:right top;line-height:24px;font-size:1em;font-weight:normal;color:#555;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn_add *{left:0;padding:0 10px 0 21px;background-position:left top;cursor:pointer}
+a:hover.btn_add span{color:#0060FF}
+
+/* btn_del :행삭제 */
+.searchBox a.btn_del{position:absolute;right:10px;bottom:11px}
+a.btn_del,a.btn_del *{display:inline-block;overflow:visible;position:relative;height:25px;padding:0 2px 0 0;border:0;background:url(../images/btn_bg1_del.gif) no-repeat;background-position:right top;line-height:24px;font-size:1em;font-weight:normal;color:#555;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn_del *{left:0;padding:0 10px 0 21px;background-position:left top;cursor:pointer}
+a:hover.btn_del span{color:#0060FF}
+
+/* btn_up :위로 */
+.searchBox a.btn_up{position:absolute;right:10px;bottom:11px}
+a.btn_up,a.btn_up *{display:inline-block;overflow:visible;position:relative;height:25px;padding:0 2px 0 0;border:0;background:url(../images/btn_bg1_up.gif) no-repeat;background-position:right top;line-height:24px;font-size:1em;font-weight:normal;color:#555;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn_up *{left:0;padding:0 10px 0 21px;background-position:left top;cursor:pointer}
+a:hover.btn_up span{color:#0060FF}
+
+/* btn_down :아래로 */
+.searchBox a.btn_down{position:absolute;right:10px;bottom:11px}
+a.btn_down,a.btn_down *{display:inline-block;overflow:visible;position:relative;height:25px;padding:0 2px 0 0;border:0;background:url(../images/btn_bg1_down.gif) no-repeat;background-position:right top;line-height:24px;font-size:1em;font-weight:normal;color:#555;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn_down *{left:0;padding:0 10px 0 21px;background-position:left top;cursor:pointer}
+a:hover.btn_down span{color:#0060FF}
+
+/* btn_down02 :아이콘 오른쪽 정렬 */
+.searchBox a.btn_down02{position:absolute;right:10px;bottom:11px}
+a.btn_down02,a.btn_down02 *{display:inline-block;overflow:visible;position:relative;height:25px;padding:0 0 0 2px;border:0;background:url(../images/btn_bg1_down02.gif) no-repeat;background-position:left top;line-height:24px;font-size:1em;font-weight:normal;color:#555;text-decoration:none !important;vertical-align:middle;white-space:nowrap}
+a.btn_down02 *{left:0;padding:0 21px 0 10px;background-position:right top;cursor:pointer}
+a:hover.btn_down02 span{color:#0060FF}
+
+/* btn_move */
+.searchBox a.btn_move{position:absolute;right:10px;bottom:11px}
+a.btn_move,a.btn_move *{display:inline-block;overflow:visible;position:relative;height:25px;margin:0;padding:0 0 0 12px;border:0;background:url(../images/btn_bg1_move.gif) no-repeat left top;line-height:24px;font-size:1em;font-weight:normal;color:#555;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn_move *{padding:0 32px 0 0;background-position:right top;cursor:pointer}
+a:hover.btn_move span{color:#0060FF}
+
+/* btn2(기본) */
+.searchBox a.btn2{position:absolute;right:10px;bottom:11px}
+a.btn2,a.btn2 *{display:inline-block;overflow:visible;position:relative;height:25px;padding:0 2px 0 0;border:0;background:url(../images/btn_bg2.gif) no-repeat right top;line-height:23px;font-size:1em;font-weight:normal;color:#FFF;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn2 *{left:0;padding:0 10px 0 12px;background-position:left top;cursor:pointer}
+a:hover.btn2 span{color:#FFF600}
+
+/* btn2_disable */
+a.btn2_disable,a.btn2_disable *{display:inline-block;overflow:visible;position:relative;height:25px;padding:0 2px 0 0;border:0;background:url(../images/btn_bg2_disable.gif) no-repeat right top;line-height:23px;font-size:1em;font-weight:normal;color:#4BA1B1;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn2_disable *{left:0;padding:0 10px 0 12px;background-position:left top;cursor:default}
+
+/* btn2_next */
+.searchBox a.btn2_next{position:absolute;right:10px;bottom:11px}
+a.btn2_next,a.btn2_next *{display:inline-block;overflow:visible;position:relative;height:25px;padding:0 0px 0 2px;border:0;background:url(../images/btn_bg2_next.gif) no-repeat left top;line-height:23px;font-size:1em;font-weight:normal;color:#FFF;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn2_next *{left:0;padding:0 18px 0 10px;background-position:right top;cursor:pointer}
+a:hover.btn2_next span{color:#FFF600}
+
+/* btn2_best(베스트) */
+.searchBox a.btn2_best{position:absolute;right:10px;bottom:11px}
+a.btn2_best,a.btn2_best *{display:inline-block;overflow:visible;position:relative;height:25px;padding:0 2px 0 0;border:0;background:url(../images/btn_bg2_best.gif) no-repeat right top;line-height:23px;font-size:1em;font-weight:normal;color:#FFF;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn2_best *{left:0;padding:0 10px 0 33px;background-position:left top;cursor:pointer}
+a:hover.btn2_best span{color:#FFF}
+
+/* btn2_recommend(추천) */
+.searchBox a.btn2_recommend{position:absolute;right:10px;bottom:11px}
+a.btn2_recommend,a.btn2_recommend *{display:inline-block;overflow:visible;position:relative;height:25px;padding:0 2px 0 0;border:0;background:url(../images/btn_bg2_recommend.gif) no-repeat right top;line-height:23px;font-size:1em;font-weight:normal;color:#FFF;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn2_recommend *{left:0;padding:0 10px 0 31px;background-position:left top;cursor:pointer}
+a:hover.btn2_recommend span{color:#FFF}
+
+/* btn3(기본) */
+.searchBox a.btn3{position:absolute;right:10px;bottom:11px}
+a.btn3,a.btn3 *{display:inline-block;overflow:visible;position:relative;height:23px;margin:0;padding:0 2px 0 0;border:0;background:url(../images/btn_bg3.gif) no-repeat;background-position:left top;line-height:24px;font-size:1em;font-weight:normal;color:#222;text-decoration:none !important;vertical-align:middle;white-space:nowrap}
+a.btn3 *{padding:0 3px 0 6px;background-position:left top}
+a:hover.btn3 span{color:#0060FF}
+
+/* btn3_search */
+a.btn3_search, a.btn3_search *{display:inline-block;overflow:visible;position:relative;height:23px;margin:0;padding:0 2px 0 0;border:0;background:url(../images/btn_bg3_search.gif) no-repeat;background-position:left top;line-height:24px;font-size:1em;font-weight:normal;color:#222;text-decoration:none !important;vertical-align:middle;white-space:nowrap}
+a.btn3_search *{padding:0 6px 0 25px;background-position:left top}
+a:hover.btn3_search span{color:#0060FF}
+.searchBox a.btn3_search{position:absolute;right:10px;bottom:13px;*bottom:14px}
+.searchBox2 a.btn3_search{position:absolute;right:98px;bottom:13px;*bottom:14px}
+
+/* btn3_more : 상세검색 */
+a.btn3_more,a.btn3_more *{display:inline-block;overflow:visible;position:relative;height:23px;margin:0;padding:0 0 0 5px;border:0;background:url(../images/btn_bg3_more.gif) no-repeat;background-position:left top;line-height:24px;font-size:1em;font-weight:normal;color:#222;text-decoration:none !important;vertical-align:middle;white-space:nowrap}
+a.btn3_more *{padding:0 23px 0 6px;background-position:right top}
+a:hover.btn3_more span{color:#0060FF}
+.searchBox2 a.btn3_more{position:absolute;right:10px;bottom:13px;*bottom:14px}
+
+/* btn5(기본) */
+.searchBox a.btn5{position:absolute;right:10px;bottom:11px}
+a.btn5,a.btn5 *{display:inline-block;overflow:visible;position:relative;height:21px;margin:0;padding:0 2px 0 0;border:0;background:url(../images/btn_bg5.gif) no-repeat;background-position:right top;line-height:22px;font-size:1em;font-weight:normal;color:#2C9ACC;text-decoration:none !important;vertical-align:middle;white-space:nowrap}
+a.btn5 *{padding:0 3px 0 6px;background-position:left top}
+a:hover.btn5 span{color:#004687}
+
+/* btn5_disable */
+a.btn5_disable,a.btn5_disable *{display:inline-block;overflow:visible;position:relative;height:21px;margin:0;padding:0 2px 0 0;border:0;background:url(../images/bg_btn5_disable.gif) no-repeat;background-position:right top;line-height:22px;font-size:1em;font-weight:normal;color:#A5A5A5;text-decoration:none !important;vertical-align:middle;white-space:nowrap}
+a.btn5_disable *{padding:0 3px 0 6px;background-position:left top;cursor:default}
+
+/* btn5_down */
+.searchBox a.btn5_down{position:absolute;right:10px;bottom:11px}
+a.btn5_down,a.btn5_down *{display:inline-block;overflow:visible;position:relative;height:21px;margin:0;padding:0 0 0 1px;border:0;background:url(../images/btn_bg5_down.gif) no-repeat;background-position:left top;line-height:22px;font-size:1em;font-weight:normal;color:#2C9ACC;text-decoration:none !important;vertical-align:middle;white-space:nowrap}
+a.btn5_down *{padding:0 21px 0 10px;background-position:right top}
+a:hover.btn5_down span{color:#004687}
+
+/* btn5_plus */
+a.btn5_plus,a.btn5_plus *{display:inline-block;overflow:visible;position:relative;height:21px;margin:0;padding:0 10px 0 0px;border:0;background:url(../images/btn_bg5_plus.gif) no-repeat;background-position:right top;line-height:22px;font-size:1em;font-weight:normal;color:#2C9ACC;text-decoration:none !important;vertical-align:middle;white-space:nowrap}
+a.btn5_plus *{padding:0 0px 0 19px;background-position:left top}
+a:hover.btn5_plus span{color:#004687}
+
+/* btn5_minus */
+a.btn5_minus,a.btn5_minus *{display:inline-block;overflow:visible;position:relative;height:21px;margin:0;padding:0 10px 0 0px;border:0;background:url(../images/btn_bg5_minus.gif) no-repeat;background-position:right top;line-height:22px;font-size:1em;font-weight:normal;color:#2C9ACC;text-decoration:none !important;vertical-align:middle;white-space:nowrap}
+a.btn5_minus *{padding:0 0px 0 19px;background-position:left top}
+a:hover.btn5_minus span{color:#004687}
+
+/* 페이징 기본 버튼 */
+.wrapper a.btn6,.wrapper a.btn6{margin:0;vertical-align:top}
+a.btn6,a.btn6 *{display:inline-block;overflow:visible;position:relative;height:18px;margin:0;padding:0;border:0;background:url(../../images/btn_bg6.gif) no-repeat;line-height:18px;font-size:1em;font-weight:normal;color:#666;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn6 *{left:5px;*left:0;margin:-4px -2px 0 -5px;padding:0 5px 0 0;background-position:right top;cursor:pointer}
+a:hover.btn6{color:#555}
+
+/* 로그인화면 버튼 */
+a.btn7,a.btn7 *{display:inline-block;overflow:visible;position:relative;height:22px;margin:0;padding:0;border:0;background:url(../images/btn_bg7.gif) no-repeat right top;line-height:22px;font-weight:normal;color:#555;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn7 *{font-size:.9em;right:3px;*right:3px;margin:0 0 5px;padding:0 5px 0 8px;background-position:left top;cursor:pointer}
+a:hover.btn7{color:#333}
+
+/* 다운로드 버튼 */
+a.btn7_down,a.btn7_down *{display:inline-block;overflow:visible;position:relative;height:22px;margin:0;padding:0;border:0;background:url(../images/btn_bg7_down.gif) no-repeat right top;line-height:22px;font-weight:normal;color:#555;text-decoration:none !important;vertical-align:middle;white-space:nowrap}
+a.btn7_down *{font-size:.9em;right:3px;*right:3px;margin:0 0 5px;padding:0 5px 0 26px;background-position:left top;cursor:pointer}
+a:hover.btn7_down{color:#333}
+
+/* 메일링 버튼 */
+a.btn7_arrow,a.btn7_arrow *{display:inline-block;overflow:visible;position:relative;height:22px;margin:0;padding:0;border:0;background:url(../images/btn_bg7_arrow.gif) no-repeat left top;line-height:22px;font-weight:normal;color:#555;text-decoration:none !important;vertical-align:middle;white-space:nowrap}
+a.btn7_arrow *{font-size:.9em;left:3px;*left:3px;margin:0 0 5px;padding:0 15px 0 5px;background-position:right top;cursor:pointer}
+a:hover.btn7{color:#333}
+
+/* 메일링 이동버튼 */
+a.btn11_next,a.btn11_next *{display:inline-block;overflow:visible;position:relative;height:37px;margin:0;padding:0;border:0;background:url(../images/btn_bg11_next.gif) no-repeat left top;line-height:37px;font-size:1em;font-weight:bold;color:#FFF;text-decoration:none !important;vertical-align:middle;white-space:nowrap}
+a.btn11_next *{left:5px;*left:10px;margin:0 0 5px;padding:0 30px 0 15px;background-position:right top;cursor:pointer}
+a:hover.btn11_next{color:#333}
+
+/* 메인화면 help counter */
+.functionButton .help_counter a.btn8{position:absolute;top:-12px;left:13px}
+a.btn8,a.btn8 *{display:inline-block;display:block;overflow:visible;position:relative;height:18px;margin:0;padding:0;border:0;background:url(../images/btn_bg8.gif) no-repeat;font-family:Arial;font-weight:bold;color:#FFF;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn8 *{left:5px;*left:5px;margin:0;padding:0 6px 0 0;background-position:right top;text-align:center;cursor:pointer}
+a:hover.btn8 span{color:#FFF}
+
+/* btn9(Tab Index) */
+.searchBox a.btn9{position:absolute;right:10px}
+a.btn9,a.btn9 *{display:inline-block;overflow:visible;position:relative;height:30px;padding:0 2px 0 0;border:0;background:url(../images/btn_bg9.gif) no-repeat right top;line-height:30px;font-size:1em;font-weight:bold;color:#888;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn9 *{left:0;padding:0 6px 0 8px;background-position:left top;cursor:pointer}
+a.btn9.current span{color:#00B7D6}
+a:hover.btn9 span{color:#444}
+
+/* btn10_prev */
+.searchBox a.btn10_prev{position:absolute;right:10px;bottom:11px}
+a.btn10_prev,a.btn10_prev *{display:inline-block;overflow:visible;position:relative;height:27px;margin:0;padding:0 2px 0 0;border:0;background:url(../images/btn_bg10_prev.gif) no-repeat;background-position:right top;line-height:26px;font-size:1em;font-weight:bold;color:#FFF;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn10_prev *{padding:0 10px 0 26px;background-position:left top}
+
+/* btn10_next */
+.searchBox a.btn10_next{position:absolute;right:10px;bottom:11px}
+a.btn10_next,a.btn10_next *{display:inline-block;overflow:visible;position:relative;height:27px;margin:0;padding:0 0 0 2px;border:0;background:url(../images/btn_bg10_next.gif) no-repeat left top;line-height:26px;font-size:1em;font-weight:bold;color:#FFF;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn10_next *{padding:0 26px 0 10px;background-position:right top}
+
+/* shuttleButton */
+.shuttleButton{text-align:center}
+
+.shuttleButton li{margin-bottom:4px}
+.shuttleButton img{cursor:pointer}
+a.shuttleButton_add,a.shuttleButton_add *{display:inline-block;overflow:visible;position:relative;height:25px;margin:0;padding:0 14px 0 0;border:0;background:url(../images/btn_shuttle_add.gif) no-repeat right top;line-height:24px;font-size:1em;color:#555;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.shuttleButton_addAll,a.shuttleButton_addAll *{display:inline-block;overflow:visible;position:relative;height:25px;margin:0;padding:0 11px 0 0;border:0;background:url(../images/btn_shuttle_add.gif) no-repeat right top;line-height:24px;font-size:1em;color:#555;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.shuttleButton_del,a.shuttleButton_del *{display:inline-block;overflow:visible;position:relative;height:25px;margin:0;padding:0 14px 0 0;border:0;background:url(../images/btn_shuttle_del.gif) no-repeat right top;line-height:24px;font-size:1em;color:#555;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.shuttleButton_delAll,a.shuttleButton_delAll *{display:inline-block;overflow:visible;position:relative;height:25px;margin:0;padding:0 11px 0 0;border:0;background:url(../images/btn_shuttle_del.gif) no-repeat right top;line-height:24px;font-size:1em;color:#555;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.shuttleButton_init,a.shuttleButton_init *{display:inline-block;overflow:visible;position:relative;height:25px;margin:0;padding:0 19px 0 0;border:0;background:url(../images/btn_shuttle_init.gif) no-repeat right top;line-height:24px;font-size:1em;color:#555;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+
+a.shuttleButton_add *,a.shuttleButton_del *{right:0;padding:0 14px 0 43px;background-position:left top;text-align:left;cursor:pointer}
+a.shuttleButton_addAll *,a.shuttleButton_delAll *{right:0;padding:0 3px 0 33px;background-position:left top;text-align:left;cursor:pointer}
+a.shuttleButton_init *{right:0;padding:0 3px 0 37px;background-position:left top;text-align:left;cursor:pointer}
+
+a:hover.shuttleButton_add span,a:hover.shuttleButton_addAll span,a:hover.shuttleButton_del span,a:hover.shuttleButton_delAll span,a:hover.shuttleButton_init span{color:#0060FF}
+
+/* btn12_change */
+.searchBox a.btn12_change{position:absolute;right:10px;bottom:11px}
+a.btn12_change,a.btn12_change *{display:inline-block;overflow:visible;position:relative;height:25px;margin:0;padding:0 2px 0 0px;border:0;background:url(../images/btn_bg12_change.gif) no-repeat right top;line-height:25px;font-size:1em;color:#000;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn12_change *{padding:0 10px 0 32px;background-position:left top}
+
+/* btn13 로그인관련버튼 */
+a.btn13,a.btn13 *{display:inline-block;overflow:visible;position:relative;height:20px;margin:0;padding:0 0px 0 5px;border:0;background:url(../images/btn_bg13.gif) no-repeat left top;line-height:19px;color:#555; letter-spacing:-1px;text-shadow:0px 1px 0px #FFF;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn13 *{padding:0 20px 0 7px;font-size:0.9em;background-position:right top}
+a:hover.btn13 span{color:#0060FF}
+
+/* btn14 personInfo 내 버튼 */
+a.btn14,a.btn14 *{display:inline-block;overflow:visible;position:relative;height:18px;margin:0;padding:0 0px 0 3px;border:0;background:url(../images/btn_bg14.gif) no-repeat left top;line-height:18px;color:#a4a3a3;text-shadow:0px 1px 0px #FFF;text-decoration:none !important;vertical-align:middle;white-space:nowrap}
+a.btn14 *{padding:0 6px 0 3px;font-size:0.9em;background-position:right top;font-family:Arial,Gulim,'굴림'}
+a:hover.btn14 span{color:#a4a3a3}
+
+/* 댓글 내 버튼*/
+a.writeComment,a.writeComment *{display:inline-block;overflow:visible;position:relative;height:25px;margin:0;padding:0;border:0;background:url(../images/btn_bg4.gif) no-repeat;line-height:25px;font-size:1em;color:#555;text-decoration:none !important;vertical-align:middle;white-space:nowrap}
+a.writeComment *{left:6px;padding:0 15px 0 10px;background-position:right top;cursor:pointer}
+a:hover.writeComment span{color:#555}
+
+/* btn15 포탈검색 지식맵 내 버튼 */
+a.btn15,a.btn15 *{display:inline-block;overflow:visible;position:relative;height:17px;padding:0 8px 0 0;border:0;background:url(../images/btn_bg15.gif) no-repeat right top;line-height:18px;color:#00b4d5;text-shadow:0px 1px 0px #FFF;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn15 *{left:0;padding:0 0px 0 8px;font-size:0.9em;background-position:left top;cursor:pointer}
+a:hover.btn15 span{color:#004687}
+
+/* btn15_plus 포탈검색 지식맵 내 버튼 */
+a.btn15_plus,a.btn15_plus *{display:inline-block;overflow:visible;position:relative;height:17px;padding:0 8px 0 0;border:0;background:url(../images/btn_bg15_plus.gif) no-repeat right top;line-height:18px;color:#00b4d5;text-shadow:0px 1px 0px #FFF;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn15_plus *{left:0;padding:0 0px 0 23px;font-size:0.9em;background-position:left top;cursor:pointer}
+a:hover.btn15_plus span{color:#004687}
+
+/* btn15_minus 포탈검색 지식맵 내 버튼 */
+a.btn15_minus,a.btn15_minus *{display:inline-block;overflow:visible;position:relative;height:17px;padding:0 8px 0 0;border:0;background:url(../images/btn_bg15_minus.gif) no-repeat right top;line-height:18px;color:#00b4d5;text-shadow:0px 1px 0px #FFF;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+a.btn15_minus *{left:0;padding:0 0px 0 23px;font-size:0.9em;background-position:left top;cursor:pointer}
+a:hover.btn15_minus span{color:#004687}

@@ -1,0 +1,330 @@
+/* 초기화 시작 */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: inherit;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+    font-size : 10pt;
+	font-family : Ariel;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* 초기화 추가 */
+a:link, a:visited, a:active, a:hover {
+	text-decoration : none;
+	color : black;
+}
+button{
+	display:inline-block;
+	overflow:hidden;
+
+	border : 1px solid sky-blue;
+	border-radius : 3px;
+	background : #EEEEEE;
+	padding-top : 5px;
+	padding-left : 5px;
+	padding-right : 5px;
+
+	cursor:pointer;
+}
+
+body {
+	width : 1470px;
+	margin : 0 auto;
+	margin-top : 10px;
+	/*
+	border : 1px solid black;
+	*/
+}
+nav {
+	/*
+	background-color : #333333;
+	margin-top : 50px;
+	*/
+}
+header {
+	text-align : center;
+	height : 150px;
+	padding-top : 30px;
+	border-bottom : 2px solid green;
+	/*
+	border : 1px solid blue;
+	background-color : #666666;
+	*/
+}
+aside {
+	float : left;
+	width : 220px;
+	padding-top : 15px;
+	padding-left : 10px;
+	height : 800px;
+	border-right : 2px solid green;
+	/*
+	border : 1px solid green;
+	background-color : #CCCCCC;
+	*/
+}
+section {
+	height : 800px;
+	/*
+	border : 1px solid yellow;
+	background-color : #999999;
+	*/
+}
+
+#div_section {
+	margin-left : 231px;
+	/*
+	border : 1px solid red;
+	*/
+}
+
+
+table {
+	border-collapse : collapse;
+}
+td {
+	vertical-align : middle;
+}
+tr {
+	height : 25px;
+}
+form, fieldset, input, select, textarea {
+	margin : 0;
+	padding : 0;
+}
+/* 초기화 끝 */
+
+/* combo */
+select#combo {
+	position : realtive;
+	width : 120px;
+	background: #e1f0f0;
+}
+
+/* button */
+button#search {
+	background : linear-gradient(white, #1b3636);
+	color : white;
+	float : right;
+}
+
+button#basic {
+	background : linear-gradient(#c7e2e2, #408080);
+	color : white;
+	float : right;
+}
+
+button#report_write {
+	background : linear-gradient(#c7e2e2, #408080);
+	color : white;
+	float : right;
+}
+
+button#screen_open {
+	background : linear-gradient(#c7e2e2, #408080);
+	color : white;
+	float : left;
+}
+
+/* td_label */
+td#ins_manage {
+	font-size : 12pt;
+	color: #408080;
+}
+
+td#label {
+	background : linear-gradient(white, #c0c0c0);
+	color : #408080;
+}
+
+/* 테두리 */
+.center_border td {
+	border: 1px solid gray;
+}
+
+.bottom_border td {
+	border: 1px solid gray;
+}
+
+/* date input */
+input#date {
+	width : 140px;
+}
+
+/* table */
+.center {
+	background : #efefef;
+}
+
+tr#border {
+	background : linear-gradient(#c8e3e3, #408080);
+	color : white;
+}
+
+.b {
+	background : white;
+}
+
+/* form,fieldset */
+form {
+	margin : 10px;
+	padding : 1px;
+	border : 1px solid gray;
+}
+
+/* nav */
+.nav {
+	background : black;
+}
+
+/* text */
+.text1 {
+	color : white;
+}
+
+.top_border {
+	height : 5px;
+	background : linear-gradient(white, green);
+	border-radius : 3px 3px 0px 0px;
+}
+
+/* label */
+
+.label {
+	text-align : left;
+	text-indent : 3px;
+	font-weight : bold;
+	background-color : #F3F3F3;
+}
+
+/* 탭 */
+
+.tab-wrap * {
+	margin: 0px;
+	padding: 0px;
+}
+.tab-wrap {
+	position: relative;
+	padding-top: 30px;
+}
+.tab-wrap li {
+	z-index: 2;
+	position: absolute;
+	top: 0px;
+	width: 100px;
+	height: 30px;
+	text-indent: -9999%;
+}
+.tab-wrap li:nth-of-type(1) {
+	left: 0px;
+}
+.tab-wrap li:nth-of-type(2) {
+	left: 100px;
+}
+.tab-wrap li:nth-of-type(3) {
+	left: 200px;
+}
+.tab-wrap li:nth-of-type(4) {
+	left: 300px;
+}
+.tab-wrap li:nth-of-type(5) {
+	left: 400px;
+}
+.tab-wrap li:nth-of-type(6) {
+	left: 500px;
+}
+.tab-wrap li:nth-of-type(7) {
+	left: 600px;
+}
+.tab-wrap li a {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.tab-wrap article h1 {
+	position: absolute;
+	top: 0px;
+	width: 100px;
+	height: 30px;
+	line-height: 30px;
+	box-sizing: border-box;
+	border: 1px solid #ddd;
+	text-align: center;
+	font-size: 12px;
+}
+.tab-wrap article p {
+	border: 1px solid #ddd;
+	padding: 30px;
+}
+
+.tab-wrap article:target h1 {
+	background-color: yellow;
+}
+.tab-wrap article:nth-of-type(1) h1 {
+	left: 0px;
+}
+.tab-wrap article:nth-of-type(2) h1 {
+	left: 100px;
+}
+.tab-wrap article:nth-of-type(3) h1 {
+	left: 200px;
+}
+.tab-wrap article:nth-of-type(4) h1 {
+	left: 300px;
+}
+.tab-wrap article:nth-of-type(5) h1 {
+	left: 400px;
+}
+.tab-wrap article:nth-of-type(6) h1 {
+	left: 500px;
+}
+.tab-wrap article:nth-of-type(7) h1 {
+	left: 600px;
+}
+.tab-wrap article p {
+	display: none;
+}
+.tab-wrap article ul {
+	display: none;
+}
+.tab-wrap article:target p {
+	display: block;
+}
+.tab-wrap article:target ul {
+	display: block;
+}

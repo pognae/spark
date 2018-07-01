@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="accAcc">
+
+   	<!-- ERP(회계) > 회계 > 일일거래명세(조회) -->
+    <select id="acco4040Search" parameterType="params" resultType="record">
+    	select * from dual
+		<!-- select a.row_num "rownum"
+	      	 , a.smslipno
+	         , a.smcompdate
+	         , a.acctabbr
+	         , a.iotype
+	         , a.inbal
+	         , a.outbal
+	         , a.smdesc
+	         , a.sortord
+		  from (
+			    select a.row_num
+			      	 , a.smslipno
+			         , a.smcompdate
+			         , a.acctabbr
+			         , a.iotype
+			         , a.inbal
+			         , a.outbal
+			         , a.smdesc
+			         , a.sortord
+			      from (
+				         select rownum row_num
+				        	  , substr(trim(s.smslipno), 1, 8) || '-' || substr(trim(s.smslipno),-5) as smslipno
+					          , s.smcompdate
+					          , a.acctabbr
+					          , decode(trim(s.smprocio), '01','입금', '02','대체입금','03','출금','04','대체출금') as iotype
+					          , case when trim(s.smprocio) in ('01','02') then trim(s.smbal) else '' end as inbal
+					          , case when trim(s.smprocio) in ('03','04') then trim(s.smbal) else '' end as outbal
+					          , s.smdesc
+					          , 0 as sortord
+					       from slipms s, acctms a
+						  where s.smcompdate = replace(#{bascDt}, '-', '')
+					 	    and trim(s.smcode) = trim(a.acctcode)
+						  order by sortord, smslipno
+						) a
+				where a.row_num <![CDATA[<=]]> #{end}
+				) a
+	      where a.row_num <![CDATA[>=]]> #{start} -->
+
+    </select>
+
+    <select id="acco4040SearchCount" parameterType="params" resultType="int">
+    	SELECT '0' FROM DUAL
+         <!-- SELECT COUNT(*)
+           FROM SLIPMS S, ACCTMS A
+		  WHERE S.SMCOMPDATE = REPLACE(#{bascDt}, '-', '')
+	 	    AND TRIM(S.SMCODE) = TRIM(A.ACCTCODE) -->
+    </select>
+
+   	<!-- ERP(회계) > 회계 > 전표총괄표(조회) -->
+    <select id="acco4010Search" parameterType="params" resultType="record">
+    	SELECT * FROM DUAL
+		<!-- WITH w_t AS (
+				    SELECT smcode
+				         , smprocio AS io
+				         , max(b.acctabbr) AS nm
+				         , count(*)  AS cnt
+				         , SUM(smbal) AS total
+				         , max(SUBSTR(smcode,1,1)) AS gbn
+				     FROM slipms a, acctms b
+				    WHERE smcompdate = #{bascDt}
+				      AND a.smcode = b.acctcode
+				    GROUP BY smcode, smprocio
+
+		    		UNION ALL
+
+				    SELECT '600000' AS smcode
+				         , '01' AS io
+				         , '전일현금'AS nm
+				         , 0 cnt
+				         , nvl(sum(taccbal) , 0) AS total
+				         , '6' AS gbn
+				     FROM taccms  a
+				    WHERE taccacct = '111000'
+				      AND taccmagamdate = ( SELECT max(taccmagamdate)
+				                              FROM taccms
+				                             WHERE taccacct = '111000'
+				                               AND taccmagamdate <![CDATA[ < ]]> #{bascDt})
+
+		    		UNION ALL
+
+				    SELECT '610000' AS smcode
+				         , '03' AS io
+				         , '금일현금'AS nm
+				         , 0 cnt
+				         , nvl(sum(taccbal) , 0) AS total
+				         , '6' AS gbn
+				      FROM taccms  a
+				     WHERE taccacct = '111000'
+				       AND taccmagamdate = #{bascDt}
+				    ORDER BY smcode, io
+				)
+				, w_total AS (
+				  SELECT
+				       to_char(DECODE( io, '02', total, '')) AS c1
+				     , to_char(DECODE( io, '02', cnt, ''))   AS c2
+				     , to_char(DECODE( io, '01', total, '')) AS c3
+				     , to_char(DECODE( io, '01', cnt, ''))   AS c4
+				     , to_char(CASE WHEN io = '01' OR io = '02' THEN total  END) AS c5
+				     , to_char(CASE WHEN io = '01' OR io = '02' THEN cnt  END) AS c6
+				     , nm   AS c7
+				     , to_char(CASE WHEN io = '03' OR io = '04' THEN total  END) AS c8
+				     , to_char(CASE WHEN io = '03' OR io = '04' THEN cnt  END) AS c9
+				     , to_char(DECODE( io, '03', total, '')) AS c10
+				     , to_char(DECODE( io, '03', cnt, ''))   AS c11
+				     , to_char(DECODE( io, '04', total, '')) AS c12
+				     , to_char(DECODE( io, '04', cnt, ''))   AS c13
+				    FROM w_t
+				    WHERE gbn <![CDATA[ < ]]> 6
+
+				    UNION ALL
+
+				    SELECT
+				       to_char(SUM( DECODE( io, '02', total, 0) )) AS c1
+				     , to_char(SUM( DECODE( io, '02', cnt, 0)))   AS c2
+				     , to_char(SUM(  DECODE( io, '01', total, 0))) AS c3
+				     , to_char(SUM( DECODE( io, '01', cnt, 0)))   AS c4
+				     , to_char(nvl(SUM( CASE WHEN io = '01' OR io = '02' THEN total  END),0)) AS c5
+				     , to_char(nvl(SUM( CASE WHEN io = '01' OR io = '02' THEN cnt  END),0)) AS c6
+				     , '소       계'   AS c7
+				     , to_char(nvl(SUM( CASE WHEN io = '03' OR io = '04' THEN total  END),0)) AS c8
+				     , to_char(nvl(SUM(  CASE WHEN io = '03' OR io = '04' THEN cnt  END),0)) AS c9
+				     , to_char(SUM( DECODE( io, '03', total, 0))) AS c10
+				     , to_char(SUM( DECODE( io, '03', cnt, 0)))   AS c11
+				     , to_char(SUM( DECODE( io, '04', total, 0))) AS c12
+				     , to_char(SUM( DECODE( io, '04', cnt, 0)))   AS c13
+				    FROM w_t
+				    WHERE gbn <![CDATA[ < ]]> 6
+
+				    UNION ALL
+
+				    SELECT
+				       '' AS c1
+				     , '' as c2
+				     , '' as c3
+				     , '' as c4
+				     , '' as c5
+				     , '' as c6
+				     , '' as c7
+				     , '' as c8
+				     , '' as c9
+				     , '' as c10
+				     , '' as c11
+				     , '' as c12
+				     , '' as c13
+				    FROM dual
+
+				    UNION ALL
+
+				    SELECT
+				       '' AS c1
+				     , '' as c2
+				     , '' as c3
+				     , '' as c4
+				     , '' as c5
+				     , '' as c6
+				     , '손 실 지 부' as c7
+				     , '' as c8
+				     , '' as c9
+				     , '' as c10
+				     , '' as c11
+				     , '' as c12
+				     , '' as c13
+				    FROM dual
+
+				    UNION ALL
+
+				    SELECT
+				       '' AS c1
+				     , '' as c2
+				     , '' as c3
+				     , '' as c4
+				     , '' as c5
+				     , '' as c6
+				     , '' as c7
+				     , '' as c8
+				     , '' as c9
+				     , '' as c10
+				     , '' as c11
+				     , '' as c12
+				     , '' as c13
+				    FROM dual
+
+				    UNION ALL
+
+				    SELECT
+				       to_char(DECODE( io, '02', total, '')) AS c1
+				     , to_char(DECODE( io, '02', cnt, ''))   AS c2
+				     , to_char(DECODE( io, '01', total, '')) AS c3
+				     , to_char(DECODE( io, '01', cnt, ''))   AS c4
+				     , to_char(CASE WHEN io = '01' OR io = '02' THEN total  END) AS c5
+				     , to_char(CASE WHEN io = '01' OR io = '02' THEN cnt  END) AS c6
+				     , nm   AS c7
+				     , to_char(CASE WHEN io = '03' OR io = '04' THEN total  END) AS c8
+				     , to_char(CASE WHEN io = '03' OR io = '04' THEN cnt  END) AS c9
+				     , to_char(DECODE( io, '03', total, '')) AS c10
+				     , to_char(DECODE( io, '03', cnt, ''))   AS c11
+				     , to_char(DECODE( io, '04', total, '')) AS c12
+				     , to_char(DECODE( io, '04', cnt, ''))   AS c13
+				    FROM w_t
+				    WHERE gbn = 4
+
+				    UNION ALL
+
+				    SELECT
+				       to_char(SUM( DECODE( io, '02', total, 0) )) AS c1
+				     , to_char(SUM( DECODE( io, '02', cnt, 0)))   AS c2
+				     , to_char(SUM(  DECODE( io, '01', total, 0))) AS c3
+				     , to_char(SUM( DECODE( io, '01', cnt, 0)))   AS c4
+				     , to_char(nvl(SUM( CASE WHEN io = '01' OR io = '02' THEN total  END),0)) AS c5
+				     , to_char(nvl(SUM( CASE WHEN io = '01' OR io = '02' THEN cnt  END),0)) AS c6
+				     , '소       계'   AS c7
+				     , to_char(nvl(SUM( CASE WHEN io = '03' OR io = '04' THEN total  END),0)) AS c8
+				     , to_char(nvl(SUM(  CASE WHEN io = '03' OR io = '04' THEN cnt  END),0)) AS c9
+				     , to_char(SUM( DECODE( io, '03', total, 0))) AS c10
+				     , to_char(SUM( DECODE( io, '03', cnt, 0)))   AS c11
+				     , to_char(SUM( DECODE( io, '04', total, 0))) AS c12
+				     , to_char(SUM( DECODE( io, '04', cnt, 0)))   AS c13
+				    FROM w_t
+				    WHERE gbn = 4
+
+				    UNION ALL
+
+				    SELECT
+				       '' AS c1
+				     , '' as c2
+				     , '' as c3
+				     , '' as c4
+				     , '' as c5
+				     , '' as c6
+				     , '' as c7
+				     , '' as c8
+				     , '' as c9
+				     , '' as c10
+				     , '' as c11
+				     , '' as c12
+				     , '' as c13
+				    FROM dual
+
+				    UNION ALL
+
+				    SELECT
+				       '' AS c1
+				     , '' as c2
+				     , '' as c3
+				     , '' as c4
+				     , '' as c5
+				     , '' as c6
+				     , '이 익 지 부' as c7
+				     , '' as c8
+				     , '' as c9
+				     , '' as c10
+				     , '' as c11
+				     , '' as c12
+				     , '' as c13
+				    FROM dual
+
+				    UNION ALL
+
+				    SELECT
+				       '' AS c1
+				     , '' as c2
+				     , '' as c3
+				     , '' as c4
+				     , '' as c5
+				     , '' as c6
+				     , '' as c7
+				     , '' as c8
+				     , '' as c9
+				     , '' as c10
+				     , '' as c11
+				     , '' as c12
+				     , '' as c13
+				    FROM dual
+
+				    UNION ALL
+
+				    SELECT
+				       to_char(DECODE( io, '04', total, '')) AS c1
+				     , to_char(DECODE( io, '04', cnt, ''))   AS c2
+				     , to_char(DECODE( io, '03', total, '')) AS c3
+				     , to_char(DECODE( io, '03', cnt, ''))   AS c4
+				     , to_char(CASE WHEN io = '04' OR io = '03' THEN total  END) AS c5
+				     , to_char(CASE WHEN io = '04' OR io = '03' THEN cnt  END) AS c6
+				     , nm   AS c7
+				     , to_char(CASE WHEN io = '01' OR io = '02' THEN total  END) AS c8
+				     , to_char(CASE WHEN io = '01' OR io = '02' THEN cnt  END) AS c9
+				     , to_char(DECODE( io, '01', total, '')) AS c10
+				     , to_char(DECODE( io, '01', cnt, ''))   AS c11
+				     , to_char(DECODE( io, '02', total, '')) AS c12
+				     , to_char(DECODE( io, '02', cnt, ''))   AS c13
+				    FROM w_t
+				    WHERE gbn = 5
+
+				    UNION ALL
+
+				    SELECT
+				       to_char(SUM( DECODE( io, '04', total, 0) )) AS c1
+				     , to_char(SUM( DECODE( io, '04', cnt, 0)))   AS c2
+				     , to_char(SUM(  DECODE( io, '03', total, 0))) AS c3
+				     , to_char(SUM( DECODE( io, '03', cnt, 0)))   AS c4
+				     , to_char(nvl(SUM( CASE WHEN io = '04' OR io = '03' THEN total  END),0)) AS c5
+				     , to_char(nvl(SUM( CASE WHEN io = '04' OR io = '03' THEN cnt  END),0)) AS c6
+				     , '소       계'   AS c7
+				     , to_char(nvl(SUM( CASE WHEN io = '01' OR io = '02' THEN total  END),0)) AS c8
+				     , to_char(nvl(SUM(  CASE WHEN io = '01' OR io = '02' THEN cnt  END),0)) AS c9
+				     , to_char(SUM( DECODE( io, '01', total, 0))) AS c10
+				     , to_char(SUM( DECODE( io, '01', cnt, 0)))   AS c11
+				     , to_char(SUM( DECODE( io, '02', total, 0))) AS c12
+				     , to_char(SUM( DECODE( io, '02', cnt, 0)))   AS c13
+				    FROM w_t
+				    WHERE gbn = 5
+
+
+				    UNION ALL
+
+				    SELECT
+				       '' AS c1
+				     , '' as c2
+				     , '' as c3
+				     , '' as c4
+				     , '' as c5
+				     , '' as c6
+				     , '' as c7
+				     , '' as c8
+				     , '' as c9
+				     , '' as c10
+				     , '' as c11
+				     , '' as c12
+				     , '' as c13
+				    FROM dual
+
+				    UNION ALL
+
+				    SELECT
+				       to_char(DECODE( io, '02', total, '')) AS c1
+				     , to_char(DECODE( io, '02', cnt, ''))   AS c2
+				     , to_char(DECODE( io, '01', total, '')) AS c3
+				     ,''   AS c4
+				           , to_char(CASE WHEN io = '01' OR io = '02' THEN total  END) AS c5
+				           ,'' AS c6
+				           , nm   AS c7
+				           , to_char(CASE WHEN io = '03' OR io = '04' THEN total  END) AS c8
+				           , '' AS c9
+				           , to_char(DECODE( io, '03', total, '')) AS c10
+				           , ''   AS c11
+				           , to_char(DECODE( io, '04', total, '')) AS c12
+				           , to_char(DECODE( io, '04', cnt, ''))   AS c13
+				          FROM w_t
+				          WHERE gbn = 6
+
+
+				          UNION ALL
+
+				          SELECT
+				             to_char(SUM( DECODE( io, '02', total, 0) )) AS c1
+				           , to_char(SUM( DECODE( io, '02', cnt, 0)))   AS c2
+				           , to_char(SUM(  DECODE( io, '01', total, 0))) AS c3
+				           , to_char(SUM( DECODE( io, '01', cnt, 0)))   AS c4
+				           , to_char(nvl(SUM( CASE WHEN io = '01' OR io = '02' THEN total  END),0)) AS c5
+				           , to_char(nvl(SUM( CASE WHEN io = '01' OR io = '02' THEN cnt  END),0)) AS c6
+				           , '합       계'   AS c7
+				           , to_char(nvl(SUM( CASE WHEN io = '03' OR io = '04' THEN total  END),0)) AS c8
+				           , to_char(nvl(SUM(  CASE WHEN io = '03' OR io = '04' THEN cnt  END),0)) AS c9
+				           , to_char(SUM( DECODE( io, '03', total, 0))) AS c10
+				           , to_char(SUM( DECODE( io, '03', cnt, 0)))   AS c11
+				           , to_char(SUM( DECODE( io, '04', total, 0))) AS c12
+				           , to_char(SUM( DECODE( io, '04', cnt, 0)))   AS c13
+				          FROM w_t
+				      )
+				      SELECT
+				          #{bascDt} AS cdate
+				         , ROWNUM  AS sm_no
+				         , c1   AS sminput
+				         , c2   AS sminputcha
+				         , c3   AS smcash
+				         , c4   AS smcashcha
+				         , c5   AS smcashsum
+				         , c6   AS smcashsumcha
+				         , c7   AS smcode
+				         , c8   AS smoutsum
+				         , c9   AS smoutsumcha
+				         , c10  AS smcashout
+				         , c11  AS smcashoutcha
+				         , c12  AS smoutamt
+				         , c13  AS smoutamtcha
+				      FROM w_total -->
+    </select>
+
+    <!-- 추가부분 - 대차대조표 -->
+	<!-- 자산 -->
+	<select id="getAssetList" parameterType="java.util.Map" resultType="java.util.HashMap">
+		SELECT * FROM DUAL
+		<!-- SELECT
+			ACCTCODE, ACCTABBR
+		FROM ACCTMS
+		where
+		  	ACCTCODE LIKE 1 || '%' -->
+	</select>
+
+	<!-- 부채 -->
+	<select id="getBondList" parameterType="java.util.Map" resultType="java.util.HashMap">
+	SELECT * FROM DUAL
+	<!-- SELECT
+		ACCTCODE, ACCTABBR
+	FROM ACCTMS
+	WHERE
+		ACCTCODE LIKE 2 || '%' -->
+	</select>
+
+	<select id="getCapitalList"  parameterType="java.util.Map" resultType="java.util.HashMap">
+	SELECT * FROM DUAL
+	<!-- SELECT
+		ACCTCODE, ACCTABBR
+	FROM ACCTMS
+	WHERE
+		ACCTCODE LIKE 3 || '%' -->
+	</select>
+
+	<insert id="insertSlip" parameterType="java.util.Map">
+        <selectKey keyProperty="slipSeq" resultType="String" order="BEFORE">
+        <![CDATA[
+        	SELECT TO_CHAR(SYSDATE, 'yyyymmdd') ||  TO_CHAR(NVL(MAX(SUBSTR(SLIP_NO, 9)), 0) + 1, 'FM00000')
+        	FROM TB_SLIP_MST
+        	WHERE to_char(REG_DTM, 'yyyymmdd') = replace(to_char(sysdate, 'yyyymmdd'), '-', '')
+        ]]>
+        </selectKey>
+
+		INSERT INTO TB_SLIP_MST(
+			SLIP_NO, SLIP_SR_NO, REG_DTM, PROC_IO,
+			CRT_ACCT_CODE, CRT_HDL_AMT, DBT_ACCT_CODE, DBT_HDL_AMT,
+			STAF_ID, ACC_NO, TR_ACC_NO, DEST,
+			DLN_STA, HDL_DIV, USE_YN
+		) VALUES (
+			#{slipSeq}, TO_NUMBER(SUBSTR(#{slipSeq}, 9)), sysdate, #{procIo},
+			#{crtAcctCode}, #{crtHdlAmt}, #{dbtAcctCode}, #{dbtHdlAmt},
+			#{stafId}, #{accNo, jdbcType=VARCHAR}, #{trAccNo, jdbcType=VARCHAR}, #{dest, jdbcType=VARCHAR},
+			'N', #{hdlDiv, jdbcType=VARCHAR}, 'Y'
+		)
+	</insert>
+
+	<select id="getAcctCode" parameterType="params" resultType="record">
+		SELECT '[' || ACCT_CODE || '] ' || ACCT_DISP as ACCT_ABBR
+		     , ACCT_CODE
+		     , COUNT(ACCT_CODE) OVER () AS CNT
+		  FROM TB_ACCT_MST
+		 WHERE (ACCT_CODE LIKE '%'||#{searchText}||'%' OR ACCT_DISP LIKE '%'||#{searchText}||'%')
+		   AND USE_YN = 'Y'
+		 ORDER BY ACCT_CODE, ACCT_ABBR
+	</select>
+
+	<select id="getAcctCodeList" parameterType="params" resultType="record">
+		SELECT ROW_NUM
+		     , '[' || ACCT_CODE || '] ' || ACCT_DISP as ACCT_ABBR
+		     , ACCT_CODE
+		FROM (
+		      SELECT ROWNUM AS ROW_NUM
+		           , ACCT_CODE
+		           , ACCT_ABBR
+		           , ACCT_DISP
+		      FROM (
+		            SELECT ACCT_CODE
+		                 , ACCT_ABBR
+		                 , ACCT_DISP
+		              FROM TB_ACCT_MST
+		             WHERE (ACCT_CODE LIKE '%'||#{searchText}||'%' OR ACCT_DISP LIKE '%'||#{searchText}||'%')
+		               AND USE_YN = 'Y'
+		      ) A
+		      <![CDATA[WHERE ROWNUM <= #{end}]]>
+		) A
+		WHERE A.ROW_NUM >= #{start}
+	</select>
+
+	<select id="getAcctCodeListCount" parameterType="params" resultType="int">
+		SELECT COUNT(*)
+		  FROM TB_ACCT_MST
+		 WHERE (ACCT_CODE LIKE '%'||#{searchText}||'%' OR ACCT_DISP LIKE '%'||#{searchText}||'%')
+		   AND USE_YN = 'Y'
+	</select>
+
+	<select id="getSlipList" parameterType="params" resultType="record">
+		SELECT SLIP_NO
+			 , SLIP_SR_NO
+			 , TO_CHAR(REG_DTM, 'YYYY-MM-DD') REG_DTM
+			 , PROC_IO
+			 , CRT_ACCT_CODE
+			 , '[' || CRT_ACCT_CODE || ']' || (SELECT ACCT_DISP FROM TB_ACCT_MST A WHERE A.ACCT_CODE=CRT_ACCT_CODE) CRT_ACCT_NAME
+			 , CRT_HDL_AMT
+			 , DBT_ACCT_CODE
+			 , '[' || DBT_ACCT_CODE || ']' || (SELECT ACCT_DISP FROM TB_ACCT_MST A WHERE A.ACCT_CODE=DBT_ACCT_CODE) DBT_ACCT_NAME
+			 , DBT_HDL_AMT
+			 , STAF_ID
+			 , ACC_NO
+			 , TR_ACC_NO
+			 , DEST
+			 , DLN_STA
+			 , HDL_DIV
+		  FROM TB_SLIP_MST
+		 WHERE TO_CHAR(REG_DTM, 'yyyymmdd') = REPLACE(#{regDtm}, '-', '')
+		   AND (USE_YN = 'Y' OR USE_YN IS NULL)
+	</select>
+
+	<update id="updateSlipDel"  parameterType="java.util.Map">
+		UPDATE TB_SLIP_MST A
+		   SET A.USE_YN = 'N'
+		 WHERE A.SLIP_NO = #{slipNo}
+	</update>
+
+	<select id="getSlipDlnStatList" parameterType="params" resultType="record">
+		SELECT ROW_NUM
+		     , REG_DTM
+		     , CNT
+		FROM (
+	      SELECT ROWNUM AS ROW_NUM
+               , REG_DTM
+               , CNT
+			FROM (
+		        SELECT TO_CHAR(REG_DTM, 'YYYY-MM-DD') REG_DTM
+		             , COUNT(SLIP_NO) CNT
+		        FROM TB_SLIP_MST
+		        WHERE USE_YN <![CDATA[ <> ]]> 'N'
+		        AND (DLN_STA IS NULL OR DLN_STA = 'N')
+		        GROUP BY TO_CHAR(REG_DTM, 'YYYY-MM-DD')
+			 ) A
+<!-- 			 <![CDATA[WHERE ROWNUM <= #{end}]]> -->
+		) A
+<!-- 		WHERE A.ROW_NUM  <![CDATA[ >= ]]> #{start} -->
+	</select>
+
+	<select id="getSlipDlnStatListCount" parameterType="params" resultType="int">
+		SELECT COUNT(*)
+        FROM TB_SLIP_MST
+        WHERE USE_YN <![CDATA[ <> ]]> 'N' OR USE_YN IS NULL
+        AND (DLN_STA IS NULL OR DLN_STA = 'Y')
+        GROUP BY TO_CHAR(REG_DTM, 'YYYY-MM-DD')
+	</select>
+
+	<select id="getSlipByRegDtmList" parameterType="java.util.Map" resultType="record">
+		SELECT SLIP_NO
+		     , ACCT_CODE
+		     , BAL
+		     , PROC_IO
+		FROM (
+				SELECT SLIP_NO
+				     , CRT_ACCT_CODE AS ACCT_CODE
+				     , CRT_HDL_AMT AS BAL
+				     , DECODE(PROC_IO, '01', '03', '02', '01', '03', '02') PROC_IO
+				  FROM TB_SLIP_MST
+				 WHERE TO_CHAR(REG_DTM, 'YYYYMMDD') = REPLACE(#{regDtm}, '-','')
+				UNION ALL
+				SELECT SLIP_NO
+				     , DBT_ACCT_CODE AS ACCT_CODE
+				     , DBT_HDL_AMT
+				     , DECODE(PROC_IO, '01', '01', '02', '03', '03', '04') PROC_IO
+				  FROM TB_SLIP_MST
+				 WHERE TO_CHAR(REG_DTM, 'YYYYMMDD') = REPLACE(#{regDtm}, '-','')
+			)
+		ORDER BY SLIP_NO
+	</select>
+
+	<select id="getAcountByBal" parameterType="java.util.Map" resultType="String">
+    <![CDATA[
+    	SELECT NVL(SUM(ACCT_BAL), 0)
+    	  FROM TB_TACC_MST
+         WHERE ACCT_CODE = #{acctCode}
+           AND MAGAM_DT = ( SELECT MAX(MAGAM_DT)
+                              FROM TB_TACC_MST
+                             WHERE ACCT_CODE = #{acctCode}
+                               AND MAGAM_DT < REPLACE(#{regDtm}, '-',''))
+	]]>
+	</select>
+
+	<select id="getAcountMst" parameterType="java.util.Map" resultType="record">
+    <![CDATA[
+         SELECT TRIM(NVL(ACCT_PLID, 0)) acctPlid
+              , TRIM(ACCT_DCID) acctDcid
+           FROM TB_ACCT_MST
+          WHERE ACCT_CODE = #{acctCode}
+	]]>
+	</select>
+
+	<select id="getTotalAcountBal" parameterType="java.util.Map" resultType="record">
+    <![CDATA[
+         SELECT MAX(ACCT_CODE) tacct_cd
+              , NVL(SUM(ACCT_BAL), 0) tacct_bal
+           FROM TB_TACC_MST
+          WHERE ACCT_CODE = #{acctCode}
+            AND MAGAM_DT = REPLACE(#{regDtm}, '-','')
+	]]>
+	</select>
+
+	<update id="updateTotalAcountMst"  parameterType="java.util.Map">
+		UPDATE TB_TACC_MST
+		   SET ACCT_BAL = #{tacctBal}
+		 WHERE ACCT_CODE = #{acctCode}
+		   AND MAGAM_DT = REPLACE(#{regDtm}, '-','')
+	</update>
+
+	<insert id="insertTotalAcountMst"  parameterType="java.util.Map">
+		INSERT INTO TB_TACC_MST(ACCT_CODE, MAGAM_DT, ACCT_BAL, ACCT_BAL_TOT, FST_CRTR_ID, FST_CRT_DATE, LST_CRTR_ID, LST_CRT_DATE)
+		                VALUES (#{acctCode}, REPLACE(#{regDtm}, '-',''), #{tacctBal}, 0, #{stafId}, sysdate, #{stafId}, sysdate)
+	</insert>
+
+	<update id="updateSlipMstClosed"  parameterType="java.util.Map">
+		UPDATE TB_SLIP_MST
+		   SET DLN_STA = 'Y'
+		 WHERE SLIP_NO = #{slipNo}
+	</update>
+
+</mapper>

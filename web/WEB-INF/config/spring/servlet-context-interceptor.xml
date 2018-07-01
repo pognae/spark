@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<!-- @(#)servlet-context-interceptor.xml 1.0 2016/04/12                      -->
+<!--                                                                         -->
+<!-- Copyright (c) 2016 WOWPMD Co., Inc. All rights reserved.           -->
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<!-- 서블릿 컨텍스트 인터셉터 설정 파일이다.                                 -->
+<!--                                                                         -->
+<!-- @author 이동엽                                                          -->
+<!-- @version 1.0 2016/04/12                                                 -->
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:beans="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- Mvc Interceptors                                                    -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <mvc:interceptors>
+    	<!--
+        <mvc:interceptor>
+            <mvc:mapping path="/**/*" />
+            <beans:bean class="com.kr.framework.interceptor.DefaultInterceptor" />
+        </mvc:interceptor>
+         -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**/*" />
+            <!-- 2016.06.03 이동엽 [1] 리소스 경로 제외 BEGIN -->
+            <!--
+            <beans:bean class="com.kr.framework.interceptor.MainInterceptor" />
+            -->
+            <beans:bean class="com.wowpmd.interceptor.MainInterceptor">
+                <beans:property name="antPathMatcher">
+                    <beans:bean class="org.springframework.util.AntPathMatcher" />
+                </beans:property>
+                <beans:property name="excludeMappings">
+                    <beans:array>
+                        <beans:value>/resource/**</beans:value>
+                        <beans:value>/images/**</beans:value>
+                        <beans:value>/font/**</beans:value>
+                        <beans:value>/css/**</beans:value>
+                        <beans:value>/js/**</beans:value>
+                        <beans:value>/script/**</beans:value>
+                        <beans:value>/favicon.ico</beans:value>
+                        <beans:value>/blank</beans:value>
+                    </beans:array>
+                </beans:property>
+                <!-- 2016.06.08 이동엽 [1] 세션 확인 추가 BEGIN -->
+                <beans:property name="sessionlessMappings">
+                    <beans:array>
+                        <beans:value>/index*</beans:value>
+                        <beans:value>/login*</beans:value>
+                    </beans:array>
+                </beans:property>
+                <!-- 2016.06.08 이동엽 [1] 세션 확인 추가 END -->
+            </beans:bean>
+            <!-- 2016.06.03 이동엽 [1] 리소스 경로 제외 END -->
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- Mvc Annotation Driven                                               -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <mvc:annotation-driven>
+        <mvc:argument-resolvers>
+            <bean class="com.kr.framework.web.XPArgumentResolver" />
+        </mvc:argument-resolvers>
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+                <property name="supportedMediaTypes" value="text/plain; charset=UTF-8" />
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- Mvc Default Servlet Handler                                         -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <mvc:default-servlet-handler />
+
+</beans>

@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib version="2.0" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_0.xsd">
+  <tlib-version>1.0</tlib-version>
+  <short-name>ui</short-name>
+  <uri>http://www.wowpmd.co.kr/taglib/ui</uri>
+ <!-- 2016.04.28 이동엽 [1] 페이징 태그 추가 BEGIN -->
+ <!--
+ <tag>
+  <description>페이징처리</description>
+  <name>pagination</name>
+  <tag-class>com.wowpmd.taglib.PaginationTag</tag-class>
+  <body-content>empty</body-content>
+  <attribute>
+   <name>name</name>
+   <required>true</required>
+   <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+   <name>pageParam</name>
+   <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+   <name>parameters</name>
+   <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+   <name>url</name>
+   <required>true</required>
+   <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+   <name>template</name>
+   <rtexprvalue>true</rtexprvalue>
+  </attribute>
+ </tag>
+ -->
+<tag>
+    <description>Pagination Tag</description>
+    <name>pagination</name>
+    <tag-class>com.wowpmd.taglib.PaginationTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+        <name>page</name>
+        <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <name>rows</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <name>count</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <name>pages</name>
+        <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <name>views</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <name>function</name>
+        <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+</tag>
+  <!-- 2016.04.28 이동엽 [1] 페이징 태그 추가 END -->
+  <!-- 2016.05.25 이동엽 [1] 포맷 태그 추가 BEGIN -->
+<tag>
+    <description>Format Tag</description>
+    <name>format</name>
+    <tag-class>com.wowpmd.taglib.FormatTag</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+        <name>value</name>
+        <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <name>pattern</name>
+        <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <name>delimiter</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+</tag>
+  <!-- 2016.05.25 이동엽 [1] 포맷 태그 추가 END -->
+ <tag>
+    <description>Radio Tag</description>
+    <name>radio</name>
+    <tag-class>com.wowpmd.taglib.RadioTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <description>radio 이름</description>
+      <name>name</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>
+        1. List데이터. List안에 들어가는 클래스는 Parameter를 상속받아야 한다.
+        2. 부모 코드값을 넣으면 자식 코드List를 보여준다.
+      </description>
+      <name>key</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>checked되는 값</description>
+      <name>value</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>class</description>
+      <name>clazz</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>한 라인에 들어가는 radio box수. 값을 설정하지 않으면 한 라인에 보이도록 처리 된다.</description>
+      <name>line</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>id</description>
+      <name>iD</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>목록에서 제외시키고 싶은 값. 여러개면 ,로 구분해서 넣어준다.</description>
+      <name>except</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>default 넣어줄 값이 있을 경우 설정(key 값은 무조건 '')</description>
+      <name>defaultValue</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <description>lavel값이 있는 경우 label 태그를 붙인다.</description>
+        <name>lavel</name>
+        <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <description>point값에 해당하는 값들은 label태그에 다른 클래스를 적용한다. 여러개면 ,로 구분해서 넣어준다.</description>
+        <name>point</name>
+        <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <description>point줄 값들의 label에 적용할 클래스명</description>
+        <name>pointClass</name>
+        <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <description>Select Tag</description>
+    <name>select</name>
+    <tag-class>com.wowpmd.taglib.SelectTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <description>select 이름</description>
+      <name>name</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>
+        1. option에 보이는 List데이터. List안에 들어가는 클래스는 Parameter를 상속받아야 한다.
+      </description>
+      <name>key</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>selected되는 값</description>
+      <name>value</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>Y로 값을 넣어주면 disabled</description>
+      <name>disabled</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>class</description>
+      <name>clazz</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>onchange함수</description>
+      <name>onchange</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>tab index</description>
+      <name>tabindex</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>value가 값이 아니라 request scope의 key인 경우 이 값으로 셋팅한다.</description>
+      <name>keyvalue</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>id</description>
+      <name>iD</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>목록에서 제외시키고 싶은 값. 여러개면 ,로 구분해서 넣어준다.</description>
+      <name>except</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>default 넣어줄 값이 있을 경우 설정(key 값은 무조건 '')</description>
+      <name>defaultValue</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  <tag>
+    <description>checkbox tag</description>
+    <name>checkbox</name>
+    <tag-class>com.wowpmd.taglib.CheckboxTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <description>check box 이름</description>
+      <name>name</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>
+        1. List데이터. List안에 들어가는 클래스는 Parameter를 상속받아야 한다.
+      </description>
+      <name>key</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>checked되는 값. 여러개면 ,로 구분해서 넣어준다.</description>
+      <name>value</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>class</description>
+      <name>clazz</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>한 라인에 들어가는 check box수. 값을 설정하지 않으면 한 라인에 보이도록 처리 된다.</description>
+      <name>line</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>id</description>
+      <name>iD</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>목록에서 제외시키고 싶은 값. 여러개면 ,로 구분해서 넣어준다.</description>
+      <name>except</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>default 넣어줄 값이 있을 경우 설정(key 값은 무조건 '')</description>
+      <name>defaultValue</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <description>lavel값이 있는 경우 label 태그를 붙인다.</description>
+        <name>lavel</name>
+        <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <description>point값에 해당하는 값들은 label태그에 다른 클래스를 적용한다. 여러개면 ,로 구분해서 넣어준다.</description>
+        <name>point</name>
+        <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <description>point줄 값들의 label에 적용할 클래스명</description>
+        <name>pointClass</name>
+        <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+</taglib>

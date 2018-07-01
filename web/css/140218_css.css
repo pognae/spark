@@ -1,0 +1,164 @@
+/* 초기화 시작 */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+    font-size : 10pt;
+	font-family : Ariel;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+} /* 추가부분 */
+a:link, a:visited, a:active, a:hover {
+	text-decoration : none;
+	color : black;
+}
+button {
+	-moz-box-shadow:inset 0px 1px 0px 0px #dcecfb;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #dcecfb;
+	box-shadow:inset 0px 1px 0px 0px #dcecfb;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #bddbfa), color-stop(1, #80b5ea) );
+	background:-moz-linear-gradient( center top, #bddbfa 5%, #80b5ea 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bddbfa', endColorstr='#80b5ea');
+	background-color:#bddbfa;
+	-webkit-border-top-left-radius:0px;
+	-moz-border-radius-topleft:0px;
+	border-top-left-radius:0px;
+	-webkit-border-top-right-radius:0px;
+	-moz-border-radius-topright:0px;
+	border-top-right-radius:0px;
+	-webkit-border-bottom-right-radius:0px;
+	-moz-border-radius-bottomright:0px;
+	border-bottom-right-radius:0px;
+	-webkit-border-bottom-left-radius:0px;
+	-moz-border-radius-bottomleft:0px;
+	border-bottom-left-radius:0px;
+	
+	text-indent:0;
+	border:1px solid #84bbf3;
+	display:inline-block;
+	color:#ffffff;
+	font-weight:bold;
+	font-style:normal;
+	height:22px;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:1px 1px 0px #528ecc;
+}
+button:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #80b5ea), color-stop(1, #bddbfa) );
+	background:-moz-linear-gradient( center top, #80b5ea 5%, #bddbfa 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#80b5ea', endColorstr='#bddbfa');
+	background-color:#80b5ea;
+}
+button:active {
+	position:relative;
+	top:1px;
+}
+/* 초기화 끝 */
+
+/* div, table */
+.top_div {
+	/*border : 1px solid red;*/
+	/*width : 1000px;*/
+	margin : 0 auto;
+	padding-top : 10px;
+}
+.div_btn {
+	/*border : 1px solid green;*/
+	text-align : center;
+}
+td {
+	border : 1px solid gray;
+	vertical-align : middle;
+	text-align : left;
+	text-indent : 5px;
+}
+tr {
+	height : 30px;
+	/*border-left : 1px solid #447be3;*/
+}
+.t_rad_1 {border-radius : 3px 0px 0px 0px;} .t_rad_2 {border-radius : 0px 3px 0px 0px;}
+.t_rad_3 {border-radius : 0px 0px 0px 3px;} .t_rad_4 {border-radius : 0px 0px 3px 0px;}
+.t_rad_top {border-radius : 3px 3px 0px 0px;}
+
+
+/* Master table */
+.mt_top {
+	border-top : 2px solid #447be3;
+}
+.mt_label {
+	background-color : #D9E5FF;
+	color : #4364D9;
+	font-weight : bold;
+	text-decoration : none;
+	text-indent : 5px;
+	/*
+	text-shadow : 1px 1px 0px #528ecc;
+	*/
+}
+
+
+/* Detail table */
+.dt_label {
+	background-color : #D9E5FF;
+	color : #4364D9;
+	font-weight : bold;
+	text-decoration : none;
+	text-align : center;
+	text-indent : 0px;
+	/*
+	text-shadow : 1px 1px 0px #528ecc;
+	*/
+}
+.dt_label2 {
+	background-color : #F2F2F2;
+	color : #4364D9;
+	font-weight : bold;
+	text-decoration : none;
+	text-align : center;
+	text-indent : 0px;
+}
+
+
+/* Text Align */
+.center {text-align : center; text-indent : 0px;}
+.right {text-align : right; text-indent : 0px; padding-right : 5px;}
+
+/* Border None */
+.bdr_t_n {border-top : none;}
+.bdr_l_n {border-left : none;}
+.bdr_r_n {border-right : none;}
+.bdr_b_n {border-bottom : none;}

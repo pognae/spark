@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/WEB-INF/jsp/sys/include">
+	<decorator name="submenu" page="decorator.jsp">
+        <pattern>/WEB-INF/jsp/*</pattern>
+	</decorator>
+
+	<decorator name="null">
+        <pattern>/WEB-INF/jsp/popup/*</pattern>
+        <pattern>/WEB-INF/jsp/index.jsp</pattern>
+        <pattern>/WEB-INF/jsp/script/system.js.jsp</pattern>
+        <!--
+        <pattern>/WEB-INF/jsp/sys/error/*</pattern>
+         -->
+	</decorator>
+</decorators>

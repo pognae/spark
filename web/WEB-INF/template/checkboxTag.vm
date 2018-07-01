@@ -1,0 +1,38 @@
+#set ( $count = 1 )
+
+#if ( !$list.isEmpty($options) && $defaultValue)
+#if( $lavel )
+<label class="$lavel">
+#end
+<input type="checkbox" name="$name" value=""#if ( $clazz ) class="$clazz"#end#if ( $!{value} == '' ) checked="checked"#end#if ( $!{disabled} == 'Y' ) disabled#end/> $defaultValue
+#if( $lavel )
+</label>
+#end
+#if( $!{line} == $count )
+<br/>
+#end
+#end
+
+#foreach ( $data in $options ) 
+#if ( ${except.get(${data.key})} != 'except')
+#if( $lavel )
+    #if( ${point.get(${data.key})} == 'point' )  
+        <label class="$pointClass">
+    #else  
+        <label class="$lavel">
+    #end
+#end
+<input type="checkbox" name="$name" value="$data.key"#if ( $clazz ) class="$clazz"#end#if ( $!{value.get(${data.key})} ) checked="checked"#end#if ( $!{disabled} == 'Y' ) disabled#end/>$data.value
+#if( $lavel )
+</label>
+#end
+
+#if( $!{line} == $count )
+#set ( $count = 1 )
+<br/>
+#else
+#set ( $count = $count+1 )
+#end
+
+#end
+#end

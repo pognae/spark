@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="system">
+
+    <select id="getMenuList" parameterType="params" resultType="record">
+		SELECT LEVEL ll
+		     , MENU_ID
+		     , UPPER_ID
+		     , MENU_TITLE
+		     , PGM_PATH
+	         , ( SELECT COUNT(MENU_ID) CNT
+	               FROM TB_COMM_MENU TS
+	              START WITH TS.UPPER_ID = TT.MENU_ID
+	            CONNECT BY PRIOR MENU_ID = UPPER_ID
+	         ) CNT
+      	  FROM TB_COMM_MENU TT
+      	 WHERE USE_YN = 1
+		<if test="level != null and level != ''">
+		   AND LEVEL = #{level}
+		</if>
+		<if test="upperId != null and upperId != ''">
+		   AND UPPER_ID = ${upperId}
+		</if>
+      	 START WITH UPPER_ID = 0
+       CONNECT BY PRIOR MENU_ID = UPPER_ID
+    </select>
+
+</mapper>

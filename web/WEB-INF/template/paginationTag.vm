@@ -1,0 +1,31 @@
+<div style="width:100%; padding:10px 0; text-align:center;">
+    #if(${showFirst})
+        <a href="javascript:${function}(1);"><span class="btn btn1_txt">맨앞</span></a>
+    #else
+        <span class="btn btn1_txt">맨앞</span>
+    #end
+    #if(${showPrevious})
+        #set($previousPage = ${page} - 1)
+        <a href="javascript:${function}(${previousPage})"><span class="btn btn1_txt">이전</span></a>
+    #else
+        <span class="btn btn1_txt">이전</span>
+    #end
+    #foreach($i in [${firstPage}..${lastPage}])
+        #if(${i} == ${page})
+            <a href="#"><span class="btn btn_num_over">${i}</span></a>
+        #else
+            <a href="javascript:${function}(${i})"><span class="btn btn_num">${i}</span></a>
+        #end
+    #end
+    #if(${showNext})
+        #set($nextPage = ${page} + 1)
+        <a href="javascript:${function}(${nextPage})"><span class="btn btn1_txt">다음</span></a>
+    #else
+        <span class="btn btn1_txt">다음</span>
+    #end
+    #if(${showLast})
+        <a href="javascript:${function}(${pages})"><span class="btn btn1_txt">맨뒤</span></a>
+    #else
+    <span class="btn btn1_txt">맨뒤</span>
+    #end
+</div>

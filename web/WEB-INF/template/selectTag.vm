@@ -1,0 +1,12 @@
+#if($options)
+<select name="$name"#if ( $clazz ) class="$clazz"#end#if ( $onchange ) onchange="$onchange"#end#if ( $!{disabled} == 'Y' ) disabled#end#if ( $tabindex ) tabindex="$tabindex"#end#if ($id) id="$id"#end#if($style) style="$style"#end>
+#if($defaultValue)
+    <option value="">$defaultValue</option>
+#end
+#foreach( $option in $options )
+#if ( ${except.get(${option.key})} != 'except')
+    <option value="$option.codeValue"#if ( $!{value} == $option.codeValue ) selected#end>$option.codeName</option>
+#end
+#end
+</select>
+#end

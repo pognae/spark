@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>wowpmd default 설정</comment>
+    <entry key="service.key">D</entry>
+    <entry key="cookie.domain">.wowpmd.co.kr</entry>
+    <entry key="server.ip">202.3.30.164</entry>
+    <entry key="server.charset">MS949</entry>
+    <entry key="server.host">local.front.wowpmd.com</entry>
+    <entry key="server.port">8080</entry>
+    <entry key="server.front.host">dev-front.wowpmd.com</entry>
+    <entry key="server.front.port">80</entry>
+    <entry key="m.server.host">dev-m.wowpmd.com</entry>
+    <entry key="m.server.port">80</entry>
+    <entry key="www.server.host">dev-front.wowpmd.com</entry>
+    <entry key="www.server.port">80</entry>
+    <entry key="no.image">/images/noimage.jpg</entry>
+    <entry key="system.charset">UTF-8</entry>
+    <entry key="is.developer">Y</entry>
+    <entry key="sender.name">와우피엠디</entry>
+    <entry key="sender.mail.address">wowpmd@wowpmd.co.kr</entry>
+    <entry key="upload.server.ip">202.3.30.159</entry>
+    <entry key="upload.server.id">dev</entry>
+    <entry key="upload.server.password">roqkfwk</entry>
+    <entry key="upload.server.base.path">/images/shop/upload</entry>
+    <entry key="upload.server.system.path"></entry>
+    <entry key="upload.server.product.path">/images/product</entry>
+    <entry key="image.server.host">image.bnkci.com</entry>
+    <entry key="image.server.port">80</entry>
+    <entry key="ftp.is.passive">true</entry>
+    <entry key="product.code.key">9</entry>
+    <entry key="default.grade">05</entry>
+    <entry key="system.admin">system</entry>
+	<entry key="no.brandImage">/images/noBrandImage.jpg</entry>
+    <entry key="site.natn.code">KR</entry>
+
+    <!-- 파일 -->
+    <entry key="file.maxUploadSize">500485760</entry>
+    <entry key="file.upload.folder">d:/dev/work/bsci/files</entry>
+
+
+    <!-- 검색서버 아이피/port -->
+    <entry key="diver.ip">202.3.30.155</entry>
+    <entry key="diver.port">5555</entry>
+
+    <!-- SSL여부 -->
+    <entry key="ssl.yn">N</entry>
+
+</properties>
