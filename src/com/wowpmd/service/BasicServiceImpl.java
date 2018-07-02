@@ -31,8 +31,8 @@ public class BasicServiceImpl extends BaseService implements BasicService {
     private BasicDAO basicDAO;
 
 	@Override
-	public List<Object> code1010Search(ParamsVO params) {
-		return basicDAO.code1010Search(params);
+	public List<Object> bsc1010Search(ParamsVO params) {
+		return basicDAO.bsc1010Search(params);
 	}
 
 }

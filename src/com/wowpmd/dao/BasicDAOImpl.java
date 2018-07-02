@@ -19,8 +19,8 @@ import com.wowpmd.vo.PagingVO;
 public  class BasicDAOImpl extends BaseDAO implements BasicDAO {
 
 	@Override
-	public List<Object> code1010Search(ParamsVO params) {
-		return search("basic.code1010Search", params);
+	public List<Object> bsc1010Search(ParamsVO params) {
+		return search("basic.bsc1010Search", params);
 	}
 
 

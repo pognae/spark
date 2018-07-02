@@ -3,7 +3,7 @@
 
 <mapper namespace="basic">
 
-    <select id="code1010Search" parameterType="params" resultType="record">
+    <select id="bsc1010Search" parameterType="params" resultType="record">
          SELECT CD_ID_NM
 		      , CD_VLD_VAL
 		      , CD_NM

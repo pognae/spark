@@ -19,6 +19,6 @@ import com.wowpmd.vo.PagingVO;
  */
 public interface BasicDAO {
 
-	public List<Object> code1010Search(ParamsVO params);
+	public List<Object> bsc1010Search(ParamsVO params);
 
 }
