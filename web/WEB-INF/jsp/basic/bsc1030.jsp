@@ -7,7 +7,6 @@ table {
 }
 </style>
 
-
 <script type="text/javascript">
 var params = {};
 

@@ -5,13 +5,13 @@
 			<li>
 				<a><i class="fa fa-home"></i> 기본정보관리 <span class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
-					<li><a href="/basic/code1010">계정과목</a></li>
-					<li><a href="/basic/code1020">거래처</a></li>
-					<li><a href="/basic/code1010">코드관리</a></li>
+					<li><a href="/basic/bsc1010">계정과목</a></li>
+					<li><a href="/basic/bsc1020">거래처</a></li>
+					<li><a href="/basic/bsc1030">코드관리</a></li>
 				</ul>
 			</li>
 			<li>
-				<a><i class="fa fa-home"></i> 전표관리 <span class="fa fa-chevron-down"></span></a>
+				<a><i class="fa"></i> 전표관리 <span class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
 					<li><a href="/acc/accAcc/acco4050">전표등록</a></li>
 				</ul>

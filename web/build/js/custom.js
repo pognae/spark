@@ -116,6 +116,7 @@ function init_sidebar() {
 	});
 
 	// check active menu
+	// TODO URL 수정
 	//console.log(CURRENT_URL.replace(/Search/g,''));
 	CURRENT_URL = CURRENT_URL.replace(/Search/g,'');
 	$SIDEBAR_MENU.find('a[href="' + CURRENT_URL + '"]').parent('li').addClass('current-page');

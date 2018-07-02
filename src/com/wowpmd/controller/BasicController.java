@@ -61,9 +61,9 @@ public class BasicController extends DefaultController {
 	 * @throws Throwable
 	 */
 	@Access
-	@RequestMapping("/basic/code1010")
-	public String acnt1030(@RequestParam Map<String, Object> paramMap, Model model) throws Throwable{
-		return "/basic/code1010";
+	@RequestMapping("/basic/bsc1030")
+	public String bsc1010(@RequestParam Map<String, Object> paramMap, Model model) throws Throwable{
+		return "/basic/bsc1030";
 	}
 
 	/**
@@ -75,41 +75,15 @@ public class BasicController extends DefaultController {
 	 * @return
 	 * @throws IOException
 	 */
-	/*
 	@Access
-	@RequestMapping(value="/basic/code1010Search", method={RequestMethod.POST}, headers = "Accept=application/json")
-	public String code1010Search(HttpServletRequest request,
-					Model models,
-					@RequestBody Map<String, Object> model,
-					@RequestHeader(value="referer", required=false) final String referer
-			) throws IOException {
+	@RequestMapping("/basic/bsc1030Search")
+	public String bsc1010Search(HttpServletRequest request, Model model) throws IOException {
 
 		ParamsVO params = getParams(request);
-		params.add("condition", model.get("condition").toString());
-		params.add("searchWord", model.get("searchWord").toString());
-
-		List<Object> list = basicService.code1010Search(params);
-
-//		addObject(models, "total", 1);
-//		addObject(models, "page", 1);
-//		addObject(models, "records", 6);
-		addObject(models, "rows", list);
-
-		return "jsonView";
-	}
-	*/
-
-	@Access
-	@RequestMapping("/basic/code1010Search")
-	public String code1010Search(HttpServletRequest request, Model model) throws IOException {
-
-		ParamsVO params = getParams(request);
-
-		Object list = basicService.code1010Search(params);
-
+		Object list = basicService.bsc1010Search(params);
 		addObject(model, list);
 
-		return "/basic/code1010";
+		return "/basic/bsc1030";
 	}
 
 	/**
@@ -122,7 +96,7 @@ public class BasicController extends DefaultController {
 	 * @param cellValue
 	 * @return
 	 */
-	@RequestMapping("/basic/code1010Update")
+	@RequestMapping("/basic/bsc1030Update")
 	public @ResponseBody String code1010Update (HttpServletRequest request,
 					Model models,
 					@RequestBody Map<String, Object> model,
@@ -137,6 +111,12 @@ public class BasicController extends DefaultController {
 
 
 		return "SUCCESS";
+	}
+
+	@Access
+	@RequestMapping("/basic/bsc1020")
+	public String bsc1020(@RequestParam Map<String, Object> paramMap, Model model) throws Throwable{
+		return "/basic/bsc1020";
 	}
 
 	/*
