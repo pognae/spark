@@ -4,16 +4,15 @@
 <mapper namespace="comCode">
 
     <select id="getComCode" parameterType="params" resultType="record">
-         SELECT A.CD_NM  AS "text",
-                A.CD_VLD_VAL AS "value"
+         SELECT A.CD_NM  AS "codeValue",
+                A.CD_VLD_VAL AS "codeName"
            FROM TB_COMM_CD A
           WHERE A.CD_ID_NM    = #{cdIdNm}
             AND A.USE_YN = 'Y'
           ORDER BY
-                A.CD_VLD_VAL ASC
+                A.SORT_ORDR ASC
     </select>
 
-    <!-- 20160420 정민승 -->
 	<!-- 관리 > 결제선지정 -->
     <select id="getComCodeList" parameterType="java.util.Map" resultType="java.util.HashMap">
 	  	select
@@ -121,7 +120,6 @@
 		 WHERE STAF_ID = #{userId}
    </select>
 
-   <!-- 20160523 정민승 -->
    <!-- 최종접속일자 변경 -->
    <select id="lstCttDtSearch" parameterType="com.wowpmd.common.model.LoginUser" resultType="com.wowpmd.common.model.LoginUser">
 		SELECT TRUNC(MONTHS_BETWEEN(SYSDATE, A.LST_CTT_DT)) AS LST_CTT_DT
@@ -129,7 +127,6 @@
 		 WHERE A.STAF_ID = #{userId}
    </select>
 
-   <!-- 20160523 정민승 -->
    <!-- 비밀번호 변경 -->
    <update id="comp0001Update"  parameterType="params">
 		UPDATE TB_COMM_STAF A
@@ -138,7 +135,6 @@
 		 WHERE A.STAF_ID = #{stafId}
 	</update>
 
-    <!-- 20160511 최인수 -->
     <!-- TopMenu -->
     <select id="getTopMenuList" parameterType="params" resultType="record">
     	select  MENU_ID       AS    "menuId"
@@ -203,7 +199,7 @@
            FROM TB_COMM_CD A
           WHERE USE_YN = 'Y'
           ORDER BY
-                A.CD_ID_NM, A.CD_VLD_VAL ASC
+                A.CD_ID_NM, A.SORT_ORDR, A.CD_VLD_VAL ASC
     </select>
 
 </mapper>

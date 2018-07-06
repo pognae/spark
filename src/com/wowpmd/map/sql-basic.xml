@@ -15,5 +15,70 @@
           ORDER BY CD_VLD_VAL ASC
     </select>
 
+    <select id="bsc1020Search" parameterType="params" resultType="record">
+    <![CDATA[
+		SELECT	bld_no,
+			bcnc_no,
+			bcnc_nm,
+			bizrno,
+			rprsntv_nm,
+			telno,
+			email,
+			dong,
+			ho,
+			mvn_se,
+			delete_at,
+			register,
+			updde_hour
+		FROM	tb_custom
+		WHERE	bld_no = #{bldNo}
+	]]>
+		<!--
+		AND	bcnc_no = #{bcncNo}
+		AND	bcnc_nm = #{bcncNm}
+		AND	bizrno = #{bizrno}
+		AND	rprsntv_nm = #{rprsntvNm}
+		AND	telno = #{telno}
+		AND	email = #{email}
+		AND	dong = #{dong}
+		AND	ho = #{ho}
+		AND	mvn_se = #{mvnSe}
+		AND	delete_at = #{deleteAt}
+		AND	register = #{register}
+		AND	updde_hour = #{upddeHour}
+		 -->
+    </select>
+
+    <insert id="insertAccount" parameterType="params">
+		INSERT INTO TB_CUSTOM (
+			bld_no
+			, bcnc_no
+			, bcnc_nm
+			, bizrno
+			, rprsntv_nm
+			, telno
+			, email
+			, dong
+			, ho
+			, mvn_se
+			, delete_at
+			, register
+			, updde_hour
+		) VALUES(
+			#{bldNo}
+			, (SELECT IFNULL(MAX(BCNC_NO)+1, 'C001') FROM TB_CUSTOM A)
+			, #{bcncNm}
+			, #{bizrno}
+			, #{rprsntvNm}
+			, #{telno}
+			, #{email}
+			, #{dong}
+			, #{ho}
+			, #{mvnSe}
+			, 'N'
+			, #{register}
+			, now()
+		)
+    </insert>
 
 </mapper>

@@ -29,16 +29,16 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 
 /**
- * 
+ *
  * 클래스명: <code>CustomTagSupport</code>
  *
  * <pre>
  *  설명을 기입하세요
- *  
+ *
  *  공통 커스텀태그
  *  체크박스/select박스/라디오박스
  *  에 해당하는 커스텀태그
- *  
+ *
  *  기본으로는 사용자가 입력한 input에서 찾는다
  *  없으면 코드에서 뒤진다.
  * </pre>
@@ -47,9 +47,9 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  */
 @SuppressWarnings("serial")
 public class CustomTagSupport extends BodyTagSupport {
-    
+
     /**
-     * 벨로시티 init 여부 
+     * 벨로시티 init 여부
      */
     private static boolean velocityInitYn;
 
@@ -62,7 +62,7 @@ public class CustomTagSupport extends BodyTagSupport {
      * 파라매터명
      */
     private String name;
-    
+
     /**
      * id
      */
@@ -97,40 +97,40 @@ public class CustomTagSupport extends BodyTagSupport {
      * 키이름 (,로 구분)
      */
     private String keyName;
-    
+
     /**
      * style(하드코딩시에)
      */
     private String style;
-    
+
     /**
      * 제외값
      */
     private String except;
-    
+
     /**
      * default값
      */
     private String defaultValue;
-    
+
     /**
      * label 값
      */
     private String lavel;
-    
+
     /**
      * label에 다른 클래스를 적용할 값
      */
     private String point;
-    
+
     /**
      * label에 다른 클래스를 적용할 클래스명
      */
     private String pointClass;
-    
+
     @Override
     public int doEndTag() throws JspException {
-        
+
         if(!velocityInitYn){
             try {
                 velocityInit();
@@ -139,7 +139,7 @@ public class CustomTagSupport extends BodyTagSupport {
                 e1.printStackTrace();
             }
         }
-        
+
         Object optionData = getOptionData();
         Template template = null;
         VelocityContext context = null;
@@ -148,12 +148,12 @@ public class CustomTagSupport extends BodyTagSupport {
             if (optionData == null) {
                 return SKIP_BODY;
             } else if (optionData instanceof List<?>) {
-            	
+
             	@SuppressWarnings("unchecked")
                 List<Parameter> options = (List<Parameter>) optionData;
                 template = Velocity.getTemplate(this.tagFileName);
                 context = new VelocityContext();
-                
+
                 if(options.size() > 0){
                     context.put("options", options);
                 }
@@ -172,7 +172,7 @@ public class CustomTagSupport extends BodyTagSupport {
                 context = setMoreContextData(context);
 
                 template.merge(context, pageContext.getOut());
-                
+
             } else {
                 return SKIP_BODY;
             }
@@ -186,16 +186,16 @@ public class CustomTagSupport extends BodyTagSupport {
 
     /**
      * 벨로시티 init
-     * @brief   
-     * @details 
+     * @brief
+     * @details
      * @throws Exception
      */
     private void velocityInit() throws Exception {
-        
+
         velocityInitYn = true;
-        
+
         Properties properties = new Properties();
-        
+
         properties.setProperty("resource.loader", "file");
         properties.setProperty("file.resource.loader.description", "Velocity File Resource Loader");
         properties.setProperty("file.resource.loader.class", "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
@@ -205,26 +205,27 @@ public class CustomTagSupport extends BodyTagSupport {
         properties.setProperty("output.encoding", "UTF-8");
         properties.setProperty("input.encoding", "UTF-8");
         properties.setProperty("default.contentType", "UTF-8");
-        
+        properties.setProperty("runtime.log.logsystem.class", "org.apache.velocity.runtime.log.NullLogChute");
+
         ServletRequestAttributes ra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         ServletContext sc = ra.getRequest().getSession().getServletContext();
-        
+
         String loaderPath = properties.getProperty("file.resource.loader.path");
         String realPath = sc.getRealPath(loaderPath);
-        
+
         properties.setProperty("file.resource.loader.path", realPath);
-        
-        Velocity.init(properties);        
+
+        Velocity.init(properties);
     }
-    
+
     public Object getUserInput() {
         return pageContext.getAttribute(this.key, PageContext.REQUEST_SCOPE);
     }
-    
+
     /**
      * <option> 데이터 생성
-     * @brief   
-     * @details 
+     * @brief
+     * @details
      * @return
      */
     public Object getOptionData() {
@@ -232,10 +233,10 @@ public class CustomTagSupport extends BodyTagSupport {
         if (optionData == null) {
             optionData = getCode();
         }
-        
+
         return optionData;
     }
-    
+
     public Object getCode() {
         ApplicationContext applicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(super.pageContext.getServletContext());
         SystemService systemService = applicationContext.getBean(SystemService.class);
@@ -254,20 +255,20 @@ public class CustomTagSupport extends BodyTagSupport {
             return null;
         }
     }
-    
+
     public VelocityContext setMoreContextData(VelocityContext context) {
         return context;
     }
-    
+
     /**
      * 제외시킬 목록
-     * @brief   
-     * @details 
+     * @brief
+     * @details
      * @param context
      */
     public void setExcept(VelocityContext context) {
         if(!StringUtils.isEmpty(except)) {
-            
+
             String[] excepts = except.split(",");
             Map<String, String> exceptMap = new HashMap<String, String>();
             for (String key : excepts) {
@@ -277,17 +278,17 @@ public class CustomTagSupport extends BodyTagSupport {
             context.put("except", exceptMap);
         }
     }
-    
+
     /**
      * @brief 다른 클래스명을 적용할 값들
-     * @details  
-     * @param 
-     * @return 
-     * @throws 
+     * @details
+     * @param
+     * @return
+     * @throws
      */
     public void setPoint(VelocityContext context) {
-        
-        if(!StringUtils.isEmpty(point)) {            
+
+        if(!StringUtils.isEmpty(point)) {
             String[] points = point.split(",");
             Map<String, String> pointMap = new HashMap<String, String>();
             for (String key : points) {
@@ -297,8 +298,8 @@ public class CustomTagSupport extends BodyTagSupport {
             context.put("point", pointMap);
         }
     }
-    
-   
+
+
     public String getTagFileName() {
         return tagFileName;
     }
@@ -406,7 +407,7 @@ public class CustomTagSupport extends BodyTagSupport {
     public String getPoint() {
         return point;
     }
-    
+
     public void setPoint(String point) {
         this.point = point;
     }
@@ -418,5 +419,5 @@ public class CustomTagSupport extends BodyTagSupport {
     public void setPointClass(String pointClass) {
         this.pointClass = pointClass;
     }
-    
+
 }

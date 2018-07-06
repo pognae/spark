@@ -6,13 +6,12 @@
 package com.wowpmd.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.wowpmd.common.model.ParamsVO;
-import com.wowpmd.vo.PagingVO;
+import com.wowpmd.vo.ResultVO;
 
 /**
- * AccAccServiceImpl
+ * BasicService
  *
  * @version 1.0 2016/04/29
  */
@@ -21,5 +20,7 @@ public interface BasicService {
 
 	public List<Object> bsc1010Search(ParamsVO params);
 
+	public List<Object> bsc1020Search(ParamsVO params);
 
+	public ResultVO insertAccount(ParamsVO params);
 }

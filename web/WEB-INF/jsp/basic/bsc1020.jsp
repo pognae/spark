@@ -43,7 +43,7 @@ function bindEvent() {
     });
 
     $(".bsc1020-add-btn").click(function(event) {
-    	addRow();
+    	popup1();
     });
 }
 
@@ -51,6 +51,7 @@ function bsc1020Search(page) {
     if (page) {
         $("#page").val(page);
     }
+
     $("#bsc1020SearchForm").attr("action", "<c:url value="/basic/bsc1020Search"/>").submit();
 }
 /*
@@ -64,7 +65,11 @@ function cuso0020Search() {
     });
 }
  */
-
+function popup1(){
+	var popUrl = "/popup/bsc1021";	//팝업창에 출력될 페이지 URL
+	var popOption = "width=938, height=510, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+		window.open(popUrl,"",popOption);
+}
 </script>
 
 </head>
@@ -106,7 +111,6 @@ function cuso0020Search() {
 								      		<th scope="col">거래처명</th>
 								      		<th scope="col">전화번호</th>
 								      		<th scope="col">사업자등록번호</th>
-								      		<th scope="col">사업자번호</th>
 								      		<th scope="col">동</th>
 								      		<th scope="col">호</th>
 								    	</tr>
@@ -114,18 +118,17 @@ function cuso0020Search() {
 								  	<tbody>
 								  		<c:forEach var="item" items="${data}" varStatus="status">
 									    	<tr>
-									      		<th scope="row"><c:out value="${item.cdIdNm}"/></th>
-									      		<td><c:out value="${item.cdVldVal}"/></td>
-									      		<td><c:out value="${item.cdNm}"/></td>
-									      		<td><c:out value="${item.apclStrDt}"/></td>
-									      		<td><c:out value="${item.apclEndDt}"/></td>
-									      		<td><c:out value="${item.useYn}"/></td>
-									      		<td><c:out value="${item.useYn}"/></td>
+									      		<th scope="row"><c:out value="${item.bcncNo}"/></th>
+									      		<td><c:out value="${item.bcncNm}"/></td>
+									      		<td><c:out value="${item.telno}"/></td>
+									      		<td><c:out value="${item.bizrno}"/></td>
+									      		<td><c:out value="${item.dong}"/></td>
+									      		<td><c:out value="${item.ho}"/></td>
 									    	</tr>
 								  		</c:forEach>
 										<c:if test="${empty data}">
 					                        <tr>
-					                            <td colspan="7" style="text-align: center;">검색된 자료가 없습니다.</td>
+					                            <td colspan="6" style="text-align: center;">검색된 자료가 없습니다.</td>
 					                        </tr>
 				                        </c:if>
 								  	</tbody>

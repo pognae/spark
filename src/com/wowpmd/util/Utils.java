@@ -36,7 +36,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 
 import com.kr.framework.util.Closer;
-import com.wowpmd.web.Constants;
+import com.wowpmd.constants.Constants;
 
 /**
  * 

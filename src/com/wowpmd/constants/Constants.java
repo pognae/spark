@@ -1,4 +1,4 @@
-package com.wowpmd.web;
+package com.wowpmd.constants;
 
 import java.util.HashSet;
 import java.util.Set;

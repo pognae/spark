@@ -57,6 +57,7 @@ public class LoginUser {
 	private String hostName;
 	private String drmPswd;
 	private String lstCttDt;
+	private String bldNo;
 
 	public String getLstCttDt() {
 		return lstCttDt;
@@ -411,5 +412,11 @@ public class LoginUser {
 				+ bankAcnt + ", bfTeamCode=" + bfTeamCode + ", kamcoId=" + kamcoId + ", spcMemo=" + spcMemo
 				+ ", fstOpr=" + fstOpr + ", fstOpdt=" + fstOpdt + ", lstOpr=" + lstOpr + ", lstOpdt=" + lstOpdt
 				+ ", hostName=" + hostName + ", drmPswd=" + drmPswd + ", lstCttDt=" + lstCttDt + "]";
+	}
+	public String getBldNo() {
+		return bldNo;
+	}
+	public void setBldNo(String bldNo) {
+		this.bldNo = bldNo;
 	}
 }

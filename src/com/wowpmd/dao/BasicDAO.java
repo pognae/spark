@@ -11,6 +11,7 @@ import java.util.Map;
 import com.wowpmd.common.model.ParamsVO;
 import com.wowpmd.common.model.RecordVO;
 import com.wowpmd.vo.PagingVO;
+import com.wowpmd.vo.ResultVO;
 
 /**
  * AccAccServiceImpl
@@ -20,5 +21,9 @@ import com.wowpmd.vo.PagingVO;
 public interface BasicDAO {
 
 	public List<Object> bsc1010Search(ParamsVO params);
+
+	public List<Object> bsc1020Search(ParamsVO params);
+
+	public int insertAccount(ParamsVO params);
 
 }

@@ -14,6 +14,7 @@ import com.wowpmd.common.model.ParamsVO;
 import com.wowpmd.common.model.RecordVO;
 import com.wowpmd.dao.BaseDAO;
 import com.wowpmd.vo.PagingVO;
+import com.wowpmd.vo.ResultVO;
 
 @Repository
 public  class BasicDAOImpl extends BaseDAO implements BasicDAO {
@@ -21,6 +22,16 @@ public  class BasicDAOImpl extends BaseDAO implements BasicDAO {
 	@Override
 	public List<Object> bsc1010Search(ParamsVO params) {
 		return search("basic.bsc1010Search", params);
+	}
+
+	@Override
+	public int insertAccount(ParamsVO params) {
+		return update("basic.insertAccount", params);
+	}
+
+	@Override
+	public List<Object> bsc1020Search(ParamsVO params) {
+		return search("basic.bsc1020Search", params);
 	}
 
 

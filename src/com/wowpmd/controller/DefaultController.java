@@ -587,6 +587,7 @@ public class DefaultController extends com.kr.framework.web.BaseController {
 			if(loginUser == null) {
 				loginUser = new LoginUser();
 				loginUser.setUserId("dev");
+				loginUser.setBldNo("A0001");
 				session.setAttribute(USER_SESSION_KEY, loginUser);
 			}
 		}

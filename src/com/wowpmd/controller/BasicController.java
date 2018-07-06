@@ -1,10 +1,7 @@
 package com.wowpmd.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,20 +12,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kr.framework.security.Access;
 import com.wowpmd.acc.service.AccAccService;
 import com.wowpmd.common.model.FileMeta;
+import com.wowpmd.common.model.LoginUser;
 import com.wowpmd.common.model.ParamsVO;
+import com.wowpmd.common.service.ComCodeService;
 import com.wowpmd.common.service.SystemService;
 import com.wowpmd.service.BasicService;
 import com.wowpmd.util.SoftUtil;
-import com.wowpmd.vo.JsonObj;
+import com.wowpmd.vo.ResultVO;
 
 
 @Controller
@@ -52,6 +49,9 @@ public class BasicController extends DefaultController {
 
 	@Autowired
 	private SystemService systemService;
+
+	@Autowired
+	private ComCodeService comCodeService;
 
 	/**
 	 * 코드관리
@@ -117,6 +117,47 @@ public class BasicController extends DefaultController {
 	@RequestMapping("/basic/bsc1020")
 	public String bsc1020(@RequestParam Map<String, Object> paramMap, Model model) throws Throwable{
 		return "/basic/bsc1020";
+	}
+
+	@Access
+	@RequestMapping("/basic/bsc1020Search")
+	public String bsc1020Search(HttpServletRequest request, @RequestParam Map<String, Object> paramMap, Model model) throws Throwable {
+
+		ParamsVO params = getParams(request);
+		LoginUser loginUser = getLoginUser(request);
+		params.add("bldNo", loginUser.getBldNo());
+		params.add("register", loginUser.getUserId());
+
+		Object list = basicService.bsc1020Search(params);
+		addObject(model, list);
+
+		return "/basic/bsc1020";
+	}
+
+	@Access
+	@RequestMapping("/popup/bsc1021")
+	public String bsc1021(HttpServletRequest request, @RequestParam Map<String, Object> paramMap, Model model) throws Throwable {
+
+		ParamsVO params = getParams(request);
+
+//		addObject(model, "mvnSe", getComCode("USE_YN"));
+		addObject(model, "mvnSe", systemService.getCodeHandler().getCodes("USE_YN"));
+
+		return "/popup/bsc1021";
+	}
+
+	@Access
+	@RequestMapping("/popup/bsc1021/insert")
+	public String bsc1021Add(HttpServletRequest request, @RequestParam Map<String, Object> paramMap, Model model) throws Throwable {
+
+		ParamsVO params = getParams(request);
+		LoginUser loginUser = getLoginUser(request);
+		params.add("bldNo", loginUser.getBldNo());
+		params.add("register", loginUser.getUserId());
+
+		ResultVO result = basicService.insertAccount(params);
+
+		return alertAndForward("/popup/bsc1021", result.getMessages().getMessage());
 	}
 
 	/*
