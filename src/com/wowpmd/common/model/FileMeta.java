@@ -1,6 +1,8 @@
 package com.wowpmd.common.model;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+//import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @JsonIgnoreProperties({"bytes"})
 public class FileMeta {

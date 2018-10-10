@@ -13,11 +13,15 @@
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+       xmlns:encryption="http://www.jasypt.org/schema/encryption"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       						http://www.jasypt.org/schema/encryption http://www.jasypt.org/schema/encryption/jasypt-spring31-encryption-1.xsd">
+
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- Property Configurer                                                 -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!--
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
@@ -25,5 +29,25 @@
             </list>
         </property>
     </bean>
+ 	-->
+
+	<bean id="encryptorConfig" class="org.jasypt.encryption.pbe.config.EnvironmentPBEConfig">
+	    <property name="algorithm" value="PBEWithMD5AndDES" />
+	    <property name="passwordEnvName" value="ASOG_ENCRYPTION_KEY" />
+	</bean>
+
+	<bean id="encryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+	    <property name="config" ref="encryptorConfig" />
+	</bean>
+
+	<bean class="org.jasypt.spring.properties.EncryptablePropertyPlaceholderConfigurer">
+	    <constructor-arg ref="encryptor" />
+	    <property name="locations">
+	        <list>
+	            <value>classpath:/app.properties</value>
+	        </list>
+	    </property>
+	</bean>
+
 
 </beans>

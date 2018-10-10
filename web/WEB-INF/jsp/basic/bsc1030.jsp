@@ -1,11 +1,6 @@
 <html>
 <head>
-<meta name="selection" content="code1010"/>
-<style>
-table {
-	font-size:98%
-}
-</style>
+<meta name="selection" content="bsc1030"/>
 
 <script type="text/javascript">
 var params = {};
@@ -16,93 +11,93 @@ $(function() {
     bindMask();
     // 이벤트를 바인딩한다.
     bindEvent();
+
+    //alert("${apclStrDt}");
+    /*
+    console.log("${apclStrDt}");
+    console.log("${param.apclStrDt}");
+    console.log("${apclEndDt}");
+    console.log("${param.apclEndDt}");
+    */
 });
 
 function initComp() {
-    //  텍스트필드에 디폴트 값을 설정한다.
+    // 적용시작일자 텍스트필드에 날짜 마스크를 바인딩한다.
+    $("#apclStrDt").val("${apclStrDt}");
+    $("#apclEndDt").val("${apclEndDt}");
 }
 
 function bindMask() {
-    // 적용시작일자 텍스트필드에 날짜 마스크를 바인딩한다.
     //$("#bascDt").setMask({ mask:"9999-19-39" });
 
     // 적용시작일자 텍스트필드에 날짜 선택기를 바인딩한다.
-    //$("#bascDt").datepicker();
+	$('#apclStrDtDatepicker').datetimepicker({
+		format: 'YYYY-MM-DD'
+	});
+	//$('#apclStrDt').val("${apclStrDt}");
+
+	$('#apclEndDtDatepicker').datetimepicker({
+		format: 'YYYY-MM-DD'
+	});
 }
 
 /**
  * 이벤트를 바인딩한다.
  */
 function bindEvent() {
-    $(".code1010-search-btn").each(function(index, element) {
+    $(".bsc1030-search-btn").each(function(index, element) {
         $(this).bind("click", function(event) {
-        	code1010Search();
+        	bsc1030Search();
             return false;
         });
     });
-
-    $(".code1010-add-btn").click(function(event) {
-    	addRow();
-    });
 }
 
-function code1010Search(page) {
+function bsc1030Search(page) {
     if (page) {
         $("#page").val(page);
     }
-    $("#code1010SearchForm").attr("action", "<c:url value="/basic/code1010Search"/>").submit();
-}
-/*
-function cuso0020Search() {
-    openWindow("/popup/cus/cusLnd/cusp0001", "cusp0001", {
-        width:1050,
-        height:350
-    }, {
-        callback:"cusp0001Callback"
-        , custDvCd:"2"
-    });
-}
- */
 
+    $("#bsc1030SearchForm").attr("action", "<c:url value="/basic/bsc1030Search"/>").submit();
+}
 </script>
 
 </head>
 
 <body>
-<form name="code1010SearchForm" id="code1010SearchForm" method="post">
-<input type="hidden" id="page" name="page" value="<c:out value="${param.page}" default="1" />" />
-<input type="hidden" id="rows" name="rows" value="<c:out value="${param.rows}" default="5" />" />
 
-<div class="code1010">
+
+<div class="bsc1030">
   	<div class="page-title">
 
     	<div class="row">
     		<div class="col-md-12">
+
+    		<form class="form-inline form-label-left" name="bsc1030SearchForm" id="bsc1030SearchForm" method="post" role="form">
+				<input type="hidden" id="page" name="page" value="<c:out value="${param.page}" default="1" />" />
+				<input type="hidden" id="rows" name="rows" value="<c:out value="${param.rows}" default="5" />" />
+
 				<div class="x_panel">
 					<div class="x_title">
 						<h2>코드관리 </h2>
                     	<div class="clearfix"></div>
 					</div>
 
-
 					<div class="x_content">
-
-						<div class="col-md-4 col-sm-4">
-							<div class="form-group">
-	                        	<label class="control-label col-md-4 col-sm-4 col-xs-12">코드명</label>
-								<div class="col-md-8 col-sm-8 col-xs-12">
-	                          		<input type="text" id="search" class="form-control" placeholder="">
-	                        	</div>
-	                      	</div>
+						<div class="form-group form-group-sm">
+                        	<label class="control-label" for="search">코드명 </label>
+                          	<input type="text" id="search" class="form-control" placeholder="">
                       	</div>
 
-						<div class="col-md-4 col-sm-4">
-                      	</div>
-
-						<div class="col-md-4 col-sm-4">
-							<a href="#" class="btn btn-primary pull-right code1010-add-btn">추가</a>
-							<a href="#" class="btn btn-primary pull-right code1010-search-btn">검색</a>
+						<div class="form-group">
+							<!--
+							<a href="#" class="btn btn-primary btn-sm pull-right bsc1030-add-btn">추가</a>
+							 -->
+							<a href="#" class="btn btn-primary btn-sm pull-right bsc1030-search-btn">검색</a>
 						</div>
+
+						<br />
+		                <div class="ln_solid"></div>
 
 						<div class="col-md-12" style="margin-left:0px">
 						    <div class="row">
@@ -115,6 +110,7 @@ function cuso0020Search() {
 								      		<th scope="col">코드명</th>
 								      		<th scope="col">적용시작일</th>
 								      		<th scope="col">적용종료일</th>
+								      		<th scope="col">정렬순서</th>
 								      		<th scope="col">적용여부</th>
 								    	</tr>
 								  	</thead>
@@ -126,12 +122,13 @@ function cuso0020Search() {
 									      		<td><c:out value="${item.cdNm}"/></td>
 									      		<td><c:out value="${item.apclStrDt}"/></td>
 									      		<td><c:out value="${item.apclEndDt}"/></td>
+									      		<td><c:out value="${item.sortOrdr}"/></td>
 									      		<td><c:out value="${item.useYn}"/></td>
 									    	</tr>
 								  		</c:forEach>
 										<c:if test="${empty data}">
 					                        <tr>
-					                            <td colspan="6" style="text-align: center;">검색된 자료가 없습니다.</td>
+					                            <td colspan="7" style="text-align:center;">검색된 자료가 없습니다.</td>
 					                        </tr>
 				                        </c:if>
 								  	</tbody>
@@ -142,10 +139,62 @@ function cuso0020Search() {
 
 					</div>
 				</div>
+				</form>
+
+				<div class="x_panel">
+					<div class="x_content">
+
+				        <form action="/basic/bsc1030/insert" method="post">
+							<table class="table table-striped">
+							    <tbody>
+						            <tr>
+						                <td><span class="pull-right">기준코드</span></td>
+						                <td><input type="text" placeholder="" name="cdIdNm" class="form-control" required="required"/></td>
+						                <td><span class="pull-right">코드</span></td>
+						                <td><input type="text" placeholder="" name="cdVldVal" class="form-control" required="required"/></td>
+						                <td><span class="pull-right">코드명</span></td>
+						                <td><input type="text" placeholder="" name="cdNm" class="form-control" required="required"/></td>
+						                <td><span class="pull-right">적용시작일</span></td>
+						                <td>
+											<div class='input-group date' id='apclStrDtDatepicker'>
+												<input type='text' name="apclStrDt" id="apclStrDt" class="form-control" value="${apclStrDt}"/>
+												<span class="input-group-addon">
+													 <span class="glyphicon glyphicon-calendar"></span>
+												</span>
+											</div>
+						                </td>
+						            </tr>
+						            <tr>
+						                <td><span class="pull-right">적용종료일</span></td>
+						                <td>
+											<div class='input-group date' id='apclEndDtDatepicker'>
+												<input type='text' name="apclEndDt" id="apclEndDt" class="form-control" value="${apclEndDt}" />
+												<span class="input-group-addon">
+													 <span class="glyphicon glyphicon-calendar"></span>
+												</span>
+											</div>
+						                </td>
+						                <td><span class="pull-right">정렬순서</span></td>
+						                <td><input type="text" placeholder="" name="sortOrdr" class="form-control" value=""/></td>
+						                <td><span class="pull-right">적용여부</span></td>
+						                <td>
+											<ui:select iD="useYn" name="useYn" value="${useYn}" clazz="form-control" key="useYn" defaultValue="선택" required="required"/>
+										</td>
+						                <td colspan="2">
+		                          			<button type="submit" class="btn btn-success btn-add pull-right">등록</button>
+		                          			<button type="button" class="btn btn-primary btn-cancel pull-right">취소</button>
+						                </td>
+						            </tr>
+							    </tbody>
+							</table>
+				        </form>
+
+					</div>
+				</div>
     		</div>
     	</div>
     </div>
 </div>
-</form>
+
 </body>
 </html>

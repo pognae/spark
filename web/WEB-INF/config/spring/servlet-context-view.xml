@@ -13,20 +13,29 @@
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- View                                                                -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- Json View -->
+    <!--
     <bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
         <property name="contentType" value="text/html; charset=UTF-8" />
     </bean>
+ 	-->
+	<!-- Spring3 이상, jackson 라이브러리 2 이상일 때는 MappingJackson2JsonView 로 설정. -->
+	<bean id="jsonMapper" class="com.fasterxml.jackson.databind.ObjectMapper" />
+	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+		<property name="objectMapper" ref="jsonMapper" />
+		<property name="contentType" value="text/html; charset=UTF-8" />
+	</bean>
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- View Resolver                                                       -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- Content Negotiating View Resolver -->
+    <!--
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
         <property name="mediaTypes">
             <map>
@@ -44,6 +53,20 @@
         <property name="ignoreAcceptHeader" value="true" />
         <property name="order" value="0" />
     </bean>
+     -->
+	<bean id="contentNegotiationManager"  class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="favorPathExtension" value="true" />
+        <property name="ignoreAcceptHeader" value="true"/>
+        <property name="useJaf" value="false"/>
+        <property name="defaultContentType" value="text/html" />
+
+        <property name="mediaTypes">
+            <map>
+                <entry key="json" value="application/json"/>
+           </map>
+        </property>
+    </bean>
+
 
     <!-- Bean Name View Resolver -->
     <bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
@@ -52,6 +75,7 @@
 
     <!-- Internal Resource View Resolver -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    	<property name="contentType" value="text/html; charset=UTF-8" />
         <property name="prefix" value="/WEB-INF/jsp" />
         <property name="suffix" value=".jsp" />
         <property name="order" value="2" />

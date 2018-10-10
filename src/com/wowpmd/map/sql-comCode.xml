@@ -6,7 +6,7 @@
     <select id="getComCode" parameterType="params" resultType="record">
          SELECT A.CD_NM  AS "codeValue",
                 A.CD_VLD_VAL AS "codeName"
-           FROM TB_COMM_CD A
+           FROM TB_COMM_CODE A
           WHERE A.CD_ID_NM    = #{cdIdNm}
             AND A.USE_YN = 'Y'
           ORDER BY
@@ -196,7 +196,7 @@
               <!--
               , A.USE_YN AS "codeUseYn"
                -->
-           FROM TB_COMM_CD A
+           FROM TB_COMM_CODE A
           WHERE USE_YN = 'Y'
           ORDER BY
                 A.CD_ID_NM, A.SORT_ORDR, A.CD_VLD_VAL ASC

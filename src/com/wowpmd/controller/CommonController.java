@@ -20,7 +20,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
+//import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import com.kr.framework.config.Config;
 import com.kr.framework.security.Access;
@@ -153,12 +154,13 @@ public class CommonController extends DefaultController {
         if(StringUtils.isEmpty(reloadCode)) {
             save = false;
             errorMessages.add("리로드를 실패 했습니다.");
-        } else if(StringUtils.equals(reloadCode, "code")){
+        } else if(StringUtils.equals(reloadCode, "code")) {
             this.systemService.reloadCodeHandler();        // 코드 리로드
         }
 
         model.addAttribute(this.errorMessageKey, errorMessages);
         model.addAttribute("save", save);
-        return new MappingJacksonJsonView();
+//        return new MappingJacksonJsonView();
+        return new MappingJackson2JsonView();
     }
 }

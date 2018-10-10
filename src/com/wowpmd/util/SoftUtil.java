@@ -8,7 +8,9 @@ import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.security.core.Authentication;
+//import org.apache.tomcat.util.net.jsse.openssl.Authentication;
+
+//import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 
@@ -23,13 +25,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public class SoftUtil{
 
 	/* spring security 에서 로그인 유무 체크 */
-	public static boolean checkLogin(String isLogin){
+	public static boolean checkLogin(String isLogin) {
 
 		//String isLogin = SoftUtil.print(config.getProperty("login.isLogin"));
 
 		boolean flag = "true".equals(isLogin)?true:false;
 
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName(); //get logged in username
 
 		//로그인 프로퍼티 값이 true 이고 로그인을 하지 않을 상태라면 false 로그인 했으면 true
@@ -42,6 +44,7 @@ public class SoftUtil{
 
 		return flag;
 	}
+
 
 	/**
 		null을 ""으로

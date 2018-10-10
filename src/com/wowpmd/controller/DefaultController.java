@@ -57,6 +57,8 @@ public class DefaultController extends com.kr.framework.web.BaseController {
 
     protected final String USER_SESSION_KEY = "userLoginInfo";
 
+//    protected LoginUser loginUser = getLoginUser(this.getRequest());
+
     /**
      * 디폴트 생성자이다.
      */
@@ -65,6 +67,8 @@ public class DefaultController extends com.kr.framework.web.BaseController {
 
         // 로그를 생성한다.
         log = LogFactory.getLog(getClass());
+
+
     }
 
     /**
@@ -301,6 +305,8 @@ public class DefaultController extends com.kr.framework.web.BaseController {
      */
     private void addUserParameter(ParamsVO params, HttpServletRequest request) {
         // Nothing to do.
+    	params.add("bldNo", this.getLoginUser().getBldNo());
+		params.add("register", this.getLoginUser().getUserId());
     }
 
     /**
@@ -380,12 +386,10 @@ public class DefaultController extends com.kr.framework.web.BaseController {
         if (result.getSuccess()) {
             if (name != null) {
                 model.addAttribute(name, result.getMessages());
-            }
-            else {
+            } else {
                 model.addAttribute(ModelAttribute.SUCCESS, result.getMessages());
             }
-        }
-        else {
+        } else {
             model.addAttribute(ModelAttribute.ERROR, result.getMessages());
         }
     }
@@ -405,20 +409,17 @@ public class DefaultController extends com.kr.framework.web.BaseController {
 
             if (name != null) {
                 model.addAttribute(name, paging.getData());
-            }
-            else {
+            } else {
                 model.addAttribute(ModelAttribute.DATA, paging.getData());
             }
 
             model.addAttribute(ModelAttribute.COUNT, paging.getCount());
             model.addAttribute(ModelAttribute.TOTAL, paging.getTotal());
             model.addAttribute(ModelAttribute.PAGES, paging.getPages());
-        }
-        else {
+        } else {
             if (name != null) {
                 model.addAttribute(name, data);
-            }
-            else {
+            } else {
                 model.addAttribute(ModelAttribute.DATA, data);
             }
         }

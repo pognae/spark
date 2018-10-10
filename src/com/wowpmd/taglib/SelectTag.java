@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.VelocityContext;
 
 /**
- * 
+ *
  * 클래스명: <code>SelectTag</code>
  *
  * <pre>
@@ -19,38 +19,41 @@ import org.apache.velocity.VelocityContext;
 public class SelectTag extends CustomTagSupport {
 
     private static final String SELECT_TEMPLATE_NAME = "selectTag.vm";
-    
+
     private String defaultValue;
 
     private String onchange;
-    
+
     private String disabled;
-    
+
     private String tabindex;
-    
+
     private String keyvalue;
-    
+
+    private String required;
+
     public SelectTag() {
         setTagFileName(SELECT_TEMPLATE_NAME);
     }
-    
+
     @Override
     public int doAfterBody() throws JspException {
         BodyContent body = super.getBodyContent();
         if (body != null) {
             this.defaultValue = body.getString();
         }
-        
+
         return SKIP_BODY;
     }
-    
+
     @Override
     public VelocityContext setMoreContextData(VelocityContext context) {
         context.put("onchange", this.onchange);
         context.put("disabled", this.disabled);
         context.put("tabindex", this.tabindex);
+        context.put("required", this.required);
         context.put("defaultValue", this.defaultValue);
-        
+
         if(!StringUtils.isEmpty(this.keyvalue)){
             Object value = pageContext.getAttribute(this.keyvalue, PageContext.REQUEST_SCOPE);
             if(value != null){
@@ -104,4 +107,12 @@ public class SelectTag extends CustomTagSupport {
     public static String getSelectTemplateName() {
         return SELECT_TEMPLATE_NAME;
     }
+
+	public String getRequired() {
+		return required;
+	}
+
+	public void setRequired(String required) {
+		this.required = required;
+	}
 }

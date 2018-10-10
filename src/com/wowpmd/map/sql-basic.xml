@@ -4,34 +4,53 @@
 <mapper namespace="basic">
 
     <select id="bsc1010Search" parameterType="params" resultType="record">
-         SELECT CD_ID_NM
-		      , CD_VLD_VAL
-		      , CD_NM
-              , APCL_STR_DT
-			  , APCL_END_DT
-			  ,	USE_YN
-           FROM TB_COMM_CD
-          WHERE 1=1
-          ORDER BY CD_VLD_VAL ASC
+	<![CDATA[
+		SELECT	BLD_NO,
+				GROUP_CODE_ID,
+				CODE_ID,
+				GROUP_CODE_NM,
+				CODE_NM,
+				SORT_ORDR,
+				UPPER_GROUP_CODE_ID,
+				UPPER_CODE_ID,
+				(SELECT CD_NM FROM TB_COMM_CODE T WHERE T.CD_ID_NM = 'USE_YN' AND T.CD_VLD_VAL=USE_YN) USE_YN,
+				REGISTER,
+				UP_DATETIME
+		FROM	TB_ACCOUNT
+		WHERE	BLD_NO = #{bldNo}
+		ORDER BY GROUP_CODE_ID, CODE_ID
+	]]>
+		<!--
+		AND	group_code_id = #{groupCodeId}
+		AND	code_id = #{codeId}
+		AND	group_code_nm = #{groupCodeNm}
+		AND	code_nm = #{codeNm}
+		AND	sort_ordr = #{sortOrdr}
+		AND	upper_group_code_id = #{upperGroupCodeId}
+		AND	upper_code_id = #{upperCodeId}
+		AND	use_yn = #{useYn}
+		AND	register = #{register}
+		AND	up_datetime = #{upDatetime}
+		-->
     </select>
 
     <select id="bsc1020Search" parameterType="params" resultType="record">
     <![CDATA[
-		SELECT	bld_no,
-			bcnc_no,
-			bcnc_nm,
-			bizrno,
-			rprsntv_nm,
-			telno,
-			email,
-			dong,
-			ho,
-			mvn_se,
-			delete_at,
-			register,
-			updde_hour
-		FROM	tb_custom
-		WHERE	bld_no = #{bldNo}
+		SELECT	BLD_NO,
+				BCNC_NO,
+				BCNC_NM,
+				BIZRNO,
+				RPRSNTV_NM,
+				TELNO,
+				EMAIL,
+				DONG,
+				HO,
+				if(MVN_SE='Y', '입주', '') MVN_SE,
+				DELETE_AT,
+				REGISTER,
+				UPDDE_HOUR
+		FROM	TB_CUSTOM
+		WHERE	BLD_NO = #{bldNo}
 	]]>
 		<!--
 		AND	bcnc_no = #{bcncNo}
@@ -49,21 +68,21 @@
 		 -->
     </select>
 
-    <insert id="insertAccount" parameterType="params">
+    <insert id="insertCustom" parameterType="params">
 		INSERT INTO TB_CUSTOM (
-			bld_no
-			, bcnc_no
-			, bcnc_nm
-			, bizrno
-			, rprsntv_nm
-			, telno
-			, email
-			, dong
-			, ho
-			, mvn_se
-			, delete_at
-			, register
-			, updde_hour
+			BLD_NO
+			, BCNC_NO
+			, BCNC_NM
+			, BIZRNO
+			, RPRSNTV_NM
+			, TELNO
+			, EMAIL
+			, DONG
+			, HO
+			, MVN_SE
+			, DELETE_AT
+			, REGISTER
+			, UPDDE_HOUR
 		) VALUES(
 			#{bldNo}
 			, (SELECT IFNULL(MAX(BCNC_NO)+1, 'C001') FROM TB_CUSTOM A)
@@ -80,5 +99,74 @@
 			, now()
 		)
     </insert>
+
+    <select id="bsc1030Search" parameterType="params" resultType="record">
+    <![CDATA[
+         SELECT CD_ID_NM
+		      , CD_VLD_VAL
+		      , CD_NM
+              , APCL_STR_DT
+			  , APCL_END_DT
+			  ,	USE_YN
+			  , SORT_ORDR
+           FROM TB_COMM_CODE
+          WHERE 1=1
+          ORDER BY CD_ID_NM, SORT_ORDR
+    ]]>
+    </select>
+
+    <insert id="insertCommonCode" parameterType="params">
+		INSERT INTO TB_COMM_CODE (
+			BLD_NO
+			, CD_ID_NM
+			, CD_VLD_VAL
+			, APCL_STR_DT
+			, APCL_END_DT
+			, CD_NM
+			, CD_ALNM
+			, USE_YN
+			, UPD_DTM
+			, SORT_ORDR
+		) VALUES (
+		 	#{bldNo}
+		 	, #{cdIdNm}
+		 	, #{cdVldVal}
+		 	, #{apclStrDt}
+		 	, #{apclEndDt}
+		 	, #{cdNm}
+		 	, #{cdAlnm}
+		 	, #{useYn}
+		 	, now()
+		 	, #{sortOrdr}
+		)
+    </insert>
+
+	<insert id="insertAccount" parameterType="params">
+		INSERT INTO TB_ACCOUNT(
+			BLD_NO
+			, GROUP_CODE_ID
+			, CODE_ID
+			, GROUP_CODE_NM
+			, CODE_NM
+			, SORT_ORDR
+			, UPPER_GROUP_CODE_ID
+			, UPPER_CODE_ID
+			, USE_YN
+			, REGISTER
+			, UP_DATETIME
+		) VALUES (
+			#{bldNo}
+			, #{groupCodeId}
+			, #{codeId}
+			, #{groupCodeNm}
+			, #{codeNm}
+			, #{sortOrdr}
+			, #{upperGroupCodeId}
+			, #{upperCodeId}
+			, #{useYn}
+			, #{register}
+			, now()
+		)
+	</insert>
 
 </mapper>

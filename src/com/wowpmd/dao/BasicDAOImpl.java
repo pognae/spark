@@ -25,13 +25,28 @@ public  class BasicDAOImpl extends BaseDAO implements BasicDAO {
 	}
 
 	@Override
-	public int insertAccount(ParamsVO params) {
-		return update("basic.insertAccount", params);
+	public int insertCustom(ParamsVO params) {
+		return update("basic.insertCustom", params);
 	}
 
 	@Override
 	public List<Object> bsc1020Search(ParamsVO params) {
 		return search("basic.bsc1020Search", params);
+	}
+
+	@Override
+	public List<Object> bsc1030Search(ParamsVO params) {
+		return search("basic.bsc1030Search", params);
+	}
+
+	@Override
+	public int insertCommonCode(ParamsVO params) {
+		return update("basic.insertCommonCode", params);
+	}
+
+	@Override
+	public int insertAccount(ParamsVO params) {
+		return update("basic.insertAccount", params);
 	}
 
 

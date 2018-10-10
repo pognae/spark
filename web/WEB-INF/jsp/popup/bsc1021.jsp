@@ -16,7 +16,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>:::SPARK:::</title>
+<title>:::WOWPMD:::</title>
 
 <!-- Bootstrap -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -72,6 +72,7 @@ $(function() {
     // 이벤트를 바인딩한다.
     bindEvent();
 
+    /*
 	$('#regDtm').datepicker({
 		  showon: 'button'
 			//,inline: true
@@ -83,6 +84,7 @@ $(function() {
 	$('#regDtm').val(
 		$.datepicker.formatDate('yy-mm-dd', new Date())
 	);
+	 */
 
 	$("frm").validate();
 });
@@ -284,7 +286,7 @@ window.onload = function() {
 			                        <%--
 			                        <ui:select iD="mvnSe" name="mvnSe" value="${param.mvnSe}" clazz="form-control" key="mvnSe" defaultValue="N" except="N"/>
 			                         --%>
-			                        <ui:select iD="mvnSe" name="mvnSe" value="${param.mvnSe}" clazz="form-control" key="mvnSe"/>
+			                        <ui:select iD="mvnSe" name="mvnSe" value="${param.mvnSe}" clazz="form-control" key="mvnSe" defaultValue="선택" required="required"/>
 		                        </div>
                       		</div>
 

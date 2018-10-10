@@ -44,13 +44,20 @@
 <!-- bootstrap-daterangepicker -->
 <link href="/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
+<!-- bootstrap-datetimepicker -->
+<link href="/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+
 <!-- Custom Theme Style -->
 <link href="/build/css/custom.min.css" rel="stylesheet">
 
 <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery-ui-1.12.1.custom.min.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="/css/ui.jqgrid.css" />
 <link rel="stylesheet" href="/css/ui.multiselect.css"/>
-
+<style>
+table {
+	font-size:98%
+}
+</style>
 
 <script type="text/javascript" src="/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="/script/system.js"></script>
@@ -65,7 +72,7 @@
 
 
 <script type="text/javascript" src="/js/jquery.oLoader.js"></script>
-
+<%--
 <script type="text/javascript">
 $(function() {
     // 날짜 선택기 디폴트 옵션을 설정한다.
@@ -95,6 +102,7 @@ $(function() {
     }
 });
 </script>
+--%>
 
 <decorator:head />
 </head>
@@ -152,7 +160,7 @@ $(function() {
 				<!-- footer content -->
 				<footer>
 					<div class="pull-right">
-						SPARK - Made by <a href="https://www.wowpmd.co.kr" target="_blank">WOWPMD</a>
+						SPARK - Made by <a href="http://www.wowpmd.co.kr" target="_blank">WOWPMD</a>
 					</div>
 					<div class="clearfix"></div>
 				</footer>
@@ -172,6 +180,9 @@ $(function() {
 
 		<!-- NProgress -->
 		<script src="/vendors/nprogress/nprogress.js"></script>
+
+		<!-- validator -->
+		<script src="/vendors/validator/validator.js"></script>
 
 		<!-- Chart.js -->
 		<script src="/vendors/Chart.js/dist/Chart.min.js"></script>
@@ -211,6 +222,7 @@ $(function() {
 		<!-- bootstrap-daterangepicker -->
 		<script src="/vendors/moment/min/moment.min.js"></script>
 		<script src="/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+		<script src="/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 
 		<script src="/build/js/custom.js?v=<%=System.currentTimeMillis()%>"></script>
 

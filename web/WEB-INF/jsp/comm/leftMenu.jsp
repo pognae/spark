@@ -11,9 +11,29 @@
 				</ul>
 			</li>
 			<li>
-				<a><i class="fa"></i> 전표관리 <span class="fa fa-chevron-down"></span></a>
+				<a><i class="fa fa-calculator"></i> 회계관리 <span class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
-					<li><a href="/acc/accAcc/acco4050">전표등록</a></li>
+					<li><a href="/slip/slp1010">부과원장 등록</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<div class="menu_section">
+		<h3>헤리티지</h3>
+		<ul class="nav side-menu">
+			<li>
+				<a><i class="fa fa-calculator"></i> 입주자/세대관리 <span class="fa fa-chevron-down"></span></a>
+				<ul class="nav child_menu">
+					<li><a href="/resident/rsd1020">세대기본관리</a></li>
+					<li><a href="/resident/rsd1010">입주자관리</a></li>
+					<li><a href="/resident/rsd1030">차량관리</a></li>
+				</ul>
+			</li>
+			<li>
+				<a><i class="fa fa-calculator"></i> 관리비관리 <span class="fa fa-chevron-down"></span></a>
+				<ul class="nav child_menu">
+					<li><a href="/slip/slp1010">관리비 기본등록</a></li>
+					<li><a href="/slip/slp1020">관리비 등록</a></li>
 				</ul>
 			</li>
 		</ul>

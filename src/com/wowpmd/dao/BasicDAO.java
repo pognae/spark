@@ -24,6 +24,12 @@ public interface BasicDAO {
 
 	public List<Object> bsc1020Search(ParamsVO params);
 
+	public List<Object> bsc1030Search(ParamsVO params);
+
+	public int insertCustom(ParamsVO params);
+
+	public int insertCommonCode(ParamsVO params);
+
 	public int insertAccount(ParamsVO params);
 
 }

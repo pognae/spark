@@ -1,12 +1,6 @@
 <html>
 <head>
 <meta name="selection" content="bsc1020"/>
-<style>
-table {
-	font-size:98%
-}
-</style>
-
 
 <script type="text/javascript">
 var params = {};
@@ -101,6 +95,9 @@ function popup1(){
 							<a href="#" class="btn btn-primary btn-sm pull-right bsc1020-search-btn">검색</a>
 						</div>
 
+						<br />
+		                <div class="ln_solid"></div>
+
 						<div class="col-md-12" style="margin-left:0px">
 						    <div class="row">
 
@@ -113,6 +110,7 @@ function popup1(){
 								      		<th scope="col">사업자등록번호</th>
 								      		<th scope="col">동</th>
 								      		<th scope="col">호</th>
+								      		<th scope="col">입주여부</th>
 								    	</tr>
 								  	</thead>
 								  	<tbody>
@@ -124,11 +122,12 @@ function popup1(){
 									      		<td><c:out value="${item.bizrno}"/></td>
 									      		<td><c:out value="${item.dong}"/></td>
 									      		<td><c:out value="${item.ho}"/></td>
+									      		<td><c:out value="${item.mvnSe}"/></td>
 									    	</tr>
 								  		</c:forEach>
 										<c:if test="${empty data}">
 					                        <tr>
-					                            <td colspan="6" style="text-align: center;">검색된 자료가 없습니다.</td>
+					                            <td colspan="7" style="text-align: center;">검색된 자료가 없습니다.</td>
 					                        </tr>
 				                        </c:if>
 								  	</tbody>

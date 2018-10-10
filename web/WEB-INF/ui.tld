@@ -208,6 +208,12 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
+      <description>required필수 항목</description>
+      <name>required</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
       <description>onchange함수</description>
       <name>onchange</name>
       <required>false</required>

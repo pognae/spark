@@ -32,8 +32,8 @@ public class BasicServiceImpl extends BaseService implements BasicService {
 
 	@Override
 	@Transactional
-	public ResultVO insertAccount(ParamsVO params) {
-		basicDAO.insertAccount(params);
+	public ResultVO insertCustom(ParamsVO params) {
+		basicDAO.insertCustom(params);
 
 		return success("등록되었습니다.");
 	}
@@ -41,6 +41,29 @@ public class BasicServiceImpl extends BaseService implements BasicService {
 	@Override
 	public List<Object> bsc1020Search(ParamsVO params) {
 		return basicDAO.bsc1020Search(params);
+	}
+
+	@Override
+	public List<Object> bsc1030Search(ParamsVO params) {
+		return basicDAO.bsc1030Search(params);
+	}
+
+	@Override
+	public ResultVO insertCommonCode(ParamsVO params) {
+
+		params.add("apclStrDt", params.get("apclStrDt").toString().replaceAll("-",  ""));
+		params.add("apclEndDt", params.get("apclEndDt").toString().replaceAll("-",  ""));
+
+		basicDAO.insertCommonCode(params);
+
+		return success("등록되었습니다.");
+	}
+
+	@Override
+	public ResultVO insertAccount(ParamsVO params) {
+		basicDAO.insertAccount(params);
+
+		return success("등록되었습니다.");
 	}
 
 }

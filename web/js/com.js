@@ -1,4 +1,35 @@
-﻿//경고 메세지 출력
+﻿/**
+ * onKeyUp 이벤트
+ * 입력 값을 제한한다.
+ * (처음 입력이 0인 것을 막고, 문자 입력을 제거한다.) > 0원이 입력되게 변경해야 함!
+ */
+function isNumber(evt) {
+	event = event || window.event;
+	var keyId = (event.which) ? event.which : event.keyCode;
+	if ( keyId == 8 || keyId == 46 || keyId == 37 || keyId == 39 ) {
+		return;
+	} else {
+		if(event.target.value.length < 2 && event.target.value == "0") {
+			event.target.value = event.target.value.replace(/0/g, "");
+		}
+		event.target.value = event.target.value.replace(/[^0-9]/g, "");
+	}
+}
+
+function isPhoneNumber(evt) {
+	event = event || window.event;
+	var keyId = (event.which) ? event.which : event.keyCode;
+	if ( keyId == 8 || keyId == 46 || keyId == 37 || keyId == 39 ) {
+		return;
+	} else {
+//		if(event.target.value.length < 2 && event.target.value == "0") {
+//			event.target.value = event.target.value.replace(/0/g, "");
+//		}
+		event.target.value = event.target.value.replace(/[^0-9]/g, "");
+	}
+}
+
+//경고 메세지 출력
 function msg(str, returnTarget){
 	alert(str);
 	if(returnTarget != null) returnTarget.focus();
@@ -122,7 +153,11 @@ function isValidPhone(input) {
 
 // 콤마 없애기
 function removeComma(input) {
-	return input.value.replace(/,/gi,"");
+	try {
+		return input.value.replace(/,/gi,"");
+	} catch (e) {
+		return input.replace(/,/gi,"");
+	}
 }
 
 // 문자 변환 함수

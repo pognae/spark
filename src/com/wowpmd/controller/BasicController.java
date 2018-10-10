@@ -24,7 +24,9 @@ import com.wowpmd.common.model.ParamsVO;
 import com.wowpmd.common.service.ComCodeService;
 import com.wowpmd.common.service.SystemService;
 import com.wowpmd.service.BasicService;
+import com.wowpmd.util.DateUtil;
 import com.wowpmd.util.SoftUtil;
+import com.wowpmd.util.Utils;
 import com.wowpmd.vo.ResultVO;
 
 
@@ -33,16 +35,16 @@ public class BasicController extends DefaultController {
 
 	private static final Logger log  = LoggerFactory.getLogger(BasicController.class);
 
-	private static SoftUtil util = new SoftUtil();
+//	private static SoftUtil util = new SoftUtil();
 
-	private LinkedList<FileMeta> files = new LinkedList<FileMeta>();
+//	private LinkedList<FileMeta> files = new LinkedList<FileMeta>();
 
-	private FileMeta fileMeta = null;
+//	private FileMeta fileMeta = null;
 
-	private static String CASH_ACCT_CODE = "111000";//현금 계정 코드
+//	private static String CASH_ACCT_CODE = "111000";//현금 계정 코드
 
-	@Autowired
-	private AccAccService accAccService;
+//	@Autowired
+//	private AccAccService accAccService;
 
 	@Autowired
 	private BasicService basicService;
@@ -50,8 +52,8 @@ public class BasicController extends DefaultController {
 	@Autowired
 	private SystemService systemService;
 
-	@Autowired
-	private ComCodeService comCodeService;
+//	@Autowired
+//	private ComCodeService comCodeService;
 
 	/**
 	 * 코드관리
@@ -62,7 +64,21 @@ public class BasicController extends DefaultController {
 	 */
 	@Access
 	@RequestMapping("/basic/bsc1030")
-	public String bsc1010(@RequestParam Map<String, Object> paramMap, Model model) throws Throwable{
+	public String bsc1030(HttpServletRequest request, Model model) throws Throwable{
+
+		ParamsVO params = getParams(request);
+//		params.add("apclStrDt", DateUtil.getCurTime(""));
+//		params.add("apclEndDt", "99991231");
+//		params.add("useYn", systemService.getCodeHandler().getCodes("USE_YN"));
+
+//		addObject(model, "param", params);
+		addObject(model, "useYn", systemService.getCodeHandler().getCodes("USE_YN"));
+//		addObject(model, "apclStrDt", DateUtil.getCurTime(""));
+		addObject(model, "apclStrDt", Utils.getYyyymmdd());
+		addObject(model, "apclEndDt", "99991231");
+
+		debug(DateUtil.getCurTime(""));
+
 		return "/basic/bsc1030";
 	}
 
@@ -77,13 +93,55 @@ public class BasicController extends DefaultController {
 	 */
 	@Access
 	@RequestMapping("/basic/bsc1030Search")
+	public String bsc1030Search(HttpServletRequest request, Model model) throws IOException {
+
+		ParamsVO params = getParams(request);
+		Object list = basicService.bsc1030Search(params);
+
+		addObject(model, list);
+//		addObject(model, "param", params);
+		addObject(model, "useYn", systemService.getCodeHandler().getCodes("USE_YN"));
+		addObject(model, "apclStrDt", Utils.getYyyymmdd());
+		addObject(model, "apclEndDt", "99991231");
+
+		return "/basic/bsc1030";
+	}
+
+	@Access
+	@RequestMapping("/basic/bsc1030/insert")
+	public String bsc1030Insert(HttpServletRequest request, @RequestParam Map<String, Object> paramMap, Model model) throws Throwable {
+
+		ParamsVO params = getParams(request);
+//		LoginUser loginUser = getLoginUser(request);
+//		params.add("bldNo", loginUser.getBldNo());
+//		params.add("register", loginUser.getUserId());
+
+		ResultVO result = basicService.insertCommonCode(params);
+
+		return alertAndForward("/basic/bsc1030Search", result.getMessages().getMessage());
+	}
+
+	@Access
+	@RequestMapping("/basic/bsc1010")
+	public String bsc1010(HttpServletRequest request, Model model) throws Throwable {
+
+		addObject(model, "useYn", systemService.getCodeHandler().getCodes("USE_YN"));
+
+		return "/basic/bsc1010";
+	}
+
+	@Access
+	@RequestMapping("/basic/bsc1010Search")
 	public String bsc1010Search(HttpServletRequest request, Model model) throws IOException {
 
 		ParamsVO params = getParams(request);
 		Object list = basicService.bsc1010Search(params);
-		addObject(model, list);
 
-		return "/basic/bsc1030";
+		addObject(model, list);
+//		addObject(model, "param", params);
+		addObject(model, "useYn", systemService.getCodeHandler().getCodes("USE_YN"));
+
+		return "/basic/bsc1010";
 	}
 
 	/**
@@ -109,7 +167,6 @@ public class BasicController extends DefaultController {
 		params.add("cellName", model.get("cellName").toString());
 		params.add("cellValue", model.get("cellValue").toString());
 
-
 		return "SUCCESS";
 	}
 
@@ -124,9 +181,8 @@ public class BasicController extends DefaultController {
 	public String bsc1020Search(HttpServletRequest request, @RequestParam Map<String, Object> paramMap, Model model) throws Throwable {
 
 		ParamsVO params = getParams(request);
-		LoginUser loginUser = getLoginUser(request);
-		params.add("bldNo", loginUser.getBldNo());
-		params.add("register", loginUser.getUserId());
+//		params.add("bldNo", this.getLoginUser().getBldNo());
+//		params.add("register", this.getLoginUser().getUserId());
 
 		Object list = basicService.bsc1020Search(params);
 		addObject(model, list);
@@ -155,11 +211,30 @@ public class BasicController extends DefaultController {
 		params.add("bldNo", loginUser.getBldNo());
 		params.add("register", loginUser.getUserId());
 
-		ResultVO result = basicService.insertAccount(params);
+		ResultVO result = basicService.insertCustom(params);
 
 		return alertAndForward("/popup/bsc1021", result.getMessages().getMessage());
 	}
 
+	@Access
+	@RequestMapping("/popup/bsc1022")
+	public String bsc1022(@RequestParam Map<String, Object> paramMap, Model model) throws Throwable{
+		return "/popup/bsc1022";
+	}
+
+	@Access
+	@RequestMapping("/popup/bsc1022Search")
+	public String bsc1022Search(HttpServletRequest request, @RequestParam Map<String, Object> paramMap, Model model) throws Throwable {
+
+		ParamsVO params = getParams(request);
+//		params.add("bldNo", this.getLoginUser().getBldNo());
+//		params.add("register", this.getLoginUser().getUserId());
+
+		Object list = basicService.bsc1020Search(params);
+		addObject(model, list);
+
+		return "/popup/bsc1022";
+	}
 	/*
 	@RequestMapping("/basic/getUserList")
 	@ResponseBody
