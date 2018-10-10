@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="house">
+
+	<insert id="insertHouse" parameterType="params">
+		INSERT INTO TB_HOUSE (
+			BLD_NO
+			, GNR_SN
+			, DONG
+			, HO
+			, OUTPT_DONG
+			, OUTPT_HO
+			, AR
+			, MVN_MAN_SN
+			, USE_YN
+			, REGISTER
+			, UP_DATETIME
+		) VALUES(
+			#{bldNo}
+			, CONCAT('H', LPAD(get_seq('GNR_SN'), 3, '0'))
+			, #{dong}
+			, #{ho}
+			, #{outptDong}
+			, #{outptHo}
+			, #{ar}
+			, #{mvnManSn}
+			, #{useYn}
+			, #{register}
+			, now()
+		)
+	</insert>
+
+
+	<update id="updateHouse" parameterType="params">
+		UPDATE tb_house
+		SET	outpt_dong = #{outptDong},
+			outpt_ho = #{outptHo},
+			ar = #{ar},
+			use_yn = #{useYn},
+			up_datetime = now()
+		WHERE bld_no = #{bldNo}
+		  AND gnr_sn = #{gnrSn}
+	</update>
+
+
+    <select id="rsd1020Search" parameterType="params" resultType="record">
+	<![CDATA[
+		SELECT	BLD_NO,
+				GNR_SN,
+				DONG,
+				HO,
+				OUTPT_DONG,
+				OUTPT_HO,
+				AR,
+				MVN_MAN_SN,
+				(SELECT CD_NM FROM TB_COMM_CODE T WHERE T.CD_ID_NM = 'USE_YN' AND T.CD_VLD_VAL=A.USE_YN) USE_YN,
+				REGISTER,
+				UP_DATETIME
+		FROM	TB_HOUSE A
+		WHERE	BLD_NO = #{bldNo}
+	]]>
+		<if test="keyword != null">
+		  AND   (DONG LIKE concat('%', #{keyword}, '%') or
+		         HO LIKE concat('%', #{keyword}, '%') or
+		         OUTPT_DONG LIKE concat('%', #{keyword}, '%') or
+		         OUTPT_HO LIKE concat('%', #{keyword}, '%') or
+		         AR LIKE concat('%', #{keyword}, '%')
+		        )
+		</if>
+
+		<!--
+		AND	gnr_sn = #{gnrSn}
+		AND	dong = #{dong}
+		AND	ho = #{ho}
+		AND	outpt_dong = #{outptDong}
+		AND	outpt_ho = #{outptHo}
+		AND	ar = #{ar}
+		AND	mvn_man_sn = #{mvnManSn}
+		AND	use_yn = #{useYn}
+		AND	register = #{register}
+		AND	up_datetime = #{upDatetime}
+		 -->
+    </select>
+
+</mapper>
