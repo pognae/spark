@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="resident">
+
+    <select id="rsd1010Search" parameterType="params" resultType="record">
+	<![CDATA[
+		SELECT	BLD_NO,
+				MVN_MAN_SN,
+				MVN_MAN_NM,
+				DONG,
+				HO,
+				TELNO,
+				MOBLPHON_NO,
+				VHCLE_NO,
+				RESIDE_YN,
+				RESIDE_BEGIN_DT,
+				RESIDE_END_DT,
+				MVN_SE,
+				USE_YN,
+				REGISTER,
+				UP_DATETIME
+		FROM	TB_RESIDENT
+		WHERE	BLD_NO = #{bldNo}
+	]]>
+		<if test="keyword != null">
+		  AND   (DONG LIKE concat('%', #{keyword}, '%') or
+		         HO LIKE concat('%', #{keyword}, '%') or
+		         TELNO LIKE concat('%', #{keyword}, '%') or
+		         MOBLPHON_NO LIKE concat('%', #{keyword}, '%') or
+		         VHCLE_NO LIKE concat('%', #{keyword}, '%')
+		        )
+		</if>
+
+		<!--
+		AND	mvn_man_sn = #{mvnManSn}
+		AND	mvn_man_nm = #{mvnManNm}
+		AND	dong = #{dong}
+		AND	ho = #{ho}
+		AND	telno = #{telno}
+		AND	moblphon_no = #{moblphonNo}
+		AND	vhcle_no = #{vhcleNo}
+		AND	reside_at = #{resideAt}
+		AND	reside_begin_dt = #{resideBeginDt}
+		AND	reside_end_dt = #{resideEndDt}
+		AND	mvn_se = #{mvnSe}
+		AND	use_yn = #{useYn}
+		AND	register = #{register}
+		AND	up_datetime = #{upDatetime}
+		-->
+    </select>
+
+
+	<insert id="insertResident" parameterType="params">
+		INSERT INTO TB_RESIDENT (
+			BLD_NO
+			, MVN_MAN_SN
+			, MVN_MAN_NM
+			, DONG
+			, HO
+			, TELNO
+			, MOBLPHON_NO
+			, VHCLE_NO
+			, RESIDE_YN
+			, RESIDE_BEGIN_DT
+			, RESIDE_END_DT
+			, MVN_SE
+			, USE_YN
+			, REGISTER
+			, UP_DATETIME
+		) VALUES (
+			#{bldNo}
+			<!--
+			, CONCAT('R', ( SELECT IF(COUNT(MVN_MAN_SN)=0, '001', LPAD(MAX(RIGHT(MVN_MAN_SN, 3))+1, 3, '0') )
+							  FROM TB_RESIDENT t1 ) )
+			 -->
+			, CONCAT('R', LPAD(get_seq('MVN_MAN_SN'), 3, '0'))
+			, #{mvnManNm}
+			, #{dong}
+			, #{ho}
+			, #{telno}
+			, #{moblphonNo}
+			, #{vhcleNo}
+			, #{resideYn}
+			, #{resideBeginDt}
+			, #{resideEndDt}
+			, #{mvnSe}
+			, #{useYn}
+			, #{register}
+			, now()
+		)
+	</insert>
+
+	<insert id="insertHouse" parameterType="params">
+		INSERT INTO TB_HOUSE (
+			BLD_NO
+			, GNR_SN
+			, DONG
+			, HO
+			, OUTPT_DONG
+			, OUTPT_HO
+			, AR
+			, MVN_MAN_SN
+			, USE_YN
+			, REGISTER
+			, UP_DATETIME
+		) VALUES(
+			#{bldNo}
+			, CONCAT('H', LPAD(get_seq('GNR_SN'), 3, '0'))
+			, #{dong}
+			, #{ho}
+			, #{outptDong}
+			, #{outptHo}
+			, #{ar}
+			, #{mvnManSn}
+			, #{useYn}
+			, #{register}
+			, now()
+		)
+	</insert>
+
+</mapper>

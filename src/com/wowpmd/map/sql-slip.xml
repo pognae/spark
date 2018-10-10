@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="slip">
+
+    <select id="acntLclasList" parameterType="params" resultType="record">
+	<![CDATA[
+		SELECT	CODE_ID codeValue,
+				CODE_NM codeName
+		FROM	TB_ACCOUNT
+		WHERE	BLD_NO = #{bldNo}
+		  AND   GROUP_CODE_ID = #{groupCodeId}
+		ORDER BY GROUP_CODE_ID, CODE_ID
+	]]>
+    </select>
+
+
+    <select id="slp1010Search" parameterType="params" resultType="record">
+	<![CDATA[
+		SELECT	bld_no,
+				slip_no,
+				slip_detail_no,
+				DATE_FORMAT(deal_date, '%Y-%m-%d') deal_date,
+				cnt_cls,
+				(select cd_nm from tb_comm_code t4 where t4.bld_no = bld_no and cd_id_nm = 'TAX_CLS' and cd_vld_val = tax_cls) tax_cls,
+				deal_type,
+				deal_cust,
+				deal_dtls,
+				(select CODE_NM from tb_account t1 where t1.bld_no = bld_no and CODE_ID = acnt_lclas) acnt_lclas,
+				(select CODE_NM from tb_account t2 where t2.bld_no = bld_no and CODE_ID = acnt_mlsfc) acnt_mlsfc,
+				(select CODE_NM from tb_account t3 where t3.bld_no = bld_no and CODE_ID = acnt_sclas) acnt_sclas,
+				suply_price,
+				splpc_am,
+				vat,
+				use_yn,
+				register,
+				up_datetime
+		FROM	tb_slip
+		WHERE	bld_no = #{bldNo}
+		AND	deal_date = #{dealDate}
+	]]>
+	</select>
+
+	<insert id="insertSlip" parameterType="params">
+		INSERT INTO TB_SLIP(
+			BLD_NO
+			, SLIP_NO
+			, SLIP_DETAIL_NO
+			, DEAL_DATE
+			, CNT_CLS
+			, TAX_CLS
+			, DEAL_TYPE
+			, DEAL_CUST
+			, DEAL_DTLS
+			, ACNT_LCLAS
+			, ACNT_MLSFC
+			, ACNT_SCLAS
+			, SUPLY_PRICE
+			, SPLPC_AM
+			, VAT
+			, USE_YN
+			, REGISTER
+			, UP_DATETIME
+		) VALUES(
+			#{bldNo}
+			, CONCAT(#{dealDate}, (select if(count(slip_no)=0, '0001', lpad(max(right(slip_no, 4))+1, 4, '0'))
+									from tb_slip t1
+									where deal_date = #{dealDate}) )
+			, (select if(count(slip_detail_no)=0, '1', max(slip_detail_no)+1)
+				from tb_slip t2
+				where deal_date = #{dealDate}
+				  and slip_no = CONCAT(#{dealDate}, (select if(count(slip_no)=0, '0001', lpad(max(right(slip_no, 4))+1, 4, '0'))
+												 	   from tb_slip t3
+													  where deal_date = #{dealDate}) ) )
+			, #{dealDate}
+			, #{cntCls}
+			, #{taxCls}
+			, #{dealType}
+			, #{dealCust}
+			, #{dealDtls}
+			, #{acntLclas}
+			, #{acntMlsfc}
+			, #{acntSclas}
+			, #{suplyPrice}
+			, #{splpcAm}
+			, #{vat}
+			, 'Y'
+			, #{register}
+			, now()
+		)
+	</insert>
+
+
+
+
+</mapper>
