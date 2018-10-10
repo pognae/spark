@@ -130,6 +130,7 @@ function bindEvent() {
         });
     });
 
+    /*
     // 테이블의 Row 클릭시 값 가져오기
     $("#tbl tr").click(function() {
         var str = ""
@@ -145,15 +146,32 @@ function bindEvent() {
         });
 
         // td.eq(index)를 통해 값을 가져올 수도 있다.
-        var gnrSn = td.eq(0).text();
-        var dong = td.eq(1).text();
-        var ho = td.eq(2).text();
+        var gnrSn = jQuery.trim(td.eq(0).text());
+        var dong = jQuery.trim(td.eq(1).text());
+        var ho = jQuery.trim(td.eq(2).text());
 
+        //console.log(jQuery.trim(tr.text()));
+        console.log("gnrSn:" + jQuery.trim(gnrSn));
+        console.log("dong:"+ jQuery.trim(dong));
 
-        alert(tr.text());
-
-        //rsd1010Callback();
-
+        rsd1010Callback(gnrSn);
+    });
+    */
+    
+    $(".lonmApc").each(function(index, element) {
+        $(this).css({
+            "cursor":"pointer"
+        });
+        
+        $(this).bind("click", {
+        	dong:$(this).find(".dong").text(),
+        	ho:$(this).find(".ho").text(),
+        	gnrSn:$(this).find(".gnrSn").val()
+        }, function(event) {
+            // 신청원장을 설정한다.
+            rsd1010Callback(event.data);
+            return false;
+        });
     });
 }
 
@@ -204,7 +222,8 @@ function search(page) {
 
 function rsd1010Callback(data) {
 
-	alert("data:" + data);
+	//alert("data:" + data);
+	//alert("data:" + jQuery.trim(data));
 
 	if (opener) {
         try {
@@ -294,13 +313,13 @@ window.onload = function() {
 								  	</thead>
 								  	<tbody>
 								  		<c:forEach var="item" items="${data}" varStatus="status">
-									    	<tr>
+									    	<tr class="lonmApc">
 									      		<td>
 									      			<c:out value="${status.index + 1}"/>
-									      			<input type="hidden" name="gnrSn" id="gnrSn" value="<c:out value="${item.gnrSn}"/>"/>
+									      			<input class="gnrSn" type="hidden" name="gnrSn" id="gnrSn" value="<c:out value="${item.gnrSn}"/>"/>
 									      		</td>
-									      		<th scope="row"><c:out value="${item.dong}"/></th>
-									      		<th scope="row"><c:out value="${item.ho}"/></th>
+									      		<th scope="row" class="dong"><c:out value="${item.dong}"/></th>
+									      		<th scope="row" class="ho"><c:out value="${item.ho}"/></th>
 									      		<td><c:out value="${item.outptDong}"/></td>
 									      		<td><c:out value="${item.outptHo}"/></td>
 									      		<td><c:out value="${item.ar}"/></td>

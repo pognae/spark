@@ -54,7 +54,7 @@ function popup1(){
 
 function rsd1011Search() {
     openWindow("/popup/rsd1011", "rsd1010", {
-        width:1040,
+        width:1140,
         height:510
     }, {
         callback:"rsd1010Callback"
@@ -69,8 +69,8 @@ function rsd1010Callback(data) {
     // 상품코드를 리셋한다.
     //cuso4130Reset();
 
-    $("#custNo").val(data.custMgntNo);
-    $("#custNm").val(data.custNm);
+    $("#dongHo").val(data.dong + "동 " + data.ho + "호");
+    $("#gnrSn").val(data.gnrSn);
 }
 
 function rsd1010Search(page) {
@@ -185,7 +185,7 @@ function rsd1010Search(page) {
 						                <td><span class="pull-right">동/호</span></td>
 						                <td>
 											<div class="input-group">
-												<input type="text" placeholder="" name="dongHo" id="dongHo" class="form-control" required="required"/>
+												<input type="text" placeholder="" name="dongHo" id="dongHo" class="form-control" required="required" readonly="true"/>
 												<input type="hidden" name="gnrSn" id="gnrSn" />
 												<span class="input-group-btn">
 													<button type="button" class="btn btn-primary rsd1010-add-btn">추가</button>
