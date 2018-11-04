@@ -24,9 +24,21 @@ public interface BasicService {
 
 	public List<Object> bsc1030Search(ParamsVO params);
 
+	public Object bsc1040Search(ParamsVO params);
+
+	public Object bsc1040UnitSearch(ParamsVO params);
+
+	public Object bsc1050Search(ParamsVO params);
+
 	public ResultVO insertCustom(ParamsVO params);
 
 	public ResultVO insertAccount(ParamsVO params);
+
+	public ResultVO insertAccountCost(ParamsVO params);
+
+	public ResultVO insertAccountAmount(ParamsVO params);
+	
+	public ResultVO insertChargeCost(ParamsVO params);
 
 	public ResultVO insertCommonCode(ParamsVO params);
 }

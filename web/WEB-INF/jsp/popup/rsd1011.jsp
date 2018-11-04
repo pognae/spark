@@ -146,23 +146,24 @@ function bindEvent() {
         });
 
         // td.eq(index)를 통해 값을 가져올 수도 있다.
-        var gnrSn = jQuery.trim(td.eq(0).text());
-        var dong = jQuery.trim(td.eq(1).text());
-        var ho = jQuery.trim(td.eq(2).text());
+        var gnrSn = td.eq(0).text();
+        var dong = td.eq(1).text();
+        var ho = td.eq(2).text();
 
-        //console.log(jQuery.trim(tr.text()));
-        console.log("gnrSn:" + jQuery.trim(gnrSn));
-        console.log("dong:"+ jQuery.trim(dong));
 
-        rsd1010Callback(gnrSn);
+        alert(tr.text());
+
+        //rsd1010Callback();
+
     });
     */
-    
+
+ 	// 검색결과 행에 클릭 이벤트를 바인딩한다.
     $(".lonmApc").each(function(index, element) {
         $(this).css({
             "cursor":"pointer"
         });
-        
+
         $(this).bind("click", {
         	dong:$(this).find(".dong").text(),
         	ho:$(this).find(".ho").text(),
@@ -221,9 +222,6 @@ function search(page) {
 }
 
 function rsd1010Callback(data) {
-
-	//alert("data:" + data);
-	//alert("data:" + jQuery.trim(data));
 
 	if (opener) {
         try {
@@ -316,7 +314,7 @@ window.onload = function() {
 									    	<tr class="lonmApc">
 									      		<td>
 									      			<c:out value="${status.index + 1}"/>
-									      			<input class="gnrSn" type="hidden" name="gnrSn" id="gnrSn" value="<c:out value="${item.gnrSn}"/>"/>
+									      			<input type="hidden" name="gnrSn" id="gnrSn" class="gnrSn" value="<c:out value="${item.gnrSn}"/>"/>
 									      		</td>
 									      		<th scope="row" class="dong"><c:out value="${item.dong}"/></th>
 									      		<th scope="row" class="ho"><c:out value="${item.ho}"/></th>

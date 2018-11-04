@@ -142,7 +142,9 @@ function rsd1020Search(page) {
 								      		<th scope="col">출력 호</th>
 								      		<th scope="col">면적</th>
 								      		<th scope="col">입주자</th>
+								      		<!--
 								      		<th scope="col">사용여부</th>
+								      		 -->
 								    	</tr>
 								  	</thead>
 								  	<tbody>
@@ -154,13 +156,15 @@ function rsd1020Search(page) {
 									      		<td><c:out value="${item.outptDong}"/></td>
 									      		<td><c:out value="${item.outptHo}"/></td>
 									      		<td><c:out value="${item.ar}"/></td>
-									      		<td><c:out value="${item.mvnManSn}"/></td>
+									      		<td><c:out value="${item.mvnManNm}"/></td>
+									      		<%--
 									      		<td><c:out value="${item.useYn}"/></td>
+									      		 --%>
 									    	</tr>
 								  		</c:forEach>
 										<c:if test="${empty data}">
 					                        <tr>
-					                            <td colspan="8" style="text-align:center;">검색된 자료가 없습니다.</td>
+					                            <td colspan="7" style="text-align:center;">검색된 자료가 없습니다.</td>
 					                        </tr>
 				                        </c:if>
 								  	</tbody>

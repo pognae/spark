@@ -91,6 +91,97 @@
 	</insert>
 
 
+<!-- 
+    <select id="slp1020Search" parameterType="params" resultType="record">
+	<![CDATA[
+		SELECT A.OUTPT_DONG
+		     , A.OUTPT_HO
+		     , A.AR
+		     , TO_CHAR(ROUND(A.AR * B.GNRL_MANAGE_CST), '999,999,999,999,999') GNRL_MANAGE_CST
+		     , TO_CHAR(ROUND(A.AR * B.CMPT_PROCESS_CST), '999,999,999,999,999') CMPT_PROCESS_CST
+		     , TO_CHAR(ROUND(A.AR * B.MVN_MAN_REPRSNT_MTG_CST), '999,999,999,999,999') MVN_MAN_REPRSNT_MTG_CST
+		     , TO_CHAR(ROUND(A.AR * B.CLN_CST), '999,999,999,999,999') CLN_CST
+		     , TO_CHAR(ROUND(A.AR * B.FGT_MANAGE_VRSC_CST), '999,999,999,999,999') FGT_MANAGE_VRSC_CST
+		     , TO_CHAR(ROUND(A.AR * B.ELVTR_MNTNCE_CST), '999,999,999,999,999') ELVTR_MNTNCE_CST
+		     , TO_CHAR(ROUND(A.AR * B.ELCTY_SAFE_VRSC_CST), '999,999,999,999,999') ELCTY_SAFE_VRSC_CST
+		     , TO_CHAR(ROUND(A.AR * B.COPERTN_ELCTY_CST), '999,999,999,999,999') COPERTN_ELCTY_CST
+		     , TO_CHAR(ROUND(A.AR * B.COPERTN_CPTL_CST), '999,999,999,999,999') COPERTN_CPTL_CST
+		     , TO_CHAR(ROUND(A.AR * B.RSVFND_CST), '999,999,999,999,999') RSVFND_CST
+		     , TO_CHAR(ROUND(A.AR * B.FIRE_IRNCF_CST), '999,999,999,999,999') FIRE_IRNCF_CST
+		     , TO_CHAR(ROUND(A.AR * B.LNGTR_RPAIRS_RSVMNEY_CST), '999,999,999,999,999') LNGTR_RPAIRS_RSVMNEY_CST
+	         , TO_CHAR( (ROUND(A.AR * B.GNRL_MANAGE_CST) + 
+	                     ROUND(A.AR * B.CMPT_PROCESS_CST) +
+	                     ROUND(A.AR * B.MVN_MAN_REPRSNT_MTG_CST) + 
+	                     ROUND(A.AR * B.CLN_CST) + 
+	                     ROUND(A.AR * B.FGT_MANAGE_VRSC_CST) + 
+	                     ROUND(A.AR * B.ELVTR_MNTNCE_CST) + 
+	                     ROUND(A.AR * B.ELCTY_SAFE_VRSC_CST) + 
+	                     ROUND(A.AR * B.COPERTN_ELCTY_CST) + 
+	                     ROUND(A.AR * B.COPERTN_CPTL_CST) + 
+	                     ROUND(A.AR * B.RSVFND_CST) + 
+	                     ROUND(A.AR * B.FIRE_IRNCF_CST) + 
+	                     ROUND(A.AR * B.LNGTR_RPAIRS_RSVMNEY_CST) ), '999,999,999,999,999') SUM_CHARGE
+		  FROM TB_HOUSE A
+		       LEFT OUTER JOIN ( SELECT	BLD_NO,
+		                                SEQ,
+		                                APPLC_YM,
+		                                GNRL_MANAGE_CST,
+		                                CMPT_PROCESS_CST,
+		                                MVN_MAN_REPRSNT_MTG_CST,
+		                                CLN_CST,
+		                                FGT_MANAGE_VRSC_CST,
+		                                ELVTR_MNTNCE_CST,
+		                                ELCTY_SAFE_VRSC_CST,
+		                                COPERTN_ELCTY_CST,
+		                                COPERTN_CPTL_CST,
+		                                RSVFND_CST,
+		                                FIRE_IRNCF_CST,
+		                                LNGTR_RPAIRS_RSVMNEY_CST,
+		                                USE_YN,
+		                                REGISTER,
+		                                UP_DATETIME
+		                           FROM	TB_ACCOUNT_COST
+		                          WHERE	BLD_NO = #{bldNo}
+		                            AND APPLC_YM = REPLACE(#{applcYm}, '-', '')
+		                            AND	SEQ = (SELECT MAX(SEQ) 
+		                                         FROM TB_ACCOUNT_COST
+		                                        WHERE BLD_NO = #{bldNo}
+		                                          AND APPLC_YM = REPLACE(#{applcYm}, '-', '')
+				                  )) B
+		            ON (B.BLD_NO = #{bldNo} AND APPLC_YM = REPLACE(#{applcYm}, '-', '') )
+		WHERE A.BLD_NO = #{bldNo}
+		  AND A.USE_YN = 'Y'
+		ORDER BY A.GNR_SN
+	]]>
+	</select>
+ -->
+    <select id="slp1020Search" parameterType="params" resultType="record">
+	<![CDATA[
+		SELECT B.OUTPT_DONG
+		     , B.OUTPT_HO
+		     , B.AR
+		     , TO_CHAR(A.GNRL_MANAGE_CST, '999,999,999,999,999') GNRL_MANAGE_CST
+		     , TO_CHAR(A.CMPT_PROCESS_CST, '999,999,999,999,999') CMPT_PROCESS_CST
+		     , TO_CHAR(A.MVN_MAN_REPRSNT_MTG_CST, '999,999,999,999,999') MVN_MAN_REPRSNT_MTG_CST
+		     , TO_CHAR(A.CLN_CST, '999,999,999,999,999') CLN_CST
+		     , TO_CHAR(A.FGT_MANAGE_VRSC_CST, '999,999,999,999,999') FGT_MANAGE_VRSC_CST
+		     , TO_CHAR(A.ELVTR_MNTNCE_CST, '999,999,999,999,999') ELVTR_MNTNCE_CST
+		     , TO_CHAR(A.ELCTY_SAFE_VRSC_CST, '999,999,999,999,999') ELCTY_SAFE_VRSC_CST
+		     , TO_CHAR(A.COPERTN_ELCTY_CST, '999,999,999,999,999') COPERTN_ELCTY_CST
+		     , TO_CHAR(A.COPERTN_CPTL_CST, '999,999,999,999,999') COPERTN_CPTL_CST
+		     , TO_CHAR(A.RSVFND_CST, '999,999,999,999,999') RSVFND_CST
+		     , TO_CHAR(A.FIRE_IRNCF_CST, '999,999,999,999,999') FIRE_IRNCF_CST
+		     , TO_CHAR(A.LNGTR_RPAIRS_RSVMNEY_CST, '999,999,999,999,999') LNGTR_RPAIRS_RSVMNEY_CST
+	         , TO_CHAR(A.SM_AMOUNT, '999,999,999,999,999') SM_AMOUNT
+		  FROM TB_CHARGE_COST A
+		       LEFT OUTER JOIN TB_HOUSE B
+		            ON (A.BLD_NO = B.BLD_NO AND A.GNR_SN = B.GNR_SN)
+		WHERE A.BLD_NO = #{bldNo}
+		  AND A.APPLC_YM = REPLACE(#{applcYm}, '-', '')
+		  AND A.USE_YN = 'Y'
+		ORDER BY A.GNR_SN
+	]]>
+	</select>
 
 
 </mapper>

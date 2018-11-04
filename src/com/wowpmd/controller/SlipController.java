@@ -493,4 +493,28 @@ public class SlipController extends DefaultController {
 		return "jsonView";
 	}
 	*/
+    
+	@Access
+	@RequestMapping("/slip/slp1020")
+	public String slp1020(@RequestParam Map<String, Object> paramMap, Model model) throws Throwable {
+		
+		addObject(model, "applcYm", Utils.getYyyymm("yyyy-MM"));
+		
+		return "/slip/slp1020";
+	}
+
+	@Access
+	@RequestMapping("/slip/slp1020Search")
+	public String slp1020Search(HttpServletRequest request, Model model) throws Throwable {
+
+		ParamsVO params = getParams(request);
+
+		Object list = slipService.slp1020Search(params);
+		
+		addObject(model, list);
+		addObject(model, "applcYm", params.get("applcYm"));
+
+		return "/slip/slp1020";
+	}
+	
 }

@@ -19,16 +19,18 @@
 				MVN_SE,
 				USE_YN,
 				REGISTER,
-				UP_DATETIME
+				UP_DATETIME,
+				DONG || '동 ' || HO || '호' DONG_HO
 		FROM	TB_RESIDENT
 		WHERE	BLD_NO = #{bldNo}
+		  AND   USE_YN = 'Y'
 	]]>
 		<if test="keyword != null">
-		  AND   (DONG LIKE concat('%', #{keyword}, '%') or
-		         HO LIKE concat('%', #{keyword}, '%') or
-		         TELNO LIKE concat('%', #{keyword}, '%') or
-		         MOBLPHON_NO LIKE concat('%', #{keyword}, '%') or
-		         VHCLE_NO LIKE concat('%', #{keyword}, '%')
+		  AND   (DONG LIKE '%'||#{keyword}||'%' or
+		         HO LIKE '%'||#{keyword}||'%' or
+		         TELNO LIKE '%'||#{keyword}||'%' or
+		         MOBLPHON_NO LIKE '%'||#{keyword}||'%' or
+		         VHCLE_NO LIKE '%'||#{keyword}||'%'
 		        )
 		</if>
 
@@ -56,6 +58,7 @@
 			BLD_NO
 			, MVN_MAN_SN
 			, MVN_MAN_NM
+			, GNR_SN
 			, DONG
 			, HO
 			, TELNO
@@ -76,13 +79,14 @@
 			 -->
 			, CONCAT('R', LPAD(get_seq('MVN_MAN_SN'), 3, '0'))
 			, #{mvnManNm}
-			, #{dong}
-			, #{ho}
+			, #{gnrSn}
+			, (SELECT DONG FROM TB_HOUSE WHERE GNR_SN = #{gnrSn})
+			, (SELECT HO FROM TB_HOUSE WHERE GNR_SN = #{gnrSn})
 			, #{telno}
 			, #{moblphonNo}
 			, #{vhcleNo}
 			, #{resideYn}
-			, #{resideBeginDt}
+			, REPLACE(#{resideBeginDt}, '-', '')
 			, #{resideEndDt}
 			, #{mvnSe}
 			, #{useYn}
@@ -91,7 +95,39 @@
 		)
 	</insert>
 
-	<insert id="insertHouse" parameterType="params">
+    <select id="rsd1030Search" parameterType="params" resultType="record">
+	<![CDATA[
+		SELECT	BLD_NO,
+				MVN_MAN_SN,
+				MVN_MAN_NM,
+				DONG,
+				HO,
+				TELNO,
+				MOBLPHON_NO,
+				VHCLE_NO,
+				RESIDE_YN,
+				DATE_FORMAT(RESIDE_BEGIN_DT, '%Y-%m-%d') RESIDE_BEGIN_DT,
+				RESIDE_END_DT,
+				MVN_SE,
+				USE_YN,
+				REGISTER,
+				UP_DATETIME,
+				CONCAT(DONG, '동 ', HO, '호') DONG_HO
+		FROM	TB_RESIDENT
+		WHERE	BLD_NO = #{bldNo}
+		  AND   USE_YN = 'Y'
+	]]>
+		<if test="keyword != null">
+		  AND   (DONG LIKE concat('%', #{keyword}, '%') or
+		         HO LIKE concat('%', #{keyword}, '%') or
+		         TELNO LIKE concat('%', #{keyword}, '%') or
+		         MOBLPHON_NO LIKE concat('%', #{keyword}, '%') or
+		         VHCLE_NO LIKE concat('%', #{keyword}, '%')
+		        )
+		</if>
+    </select>
+
+	<insert id="insertVehicle" parameterType="params">
 		INSERT INTO TB_HOUSE (
 			BLD_NO
 			, GNR_SN

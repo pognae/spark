@@ -54,7 +54,7 @@ function popup1(){
 
 function rsd1011Search() {
     openWindow("/popup/rsd1011", "rsd1010", {
-        width:1140,
+        width:930,
         height:510
     }, {
         callback:"rsd1010Callback"
@@ -134,20 +134,18 @@ function rsd1010Search(page) {
 								      		<th scope="col">차량번호</th>
 								      		<th scope="col">동/호</th>
 								      		<th scope="col">거주시작일자</th>
-								      		<th scope="col">사용여부</th>
 								    	</tr>
 								  	</thead>
 								  	<tbody>
 								  		<c:forEach var="item" items="${data}" varStatus="status">
 									    	<tr>
-									      		<th scope="row"><c:out value="${item.cdIdNm}"/></th>
-									      		<td><c:out value="${item.cdVldVal}"/></td>
-									      		<td><c:out value="${item.cdNm}"/></td>
-									      		<td><c:out value="${item.apclStrDt}"/></td>
-									      		<td><c:out value="${item.apclEndDt}"/></td>
-									      		<td><c:out value="${item.sortOrdr}"/></td>
-									      		<td><c:out value="${item.sortOrdr}"/></td>
-									      		<td><c:out value="${item.sortOrdr}"/></td>
+									      		<th scope="row"><c:out value="${status.index+1}"/></th>
+									      		<td><c:out value="${item.mvnManSn}"/></td>
+									      		<td><c:out value="${item.mvnManNm}"/></td>
+									      		<td><c:out value="${item.telno}"/></td>
+									      		<td><c:out value="${item.vhcleNo}"/></td>
+									      		<td><c:out value="${item.dongHo}"/></td>
+									      		<td style="text-align:center;"><c:out value="${item.resideBeginDt}"/></td>
 									    	</tr>
 								  		</c:forEach>
 										<c:if test="${empty data}">
@@ -185,7 +183,7 @@ function rsd1010Search(page) {
 						                <td><span class="pull-right">동/호</span></td>
 						                <td>
 											<div class="input-group">
-												<input type="text" placeholder="" name="dongHo" id="dongHo" class="form-control" required="required" readonly="true"/>
+												<input type="text" placeholder="" name="dongHo" id="dongHo" class="form-control" required="required" readonly/>
 												<input type="hidden" name="gnrSn" id="gnrSn" />
 												<span class="input-group-btn">
 													<button type="button" class="btn btn-primary rsd1010-add-btn">추가</button>

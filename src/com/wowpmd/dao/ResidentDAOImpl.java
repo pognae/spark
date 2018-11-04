@@ -21,12 +21,22 @@ public  class ResidentDAOImpl extends BaseDAO implements ResidentDAO {
 
 	@Override
 	public int insertResident(ParamsVO params) {
-		return update("resident.insertResident", params);
+		return insert("resident.insertResident", params);
 	}
 
 	@Override
 	public List<Object> rsd1010Search(ParamsVO params) {
 		return search("resident.rsd1010Search", params);
+	}
+
+	@Override
+	public List<Object> rsd1030Search(ParamsVO params) {
+		return search("resident.rsd1030Search", params);
+	}
+
+	@Override
+	public int insertVehicle(ParamsVO params) {
+		return insert("resident.insertVehicle", params);
 	}
 
 

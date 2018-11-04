@@ -46,28 +46,33 @@
 
     <select id="rsd1020Search" parameterType="params" resultType="record">
 	<![CDATA[
-		SELECT	BLD_NO,
-				GNR_SN,
-				DONG,
-				HO,
+		SELECT	A.BLD_NO,
+				A.GNR_SN,
+				A.DONG,
+				A.HO,
 				OUTPT_DONG,
 				OUTPT_HO,
 				AR,
-				MVN_MAN_SN,
+				A.MVN_MAN_SN,
 				(SELECT CD_NM FROM TB_COMM_CODE T WHERE T.CD_ID_NM = 'USE_YN' AND T.CD_VLD_VAL=A.USE_YN) USE_YN,
-				REGISTER,
-				UP_DATETIME
+				A.REGISTER,
+				A.UP_DATETIME,
+                B.MVN_MAN_NM
 		FROM	TB_HOUSE A
-		WHERE	BLD_NO = #{bldNo}
+                LEFT OUTER JOIN TB_RESIDENT B
+                     ON (A.BLD_NO = B.BLD_NO AND A.GNR_SN = B.GNR_SN)
+		WHERE	A.BLD_NO = #{bldNo}
+		  AND   A.USE_YN = 'Y'
 	]]>
 		<if test="keyword != null">
-		  AND   (DONG LIKE concat('%', #{keyword}, '%') or
-		         HO LIKE concat('%', #{keyword}, '%') or
-		         OUTPT_DONG LIKE concat('%', #{keyword}, '%') or
-		         OUTPT_HO LIKE concat('%', #{keyword}, '%') or
-		         AR LIKE concat('%', #{keyword}, '%')
+		  AND   (A.DONG LIKE '%'||#{keyword}||'%' or
+		         A.HO LIKE '%'||#{keyword}||'%' or
+		         A.OUTPT_DONG LIKE '%'||#{keyword}||'%' or
+		         A.OUTPT_HO LIKE '%'||#{keyword}||'%' or
+		         A.AR LIKE '%'||#{keyword}||'%'
 		        )
 		</if>
+		ORDER BY A.GNR_SN
 
 		<!--
 		AND	gnr_sn = #{gnrSn}

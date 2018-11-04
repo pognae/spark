@@ -32,5 +32,17 @@ public class ResidentServiceImpl extends BaseService implements ResidentService 
 		return residentDAO.rsd1010Search(params);
 	}
 
+	@Override
+	public List<Object> rsd1030Search(ParamsVO params) {
+		return residentDAO.rsd1010Search(params);
+	}
+
+	@Override
+	public ResultVO insertVehicle(ParamsVO params) {
+		residentDAO.insertResident(params);
+
+		return success("등록되었습니다.");
+	}
+
 
 }

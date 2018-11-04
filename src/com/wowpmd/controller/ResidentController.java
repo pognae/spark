@@ -125,4 +125,53 @@ public class ResidentController extends DefaultController {
 
 		return alertAndForward("/resident/rsd1020Search", result.getMessages().getMessage());
 	}
+
+
+
+	@Access
+	@RequestMapping("/resident/rsd1030")
+	public String rsd1030(HttpServletRequest request, Model model) throws Throwable{
+
+		ParamsVO params = getParams(request);
+		addObject(model, "useYn", systemService.getCodeHandler().getCodes("USE_YN"));
+		addObject(model, "resideBeginDt", Utils.getYyyymmdd());
+
+		return "/resident/rsd1030";
+	}
+
+	@Access
+	@RequestMapping("/resident/rsd1030Search")
+	public String rsd1030Search(HttpServletRequest request, Model model) throws IOException {
+
+		ParamsVO params = getParams(request);
+		Object list = residentService.rsd1030Search(params);
+
+		addObject(model, list);
+		addObject(model, "useYn", systemService.getCodeHandler().getCodes("USE_YN"));
+		addObject(model, "resideBeginDt", Utils.getYyyymmdd());
+
+		return "/resident/rsd1030";
+	}
+
+	@Access
+	@RequestMapping("/resident/rsd1030/insert")
+	public String rsd1030Insert(HttpServletRequest request, @RequestParam Map<String, Object> paramMap, Model model) throws Throwable {
+
+		ParamsVO params = getParams(request);
+		ResultVO result = residentService.insertVehicle(params);
+
+		return alertAndForward("/resident/rsd1030Search", result.getMessages().getMessage());
+	}
+
+	@Access
+	@RequestMapping("/popup/rsd1031")
+	public String rsd1031(HttpServletRequest request, @RequestParam Map<String, Object> paramMap, Model model) throws Throwable {
+
+		ParamsVO params = getParams(request);
+		Object list = houseService.rsd1020Search(params);
+
+		addObject(model, list);
+
+		return "/popup/rsd1031";
+	}
 }

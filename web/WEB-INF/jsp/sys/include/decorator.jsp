@@ -48,7 +48,10 @@
 <link href="/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
 
 <!-- Custom Theme Style -->
+<!-- 
 <link href="/build/css/custom.min.css" rel="stylesheet">
+ -->
+<link href="/build/css/custom.css" rel="stylesheet">
 
 <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery-ui-1.12.1.custom.min.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="/css/ui.jqgrid.css" />

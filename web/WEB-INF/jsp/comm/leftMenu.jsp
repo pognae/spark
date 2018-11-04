@@ -26,14 +26,18 @@
 				<ul class="nav child_menu">
 					<li><a href="/resident/rsd1020">세대기본관리</a></li>
 					<li><a href="/resident/rsd1010">입주자관리</a></li>
+					<!--
 					<li><a href="/resident/rsd1030">차량관리</a></li>
+					 -->
 				</ul>
 			</li>
 			<li>
 				<a><i class="fa fa-calculator"></i> 관리비관리 <span class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
-					<li><a href="/slip/slp1010">관리비 기본등록</a></li>
-					<li><a href="/slip/slp1020">관리비 등록</a></li>
+					<li><a href="/basic/bsc1040">항목별 발생금액 관리</a></li>
+					<!-- <li><a href="/basic/bsc1050">항목별 부과금액 관리</a></li> -->
+					<li><a href="/slip/slp1020">실별부과내역</a></li>
+					<!-- <li><a href="/slip/slp1030">관리비 등록</a></li> -->
 				</ul>
 			</li>
 		</ul>

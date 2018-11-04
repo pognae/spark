@@ -96,7 +96,7 @@
 			, #{mvnSe}
 			, 'N'
 			, #{register}
-			, now()
+			, SYSDATE
 		)
     </insert>
 
@@ -136,7 +136,7 @@
 		 	, #{cdNm}
 		 	, #{cdAlnm}
 		 	, #{useYn}
-		 	, now()
+		 	, SYSDATE
 		 	, #{sortOrdr}
 		)
     </insert>
@@ -165,9 +165,309 @@
 			, #{upperCodeId}
 			, #{useYn}
 			, #{register}
-			, now()
+			, SYSDATE
 		)
 	</insert>
 
+
+
+
+    <select id="bsc1040Search" parameterType="params" resultType="record">
+    <![CDATA[
+		SELECT	BLD_NO,
+				SEQ,
+				APPLC_YM,
+				TO_CHAR(SM_AMOUNT, '999,999,999,999,999')                 SM_AMOUNT,
+				TO_CHAR(GNRL_MANAGE_CST, '999,999,999,999,999')           GNRL_MANAGE_CST,
+				TO_CHAR(CMPT_PROCESS_CST, '999,999,999,999,999')          CMPT_PROCESS_CST,
+				TO_CHAR(MVN_MAN_REPRSNT_MTG_CST, '999,999,999,999,999')   MVN_MAN_REPRSNT_MTG_CST,
+				TO_CHAR(CLN_CST, '999,999,999,999,999')                   CLN_CST,
+				TO_CHAR(FGT_MANAGE_VRSC_CST, '999,999,999,999,999')       FGT_MANAGE_VRSC_CST,
+				TO_CHAR(ELVTR_MNTNCE_CST, '999,999,999,999,999')          ELVTR_MNTNCE_CST,
+				TO_CHAR(ELCTY_SAFE_VRSC_CST, '999,999,999,999,999')       ELCTY_SAFE_VRSC_CST,
+				TO_CHAR(COPERTN_ELCTY_CST, '999,999,999,999,999')         COPERTN_ELCTY_CST,
+				TO_CHAR(COPERTN_CPTL_CST, '999,999,999,999,999')          COPERTN_CPTL_CST,
+				TO_CHAR(RSVFND_CST, '999,999,999,999,999')                RSVFND_CST,
+				TO_CHAR(FIRE_IRNCF_CST, '999,999,999,999,999')            FIRE_IRNCF_CST,
+				TO_CHAR(LNGTR_RPAIRS_RSVMNEY_CST, '999,999,999,999,999')  LNGTR_RPAIRS_RSVMNEY_CST,
+				USE_YN,
+				REGISTER,
+				UP_DATETIME
+		FROM	TB_ACCOUNT_AMOUNT
+		WHERE	BLD_NO = #{bldNo}
+		  AND   APPLC_YM = REPLACE(#{applcYm}, '-', '')
+		  AND	SEQ = (SELECT MAX(SEQ) 
+		                 FROM TB_ACCOUNT_AMOUNT 
+		                WHERE BLD_NO = #{bldNo}
+		                  AND APPLC_YM = REPLACE(#{applcYm}, '-', '')
+		                  )
+    ]]>
+    </select>
+
+	<insert id="insertAccountAmount" parameterType="params">
+		INSERT INTO TB_ACCOUNT_AMOUNT(
+			BLD_NO
+			, SEQ
+			, APPLC_YM
+			, SM_AMOUNT
+			, GNRL_MANAGE_CST
+			, CMPT_PROCESS_CST
+			, MVN_MAN_REPRSNT_MTG_CST
+			, CLN_CST
+			, FGT_MANAGE_VRSC_CST
+			, ELVTR_MNTNCE_CST
+			, ELCTY_SAFE_VRSC_CST
+			, COPERTN_ELCTY_CST
+			, COPERTN_CPTL_CST
+			, RSVFND_CST
+			, FIRE_IRNCF_CST
+			, LNGTR_RPAIRS_RSVMNEY_CST
+			, USE_YN
+			, REGISTER
+			, UP_DATETIME
+		) VALUES(
+			#{bldNo}
+			, SEQ_NEXTVAL('AMOUNT_SEQ')
+			, REPLACE(#{applcYm}, '-', '')
+			, #{smAmount}
+			, #{gnrlManageCst}
+			, #{cmptProcessCst}
+			, #{mvnManReprsntMtgCst}
+			, #{clnCst}
+			, #{fgtManageVrscCst}
+			, #{elvtrMntnceCst}
+			, #{elctySafeVrscCst}
+			, #{copertnElctyCst}
+			, #{copertnCptlCst}
+			, #{rsvfndCst}
+			, #{fireIrncfCst}
+			, #{lngtrRpairsRsvmneyCst}
+			, #{useYn}
+			, #{register}
+			, SYSDATE
+		)
+	</insert>
+
+
+    <select id="bsc1050Search" parameterType="params" resultType="record">
+    <![CDATA[
+		SELECT	BLD_NO,
+				SEQ,
+				TO_CHAR(GNRL_MANAGE_CST, '999,999,999,999,999')           GNRL_MANAGE_CST,
+				TO_CHAR(CMPT_PROCESS_CST, '999,999,999,999,999')          CMPT_PROCESS_CST,
+				TO_CHAR(MVN_MAN_REPRSNT_MTG_CST, '999,999,999,999,999')   MVN_MAN_REPRSNT_MTG_CST,
+				TO_CHAR(CLN_CST, '999,999,999,999,999')                   CLN_CST,
+				TO_CHAR(FGT_MANAGE_VRSC_CST, '999,999,999,999,999')       FGT_MANAGE_VRSC_CST,
+				TO_CHAR(ELVTR_MNTNCE_CST, '999,999,999,999,999')          ELVTR_MNTNCE_CST,
+				TO_CHAR(ELCTY_SAFE_VRSC_CST, '999,999,999,999,999')       ELCTY_SAFE_VRSC_CST,
+				TO_CHAR(COPERTN_ELCTY_CST, '999,999,999,999,999')         COPERTN_ELCTY_CST,
+				TO_CHAR(COPERTN_CPTL_CST, '999,999,999,999,999')          COPERTN_CPTL_CST,
+				TO_CHAR(RSVFND_CST, '999,999,999,999,999')                RSVFND_CST,
+				TO_CHAR(FIRE_IRNCF_CST, '999,999,999,999,999')            FIRE_IRNCF_CST,
+				TO_CHAR(LNGTR_RPAIRS_RSVMNEY_CST, '999,999,999,999,999')  LNGTR_RPAIRS_RSVMNEY_CST,
+				USE_YN,
+				REGISTER,
+				UP_DATETIME
+		FROM	TB_ACCOUNT_COST
+		WHERE	BLD_NO = #{bldNo}
+		  AND	SEQ = (SELECT MAX(SEQ) 
+		                 FROM TB_ACCOUNT_COST 
+		                WHERE BLD_NO = #{bldNo}
+		                  AND APPLC_YM = REPLACE(#{applcYm}, '-', '')
+		                  )
+    ]]>
+    </select>
+
+	<insert id="insertAccountCost" parameterType="params">
+		<selectKey keyProperty="sumAR" resultType="String" order="BEFORE">
+	    	SELECT SUM(AR) FROM TB_HOUSE
+	  	</selectKey>
+		INSERT INTO TB_ACCOUNT_COST(
+			BLD_NO
+			, SEQ
+			, APPLC_YM
+			, GNRL_MANAGE_CST
+			, CMPT_PROCESS_CST
+			, MVN_MAN_REPRSNT_MTG_CST
+			, CLN_CST
+			, FGT_MANAGE_VRSC_CST
+			, ELVTR_MNTNCE_CST
+			, ELCTY_SAFE_VRSC_CST
+			, COPERTN_ELCTY_CST
+			, COPERTN_CPTL_CST
+			, RSVFND_CST
+			, FIRE_IRNCF_CST
+			, LNGTR_RPAIRS_RSVMNEY_CST
+			, USE_YN
+			, REGISTER
+			, UP_DATETIME
+		) VALUES(
+			#{bldNo}
+			, SEQ_NEXTVAL('COST_SEQ')
+			, REPLACE(#{applcYm}, '-', '')
+			, ROUND(#{gnrlManageCst} / #{sumAR}        , 2)
+			, ROUND(#{cmptProcessCst} / #{sumAR}       , 2)
+			, ROUND(#{mvnManReprsntMtgCst} / #{sumAR}  , 2)
+			, ROUND(#{clnCst} / #{sumAR}               , 2)
+			, ROUND(#{fgtManageVrscCst} / #{sumAR}     , 2)
+			, ROUND(#{elvtrMntnceCst} / #{sumAR}       , 2)
+			, ROUND(#{elctySafeVrscCst} / #{sumAR}     , 2)
+			, ROUND(#{copertnElctyCst} / #{sumAR}      , 2)
+			, ROUND(#{copertnCptlCst} / #{sumAR}       , 2)
+			, ROUND(#{rsvfndCst} / #{sumAR}            , 2)
+			, ROUND(#{fireIrncfCst} / #{sumAR}         , 2)
+			, ROUND(#{lngtrRpairsRsvmneyCst} / #{sumAR}, 2)
+			, #{useYn}
+			, #{register}
+			, SYSDATE
+		)
+	</insert>
+	
+<!-- 
+    <select id="bsc1040UnitSearch" parameterType="params" resultType="record">
+    <![CDATA[
+		SELECT	BLD_NO,
+				SEQ,
+				APPLC_YM,
+				TO_CHAR(GNRL_MANAGE_CST, '999,999,999,999,999.99')           GNRL_MANAGE_CST,
+				TO_CHAR(CMPT_PROCESS_CST, '999,999,999,999,999.99')          CMPT_PROCESS_CST,
+				TO_CHAR(MVN_MAN_REPRSNT_MTG_CST, '999,999,999,999,999.99')   MVN_MAN_REPRSNT_MTG_CST,
+				TO_CHAR(CLN_CST, '999,999,999,999,999.99')                   CLN_CST,
+				TO_CHAR(FGT_MANAGE_VRSC_CST, '999,999,999,999,999.99')       FGT_MANAGE_VRSC_CST,
+				TO_CHAR(ELVTR_MNTNCE_CST, '999,999,999,999,999.99')          ELVTR_MNTNCE_CST,
+				TO_CHAR(ELCTY_SAFE_VRSC_CST, '999,999,999,999,999.99')       ELCTY_SAFE_VRSC_CST,
+				TO_CHAR(COPERTN_ELCTY_CST, '999,999,999,999,999.99')         COPERTN_ELCTY_CST,
+				TO_CHAR(COPERTN_CPTL_CST, '999,999,999,999,999.99')          COPERTN_CPTL_CST,
+				TO_CHAR(RSVFND_CST, '999,999,999,999,999.99')                RSVFND_CST,
+				TO_CHAR(FIRE_IRNCF_CST, '999,999,999,999,999.99')            FIRE_IRNCF_CST,
+				TO_CHAR(LNGTR_RPAIRS_RSVMNEY_CST, '999,999,999,999,999.99')  LNGTR_RPAIRS_RSVMNEY_CST,
+				USE_YN,
+				REGISTER,
+				UP_DATETIME
+		FROM	TB_ACCOUNT_COST
+		WHERE	BLD_NO = #{bldNo}
+		  AND   APPLC_YM = REPLACE(#{applcYm}, '-', '')
+		  AND	SEQ = (SELECT MAX(SEQ) 
+		                 FROM TB_ACCOUNT_COST 
+		                WHERE BLD_NO = #{bldNo}
+		                  AND APPLC_YM = REPLACE(#{applcYm}, '-', '')
+		                  )
+    ]]>
+    </select>
+ -->
+    <select id="bsc1040UnitSearch" parameterType="params" resultType="record">
+    <![CDATA[
+		SELECT	BLD_NO,
+				SEQ,
+				APPLC_YM,
+				GNRL_MANAGE_CST,
+				CMPT_PROCESS_CST,
+				MVN_MAN_REPRSNT_MTG_CST,
+				CLN_CST,
+				FGT_MANAGE_VRSC_CST,
+				ELVTR_MNTNCE_CST,
+				ELCTY_SAFE_VRSC_CST,
+				COPERTN_ELCTY_CST,
+				COPERTN_CPTL_CST,
+				RSVFND_CST,
+				FIRE_IRNCF_CST,
+				LNGTR_RPAIRS_RSVMNEY_CST,
+				USE_YN,
+				REGISTER,
+				UP_DATETIME
+		FROM	TB_ACCOUNT_COST
+		WHERE	BLD_NO = #{bldNo}
+		  AND   APPLC_YM = REPLACE(#{applcYm}, '-', '')
+		  AND	SEQ = (SELECT MAX(SEQ) 
+		                 FROM TB_ACCOUNT_COST 
+		                WHERE BLD_NO = #{bldNo}
+		                  AND APPLC_YM = REPLACE(#{applcYm}, '-', '')
+		                  )
+    ]]>
+    </select>
+
+	<insert id="insertChargeCost" parameterType="params">
+		INSERT INTO TB_CHARGE_COST (BLD_NO
+									, APPLC_YM
+									, GNR_SN
+									, GNRL_MANAGE_CST
+									, CMPT_PROCESS_CST
+									, MVN_MAN_REPRSNT_MTG_CST
+									, CLN_CST
+									, FGT_MANAGE_VRSC_CST
+									, ELVTR_MNTNCE_CST
+									, ELCTY_SAFE_VRSC_CST
+									, COPERTN_ELCTY_CST
+									, COPERTN_CPTL_CST
+									, RSVFND_CST
+									, FIRE_IRNCF_CST
+									, LNGTR_RPAIRS_RSVMNEY_CST
+									, SM_AMOUNT
+									, USE_YN
+									, REGISTER
+									, UP_DATETIME)	
+		SELECT #{bldNo}
+		     , REPLACE(#{applcYm}, '-', '')
+		     , A.GNR_SN
+		     , ROUND(A.AR * B.GNRL_MANAGE_CST) GNRL_MANAGE_CST
+		     , ROUND(A.AR * B.CMPT_PROCESS_CST) CMPT_PROCESS_CST
+		     , ROUND(A.AR * B.MVN_MAN_REPRSNT_MTG_CST) MVN_MAN_REPRSNT_MTG_CST
+		     , ROUND(A.AR * B.CLN_CST) CLN_CST
+		     , ROUND(A.AR * B.FGT_MANAGE_VRSC_CST) FGT_MANAGE_VRSC_CST
+		     , ROUND(A.AR * B.ELVTR_MNTNCE_CST) ELVTR_MNTNCE_CST
+		     , ROUND(A.AR * B.ELCTY_SAFE_VRSC_CST) ELCTY_SAFE_VRSC_CST
+		     , ROUND(A.AR * B.COPERTN_ELCTY_CST) COPERTN_ELCTY_CST
+		     , ROUND(A.AR * B.COPERTN_CPTL_CST) COPERTN_CPTL_CST
+		     , ROUND(A.AR * B.RSVFND_CST) RSVFND_CST
+		     , ROUND(A.AR * B.FIRE_IRNCF_CST) FIRE_IRNCF_CST
+		     , ROUND(A.AR * B.LNGTR_RPAIRS_RSVMNEY_CST) LNGTR_RPAIRS_RSVMNEY_CST
+	         , ROUND( (ROUND(A.AR * B.GNRL_MANAGE_CST) + 
+	                   ROUND(A.AR * B.CMPT_PROCESS_CST) +
+	                   ROUND(A.AR * B.MVN_MAN_REPRSNT_MTG_CST) + 
+	                   ROUND(A.AR * B.CLN_CST) + 
+	                   ROUND(A.AR * B.FGT_MANAGE_VRSC_CST) + 
+	                   ROUND(A.AR * B.ELVTR_MNTNCE_CST) + 
+	                   ROUND(A.AR * B.ELCTY_SAFE_VRSC_CST) + 
+	                   ROUND(A.AR * B.COPERTN_ELCTY_CST) + 
+	                   ROUND(A.AR * B.COPERTN_CPTL_CST) + 
+	                   ROUND(A.AR * B.RSVFND_CST) + 
+	                   ROUND(A.AR * B.FIRE_IRNCF_CST) + 
+	                   ROUND(A.AR * B.LNGTR_RPAIRS_RSVMNEY_CST) 
+                    ), -1) SUM_CHARGE
+			 , 'Y'
+			 , #{register}
+			 , SYSDATE
+		  FROM TB_HOUSE A
+		       LEFT OUTER JOIN ( SELECT	BLD_NO,
+		                                SEQ,
+		                                APPLC_YM,
+		                                GNRL_MANAGE_CST,
+		                                CMPT_PROCESS_CST,
+		                                MVN_MAN_REPRSNT_MTG_CST,
+		                                CLN_CST,
+		                                FGT_MANAGE_VRSC_CST,
+		                                ELVTR_MNTNCE_CST,
+		                                ELCTY_SAFE_VRSC_CST,
+		                                COPERTN_ELCTY_CST,
+		                                COPERTN_CPTL_CST,
+		                                RSVFND_CST,
+		                                FIRE_IRNCF_CST,
+		                                LNGTR_RPAIRS_RSVMNEY_CST,
+		                                USE_YN,
+		                                REGISTER,
+		                                UP_DATETIME
+		                           FROM	TB_ACCOUNT_COST
+		                          WHERE	BLD_NO = #{bldNo}
+		                            AND APPLC_YM = REPLACE(#{applcYm}, '-', '')
+		                            AND	SEQ = (SELECT MAX(SEQ) 
+		                                         FROM TB_ACCOUNT_COST
+		                                        WHERE BLD_NO = #{bldNo}
+		                                          AND APPLC_YM = REPLACE(#{applcYm}, '-', '')
+				                  )) B
+		            ON (B.BLD_NO = #{bldNo} AND APPLC_YM = REPLACE(#{applcYm}, '-', '') )
+		WHERE A.BLD_NO = #{bldNo}
+		  AND A.USE_YN = 'Y'
+		ORDER BY A.GNR_SN
+	</insert>
 
 </mapper>

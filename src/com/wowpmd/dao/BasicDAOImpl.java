@@ -6,14 +6,10 @@
 package com.wowpmd.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
 import com.wowpmd.common.model.ParamsVO;
-import com.wowpmd.common.model.RecordVO;
-import com.wowpmd.dao.BaseDAO;
-import com.wowpmd.vo.PagingVO;
 import com.wowpmd.vo.ResultVO;
 
 @Repository
@@ -47,6 +43,69 @@ public  class BasicDAOImpl extends BaseDAO implements BasicDAO {
 	@Override
 	public int insertAccount(ParamsVO params) {
 		return update("basic.insertAccount", params);
+	}
+
+	@Override
+	public Object bsc1040Search(ParamsVO params) {
+		return select("basic.bsc1040Search", params);
+	}
+
+	@Override
+	public int insertAccountCost(ParamsVO params) {
+		return insert("basic.insertAccountCost", params);
+	}
+
+	@Override
+	public Object bsc1050Search(ParamsVO params) {
+		return select("basic.bsc1050Search", params);
+	}
+
+	@Override
+	public int insertAccountAmount(ParamsVO params) {
+
+		int smAmount			  = Integer.parseInt(((String) params.get("smAmount")).trim().replaceAll(",", ""));
+		int gnrlManageCst		  = Integer.parseInt(((String) params.get("gnrlManageCst")).trim().replaceAll(",", ""));
+		int cmptProcessCst		  = Integer.parseInt(((String) params.get("cmptProcessCst")).trim().replaceAll(",", ""));
+		int mvnManReprsntMtgCst	  = Integer.parseInt(((String) params.get("mvnManReprsntMtgCst")).trim().replaceAll(",", ""));
+		int clnCst			 	  = Integer.parseInt(((String) params.get("clnCst")).trim().replaceAll(",", ""));
+		int fgtManageVrscCst	  = Integer.parseInt(((String) params.get("fgtManageVrscCst")).trim().replaceAll(",", ""));
+		int elvtrMntnceCst		  = Integer.parseInt(((String) params.get("elvtrMntnceCst")).trim().replaceAll(",", ""));
+		int elctySafeVrscCst	  = Integer.parseInt(((String) params.get("elctySafeVrscCst")).trim().replaceAll(",", ""));
+		int copertnElctyCst		  = Integer.parseInt(((String) params.get("copertnElctyCst")).trim().replaceAll(",", ""));
+		int copertnCptlCst		  = Integer.parseInt(((String) params.get("copertnCptlCst")).trim().replaceAll(",", ""));
+		int fireIrncfCst		  = Integer.parseInt(((String) params.get("fireIrncfCst")).trim().replaceAll(",", ""));
+		int lngtrRpairsRsvmneyCst = Integer.parseInt(((String) params.get("lngtrRpairsRsvmneyCst")).trim().replaceAll(",", ""));
+		int rsvfndCst			  = smAmount - (gnrlManageCst + cmptProcessCst + mvnManReprsntMtgCst + clnCst + fgtManageVrscCst + elvtrMntnceCst + elctySafeVrscCst + copertnElctyCst + copertnCptlCst + fireIrncfCst + lngtrRpairsRsvmneyCst);
+
+		params.add("smAmount",			    smAmount             );
+		params.add("gnrlManageCst",         gnrlManageCst        );
+		params.add("cmptProcessCst",        cmptProcessCst       );
+		params.add("mvnManReprsntMtgCst",   mvnManReprsntMtgCst  );
+		params.add("clnCst",                clnCst               );
+		params.add("fgtManageVrscCst",      fgtManageVrscCst     );
+		params.add("elvtrMntnceCst",        elvtrMntnceCst       );
+		params.add("elctySafeVrscCst",      elctySafeVrscCst     );
+		params.add("copertnElctyCst",       copertnElctyCst      );
+		params.add("copertnCptlCst",        copertnCptlCst       );
+		params.add("fireIrncfCst",          fireIrncfCst         );
+		params.add("lngtrRpairsRsvmneyCst", lngtrRpairsRsvmneyCst);
+		params.add("rsvfndCst",             rsvfndCst            );
+
+		insert("basic.insertAccountAmount", params);
+		insert("basic.insertAccountCost", params);
+
+		return 1;
+
+	}
+
+	@Override
+	public Object bsc1040UnitSearch(ParamsVO params) {
+		return select("basic.bsc1040UnitSearch", params);
+	}
+
+	@Override
+	public int insertChargeCost(ParamsVO params) {
+		return insert("basic.insertChargeCost", params);
 	}
 
 

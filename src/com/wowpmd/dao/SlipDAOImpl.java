@@ -34,5 +34,10 @@ public  class SlipDAOImpl extends BaseDAO implements SlipDAO {
 		return update("slip.insertSlip", params);
 	}
 
+	@Override
+	public List<Object> slp1020Search(ParamsVO params) {
+		return search("slip.slp1020Search", params);
+	}
+
 
 }

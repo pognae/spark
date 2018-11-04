@@ -15,5 +15,9 @@ public interface ResidentService {
 
 	public List<Object> rsd1010Search(ParamsVO params);
 
+	public List<Object> rsd1030Search(ParamsVO params);
+
 	public ResultVO insertResident(ParamsVO params);
+
+	public ResultVO insertVehicle(ParamsVO params);
 }

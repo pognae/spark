@@ -51,5 +51,10 @@ public class SlipServiceImpl extends BaseService implements SlipService {
 		return success("등록되었습니다.");
 	}
 
+	@Override
+	public List<Object> slp1020Search(ParamsVO params) {
+		return slipDAO.slp1020Search(params);
+	}
+
 
 }

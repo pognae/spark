@@ -16,6 +16,19 @@ function isNumber(evt) {
 	}
 }
 
+function isNumberDot(evt) {
+	event = event || window.event;
+	var keyId = (event.which) ? event.which : event.keyCode;
+	if ( keyId == 8 || keyId == 46 || keyId == 37 || keyId == 39 ) {
+		return;
+	} else {
+		if(event.target.value.length < 2 && event.target.value == "0") {
+			event.target.value = event.target.value.replace(/0/g, "");
+		}
+		event.target.value = event.target.value.replace(/[^0-9.]/g, "");
+	}
+}
+
 function isPhoneNumber(evt) {
 	event = event || window.event;
 	var keyId = (event.which) ? event.which : event.keyCode;

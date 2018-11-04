@@ -19,4 +19,8 @@ public interface ResidentDAO {
 
 	public int insertResident(ParamsVO params);
 
+	public List<Object> rsd1030Search(ParamsVO params);
+
+	public int insertVehicle(ParamsVO params);
+
 }

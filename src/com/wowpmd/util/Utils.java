@@ -39,9 +39,9 @@ import com.kr.framework.util.Closer;
 import com.wowpmd.constants.Constants;
 
 /**
- * 
+ *
  * 클래스명: <code>Utils</code>
- * 
+ *
  * <pre>
  * 일반적인 Utils를 저장한다.
  * </pre>
@@ -213,12 +213,12 @@ public class Utils {
     /**
      * <pre>
      * 시작일자와 종료일자를 넣었을때 현상황을 리턴한다.
-     * 
+     *
      * 진행전 -1
      * 진행중 0
      * 진행종료 1
      * </pre>
-     * 
+     *
      * @param startDate
      * @param endDate
      * @return
@@ -242,12 +242,12 @@ public class Utils {
     /**
      * <pre>
      * 시작일자와 종료일자를 넣었을때 현상황을 리턴한다.
-     * 
+     *
      * 진행전 -1
      * 진행중 0
      * 진행종료 1
      * </pre>
-     * 
+     *
      * @param startDate
      * @param endDate
      * @return
@@ -271,7 +271,7 @@ public class Utils {
     /**
      * <pre>
      * 시작일자와 종료일자를 넣었을때 현상황을 리턴한다.
-     * 
+     *
      * 진행전 -1
      * 진행중 0
      * 진행종료 1
@@ -287,7 +287,7 @@ public class Utils {
     /**
      * <pre>
      * 시작일자와 종료일자를 넣었을때 현상황을 리턴한다.
-     * 
+     *
      * 진행전 -1
      * 진행중 0
      * 진행종료 1
@@ -303,7 +303,7 @@ public class Utils {
     /**
      * <pre>
      * 시작일자와 종료일자를 넣었을때 현상황을 리턴한다.
-     * 
+     *
      * 진행전 -1
      * 진행중 0
      * 진행종료 1
@@ -341,6 +341,19 @@ public class Utils {
         return new SimpleDateFormat("yyyyMMdd").format(new Date());
     }
 
+
+    public static String getYyyymm() {
+    	return new SimpleDateFormat("yyyyMM").format(new Date());
+    }
+
+    public static String getYyyymm(String pattern) {
+    	if(StringUtils.isEmpty(pattern)) {
+    		pattern = "yyyyMM";
+    	}
+
+    	return new SimpleDateFormat(pattern).format(new Date());
+    }
+
     /**
      * <pre>
      * </pre>
@@ -363,7 +376,7 @@ public class Utils {
     /**
      * <pre>
      * </pre>
-     * 
+     *
      * 시분초
      * @param date
      * @return
@@ -424,7 +437,7 @@ public class Utils {
 
     /**
      * 리스트 쪼개기
-     * 
+     *
      * @param sources
      * @param divideCount
      * @return
@@ -494,7 +507,7 @@ public class Utils {
 
     /**
      * Set -> List
-     * 
+     *
      * @param set
      * @return
      */
@@ -509,7 +522,7 @@ public class Utils {
 
     /**
      * 리스트 줄이기
-     * 
+     *
      * @param items
      * @param cutCount
      * @return
@@ -627,7 +640,7 @@ public class Utils {
             return null;
         }
     }
-    
+
     /**
      * <pre>
      *   4자리 숫자 0채워넣기 (ex : 0001, 0100, 0013)
@@ -637,59 +650,59 @@ public class Utils {
      * @return
      */
     public static String returnNumber(int serial) {
-        String suffix = String.format("%04d", serial); 
+        String suffix = String.format("%04d", serial);
         return suffix;
     }
-    
+
     public static boolean checkPattern(String pattern, String str){
     	boolean okPattern = false;
     	String regex = null;
-    	
+
     	if(StringUtils.isEmpty(str)){
     		return false;
     	}
-    	
+
     	pattern = pattern.trim();
-    	
+
     	//숫자 체크
     	if(StringUtils.equals("num", pattern)){
     		regex = "^[0-9]*$";
     	}
-    	  
+
     	//영문 체크
     	if(StringUtils.equals("eng", pattern)){
     		regex = "^[a-zA-Z]*$";
     	}
-    	  
+
     	//이메일 체크
     	if(StringUtils.equals("email", pattern)){
     		regex = "^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$";
     	}
-    	
+
     	//전화번호 체크
     	if(StringUtils.equals("tel", pattern)){
     		regex = "^\\d{2,3}-\\d{3,4}-\\d{4}$";
     	}
-    	  
+
     	//휴대폰번호 체크
     	if(StringUtils.equals("phone", pattern)){
     		regex = "^01(?:0|1[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$";
     	}
-    	  
+
     	okPattern = Pattern.matches(regex, str);
-    	
+
     	return okPattern;
     }
-    
+
 //특수문자 제거 하기
-	public static String stringReplace(String str){       
+	public static String stringReplace(String str){
 		String match = "[^\uAC00-\uD7A3xfe0-9a-zA-Z\\s]";
 		str =str.replaceAll(match, "");
 		return str;
-	}	
+	}
 
-	
-	public static boolean urlCall(String requesturl) { 
+
+	public static boolean urlCall(String requesturl) {
 		URL url = null;
 		BufferedReader input = null;
 		boolean returnUrlFlag = false;
@@ -698,30 +711,30 @@ public class Utils {
 			url = new URL(requesturl);
 			input = new BufferedReader(new InputStreamReader(url.openStream()));
 			while((input.readLine()) != null){
-				returnUrlFlag = true;				
+				returnUrlFlag = true;
 				//requestMsg += line;
 			}
 		} catch (Exception e) {
-			returnUrlFlag = false;			
+			returnUrlFlag = false;
 			//e.printStackTrace();
 		}
 		return returnUrlFlag;
-	}	
-	
-	
+	}
+
+
 	public static int patternCount(String str, String type) {
-		
+
 		int count = 0;
 		Pattern pattern = Pattern.compile(type);
 		Matcher matcher = pattern.matcher(str);
-		
+
 		for(int i=0; matcher.find(i); i=matcher.end()){
 			count++;
 		}
-		
-		return count; 
 
-		
-	}	
-	
+		return count;
+
+
+	}
+
 }

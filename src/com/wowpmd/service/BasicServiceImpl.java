@@ -5,18 +5,14 @@
  */
 package com.wowpmd.service;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.wowpmd.common.model.ParamsVO;
 import com.wowpmd.dao.BasicDAO;
-import com.wowpmd.vo.PagingVO;
 import com.wowpmd.vo.ResultVO;
 
 @Service
@@ -62,6 +58,44 @@ public class BasicServiceImpl extends BaseService implements BasicService {
 	@Override
 	public ResultVO insertAccount(ParamsVO params) {
 		basicDAO.insertAccount(params);
+
+		return success("등록되었습니다.");
+	}
+
+	@Override
+	public Object bsc1040Search(ParamsVO params) {
+		return basicDAO.bsc1040Search(params);
+	}
+
+	@Override
+	public ResultVO insertAccountCost(ParamsVO params) {
+		basicDAO.insertAccountCost(params);
+
+		return success("등록되었습니다.");
+	}
+
+	@Override
+	public Object bsc1050Search(ParamsVO params) {
+		return basicDAO.bsc1050Search(params);
+	}
+
+	@Override
+	@Transactional
+	public ResultVO insertAccountAmount(ParamsVO params) {
+
+		basicDAO.insertAccountAmount(params);
+
+		return success("등록되었습니다.");
+	}
+
+	@Override
+	public Object bsc1040UnitSearch(ParamsVO params) {
+		return basicDAO.bsc1040UnitSearch(params);
+	}
+
+	@Override
+	public ResultVO insertChargeCost(ParamsVO params) {
+		basicDAO.insertChargeCost(params);
 
 		return success("등록되었습니다.");
 	}

@@ -1007,7 +1007,8 @@ article.media {
     float: left
 }
 h2 {
-    font-size: 30px;
+    /* font-size: 30px; */
+    font-size: 18px;
     font-weight: 400
 }
 #left,
@@ -3220,10 +3221,13 @@ ul.project_files li a i {
 .form-group.has-feedback span {
     display: block !important;
 }
+
+/* 
 .form-group .btn {
     margin-bottom: -6px;
 }
-
+ */
+ 
 .input-group-btn .btn { margin-bottom:0; }
 
 /*!

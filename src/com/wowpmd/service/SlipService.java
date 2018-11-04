@@ -21,6 +21,8 @@ public interface SlipService {
 	public List<Object> acntLclasList(ParamsVO params);
 
 	public List<Object> slp1010Search(ParamsVO params);
+	
+	public List<Object> slp1020Search(ParamsVO params);
 
 	public ResultVO insertSlip(ParamsVO params);
 

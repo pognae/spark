@@ -1,7 +1,9 @@
 package com.wowpmd.controller;
 
 import java.io.IOException;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,20 +14,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kr.framework.security.Access;
-import com.wowpmd.acc.service.AccAccService;
-import com.wowpmd.common.model.FileMeta;
 import com.wowpmd.common.model.LoginUser;
 import com.wowpmd.common.model.ParamsVO;
-import com.wowpmd.common.service.ComCodeService;
 import com.wowpmd.common.service.SystemService;
 import com.wowpmd.service.BasicService;
 import com.wowpmd.util.DateUtil;
-import com.wowpmd.util.SoftUtil;
 import com.wowpmd.util.Utils;
 import com.wowpmd.vo.ResultVO;
 
@@ -731,5 +732,91 @@ public class BasicController extends DefaultController {
 
 		return "jsonView";
 	}
-	            */
+    */
+
+
+	@Access
+	@RequestMapping("/basic/bsc1040")
+	public String bsc1040(@RequestParam Map<String, Object> paramMap, Model model) throws Throwable{
+
+		addObject(model, "applcYm", Utils.getYyyymm("yyyy-MM"));
+
+		return "/basic/bsc1040";
+	}
+
+	@Access
+	@RequestMapping("/basic/bsc1040Search")
+	public String bsc1040Search(HttpServletRequest request, Model model) throws Throwable {
+
+		ParamsVO params = getParams(request);
+
+		Object list = basicService.bsc1040Search(params);
+		Object unit = basicService.bsc1040UnitSearch(params);
+
+		addObject(model, list);
+		addObject(model, "unit", unit);
+		addObject(model, "applcYm", params.get("applcYm"));
+
+		return "/basic/bsc1040";
+	}
+
+	@Access
+	@RequestMapping("/basic/bsc1040/insert")
+	public String bsc1040Insert(HttpServletRequest request, Model model) throws Throwable {
+
+		ParamsVO params = getParams(request);
+		params.add("useYn", "Y");
+
+		ResultVO result = basicService.insertAccountAmount(params);
+
+		return alertAndForward("/basic/bsc1040Search", result.getMessages().getMessage());
+	}
+
+	@Access
+	@RequestMapping("/basic/bsc1050")
+	public String bsc1050(@RequestParam Map<String, Object> paramMap, Model model) throws Throwable{
+		return "/basic/bsc1050";
+	}
+
+	@Access
+	@RequestMapping("/basic/bsc1050Search")
+	public String bsc1050Search(HttpServletRequest request, Model model) throws Throwable {
+
+		ParamsVO params = getParams(request);
+
+		Object list = basicService.bsc1040Search(params);
+		addObject(model, list);
+
+		return "/basic/bsc1050";
+	}
+
+	@Access
+	@RequestMapping("/basic/bsc1050/insert")
+	public String bsc1050Insert(HttpServletRequest request, Model model) throws Throwable {
+
+		ParamsVO params = getParams(request);
+		params.add("useYn", "Y");
+
+		ResultVO result = basicService.insertAccountCost(params);
+
+		return alertAndForward("/basic/bsc1050Search", result.getMessages().getMessage());
+	}
+	
+	@Access
+	@RequestMapping(value="/basic/bsc1040/create", method={RequestMethod.POST}, headers = "Accept=application/json")
+	public String bsc1040Create(HttpServletRequest request, Model model) {
+
+        ParamsVO params = getParams(request);
+        params.add("applcYm", params.getString("applcYm"));
+        
+        try {
+	        Object classInfo = basicService.insertChargeCost(params);
+	        addObject(model, "success");
+        } catch(Exception e) {
+        	e.printStackTrace();
+        	addObject(model, "fail");
+        }
+
+        return "jsonView";
+    }
 }
